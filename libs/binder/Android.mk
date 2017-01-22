@@ -12,61 +12,64 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+lib_LTLIBRARIES += \
+    %reldir%/libandroid-binder.la
+
 # we have the common sources, plus some device-specific stuff
-sources := \
-    AppOpsManager.cpp \
-    Binder.cpp \
-    BpBinder.cpp \
-    BufferedTextOutput.cpp \
-    Debug.cpp \
-    IAppOpsCallback.cpp \
-    IAppOpsService.cpp \
-    IBatteryStats.cpp \
-    IInterface.cpp \
-    IMediaResourceMonitor.cpp \
-    IMemory.cpp \
-    IPCThreadState.cpp \
-    IPermissionController.cpp \
-    IProcessInfoService.cpp \
-    IResultReceiver.cpp \
-    IServiceManager.cpp \
-    MemoryBase.cpp \
-    MemoryDealer.cpp \
-    MemoryHeapBase.cpp \
-    Parcel.cpp \
-    PermissionCache.cpp \
-    PersistableBundle.cpp \
-    ProcessInfoService.cpp \
-    ProcessState.cpp \
-    Static.cpp \
-    Status.cpp \
-    TextOutput.cpp \
-
-LOCAL_PATH:= $(call my-dir)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := libbinder
-LOCAL_SHARED_LIBRARIES := liblog libcutils libutils
-
-LOCAL_CLANG := true
-LOCAL_SANITIZE := integer
-LOCAL_SRC_FILES := $(sources)
-ifneq ($(TARGET_USES_64_BIT_BINDER),true)
-ifneq ($(TARGET_IS_64_BIT),true)
-LOCAL_CFLAGS += -DBINDER_IPC_32BIT=1
+%canon_reldir%_libandroid_binder_la_SOURCES = \
+    include/private/binder/binder_module.h \
+    include/private/binder/Static.h \
+    %reldir%/AppOpsManager.cpp \
+    %reldir%/Binder.cpp \
+    %reldir%/BpBinder.cpp \
+    %reldir%/BufferedTextOutput.cpp \
+    %reldir%/Debug.cpp \
+    %reldir%/IAppOpsCallback.cpp \
+    %reldir%/IAppOpsService.cpp \
+    %reldir%/IBatteryStats.cpp \
+    %reldir%/IInterface.cpp \
+    %reldir%/IMediaResourceMonitor.cpp \
+    %reldir%/IMemory.cpp \
+    %reldir%/IPCThreadState.cpp \
+    %reldir%/IPermissionController.cpp \
+    %reldir%/IProcessInfoService.cpp \
+    %reldir%/IResultReceiver.cpp \
+    %reldir%/IServiceManager.cpp \
+    %reldir%/MemoryBase.cpp \
+    %reldir%/MemoryDealer.cpp \
+    %reldir%/MemoryHeapBase.cpp \
+    %reldir%/Parcel.cpp \
+    %reldir%/PermissionCache.cpp \
+    %reldir%/PersistableBundle.cpp \
+    %reldir%/ProcessInfoService.cpp \
+    %reldir%/ProcessState.cpp \
+    %reldir%/Static.cpp \
+    %reldir%/Status.cpp \
+    %reldir%/TextOutput.cpp
+%canon_reldir%_libandroid_binder_la_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(BIONIC_CFLAGS) \
+    $(LOG_CFLAGS) \
+    $(CUTILS_CFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(BACKTRACE_CFLAGS) \
+    $(UTILS_CFLAGS)
+if !WITH_64BIT_BINDER
+%canon_reldir%_libandroid_binder_la_CPPFLAGS += \
+    -DBINDER_IPC_32BIT=1
 endif
-endif
-LOCAL_CFLAGS += -Werror
-include $(BUILD_SHARED_LIBRARY)
+%canon_reldir%_libandroid_binder_la_CXXFLAGS = \
+    $(AM_CXXFLAGS) \
+    $(PTHREAD_CFLAGS)
+%canon_reldir%_libandroid_binder_la_LDFLAGS = \
+    $(AM_LDFLAGS) \
+    $(libtool_opts)
+%canon_reldir%_libandroid_binder_la_LIBADD = \
+    $(PTHREAD_LIBS) -lpthread \
+    $(BIONIC_LIBS) \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS) \
+    $(UTILS_LIBS)
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := libbinder
-LOCAL_STATIC_LIBRARIES += libutils
-LOCAL_SRC_FILES := $(sources)
-ifneq ($(TARGET_USES_64_BIT_BINDER),true)
-ifneq ($(TARGET_IS_64_BIT),true)
-LOCAL_CFLAGS += -DBINDER_IPC_32BIT=1
-endif
-endif
-LOCAL_CFLAGS += -Werror
-include $(BUILD_STATIC_LIBRARY)
+pkgconfig_DATA += \
+    %reldir%/android-binder-0.0.pc
