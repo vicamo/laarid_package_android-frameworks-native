@@ -12,71 +12,42 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH:= $(call my-dir)
+lib_LTLIBRARIES += \
+    %reldir%/libandroid-input.la
 
 # libinput is partially built for the host (used by build time keymap validation tool)
 # These files are common to host and target builds.
 
-commonSources := \
-    Input.cpp \
-    InputDevice.cpp \
-    Keyboard.cpp \
-    KeyCharacterMap.cpp \
-    KeyLayoutMap.cpp \
-    VirtualKeyMap.cpp
+%canon_reldir%_libandroid_input_la_SOURCES = \
+    %reldir%/Input.cpp \
+    %reldir%/InputDevice.cpp \
+    %reldir%/Keyboard.cpp \
+    %reldir%/KeyCharacterMap.cpp \
+    %reldir%/KeyLayoutMap.cpp \
+    %reldir%/VirtualKeyMap.cpp
 
-deviceSources := \
-    $(commonSources) \
-    IInputFlinger.cpp \
-    InputTransport.cpp \
-    VelocityControl.cpp \
-    VelocityTracker.cpp
+%canon_reldir%_libandroid_input_la_SOURCES += \
+    %reldir%/IInputFlinger.cpp \
+    %reldir%/InputTransport.cpp \
+    %reldir%/VelocityControl.cpp \
+    %reldir%/VelocityTracker.cpp
 
-hostSources := \
-    $(commonSources)
+%canon_reldir%_libandroid_input_la_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(LOG_CFLAGS) \
+    $(CUTILS_CFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS)
 
-# For the host
-# =====================================================
+%canon_reldir%_libandroid_input_la_LIBADD = \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS) \
+    $(UTILS_LIBS) \
+    libs/binder/libandroid-binder.la
 
-include $(CLEAR_VARS)
+%canon_reldir%_libandroid_input_la_LDFLAGS = \
+    $(AM_LDFLAGS) \
+    $(libtool_opts)
 
-LOCAL_SRC_FILES:= $(hostSources)
-
-LOCAL_MODULE:= libinput
-
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_HOST_STATIC_LIBRARY)
-
-
-# For the device
-# =====================================================
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES:= $(deviceSources)
-
-LOCAL_CLANG := true
-LOCAL_SANITIZE := integer
-
-LOCAL_SHARED_LIBRARIES := \
-	liblog \
-	libcutils \
-	libutils \
-	libbinder
-
-LOCAL_MODULE:= libinput
-
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_SHARED_LIBRARY)
-
-
-# Include subdirectory makefiles
-# ============================================================
-
-# If we're building with ONE_SHOT_MAKEFILE (mm, mmm), then what the framework
-# team really wants is to build the stuff defined by this makefile.
-ifeq (,$(ONE_SHOT_MAKEFILE))
-include $(call first-makefiles-under,$(LOCAL_PATH))
-endif
+pkgconfig_DATA += \
+    %reldir%/android-input-0.0.pc

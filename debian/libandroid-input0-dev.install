@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/input/*
+usr/lib/*/libandroid-input.a
+usr/lib/*/libandroid-input.so
+usr/lib/*/pkgconfig/android-input-0.0.pc

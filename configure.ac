@@ -181,5 +181,6 @@ dnl ------------
 AC_CONFIG_FILES([
   Makefile
   libs/binder/android-binder-$LAARID_API_VERSION.pc
+  libs/input/android-input-$LAARID_API_VERSION.pc
 ])
 AC_OUTPUT
