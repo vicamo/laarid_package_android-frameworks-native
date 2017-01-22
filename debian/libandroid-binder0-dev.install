@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/binder/*
+usr/lib/*/libandroid-binder.a
+usr/lib/*/libandroid-binder.so
+usr/lib/*/pkgconfig/android-binder-0.0.pc

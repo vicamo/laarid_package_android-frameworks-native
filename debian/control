@@ -1,0 +1,46 @@
+Source: android-frameworks-native
+Priority: extra
+Maintainer: You-Sheng Yang <vicamo@gmail.com>
+Build-Depends: debhelper (>= 9),
+               dh-autoreconf,
+               autoconf-archive,
+               pkg-config,
+               libandroid-backtrace0-dev (>= 0.0.11),
+               libandroid-bionic0-dev (>= 0.1.4),
+               libandroid-cutils0-dev (>= 0.0.12),
+               libandroid-log0-dev (>= 0.0.12),
+               libandroid-nativehelper0-dev (>= 0.0.4),
+               libandroid-utils0-dev (>= 0.0.11)
+Standards-Version: 3.9.5
+Section: libs
+Homepage: https://github.com/laarid/package_android-frameworks-native
+Vcs-Git: https://github.com/laarid/package_android-frameworks-native.git
+Vcs-Browser: https://github.com/laarid/package_android-frameworks-native
+
+Package: libandroid-binder0-dev
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libandroid-binder0 (= ${binary:Version}),
+         libandroid-bionic0-dev (>= 0.1.4),
+         libandroid-cutils0-dev (>= 0.0.12),
+         libandroid-log0-dev (>= 0.0.12),
+         libandroid-nativehelper0-dev (>= 0.0.4),
+         libandroid-utils0-dev (>= 0.0.11),
+         ${misc:Depends}
+Description: Android libbinder - development
+ This package contains libbinder built from Android platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-binder0
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: Android libbinder
+ This package contains libbinder built from Android platform/frameworks/native.
