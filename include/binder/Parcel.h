@@ -17,6 +17,8 @@
 #ifndef ANDROID_PARCEL_H
 #define ANDROID_PARCEL_H
 
+#include <limits>
+#include <memory>
 #include <string>
 #include <vector>
 

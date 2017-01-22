@@ -66,7 +66,7 @@
 #define PAD_SIZE_UNSAFE(s) (((s)+3)&~3)
 
 static size_t pad_size(size_t s) {
-    if (s > (SIZE_T_MAX - 3)) {
+    if (s > (std::numeric_limits<size_t>::max() - 3)) {
         abort();
     }
     return PAD_SIZE_UNSAFE(s);
@@ -1745,7 +1745,7 @@ intptr_t Parcel::readIntPtr() const
 
 status_t Parcel::readBool(bool *pArg) const
 {
-    int32_t tmp;
+    int32_t tmp = 0;
     status_t ret = readInt32(&tmp);
     *pArg = (tmp != 0);
     return ret;
@@ -1758,7 +1758,7 @@ bool Parcel::readBool() const
 
 status_t Parcel::readChar(char16_t *pArg) const
 {
-    int32_t tmp;
+    int32_t tmp = 0;
     status_t ret = readInt32(&tmp);
     *pArg = char16_t(tmp);
     return ret;
@@ -1771,7 +1771,7 @@ char16_t Parcel::readChar() const
 
 status_t Parcel::readByte(int8_t *pArg) const
 {
-    int32_t tmp;
+    int32_t tmp = 0;
     status_t ret = readInt32(&tmp);
     *pArg = int8_t(tmp);
     return ret;

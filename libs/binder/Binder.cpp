@@ -224,9 +224,9 @@ status_t BBinder::onTransact(
         }
 
         case SHELL_COMMAND_TRANSACTION: {
-            int in = data.readFileDescriptor();
-            int out = data.readFileDescriptor();
-            int err = data.readFileDescriptor();
+            /*int in =*/ data.readFileDescriptor();
+            /*int out =*/ data.readFileDescriptor();
+            /*int err =*/ data.readFileDescriptor();
             int argc = data.readInt32();
             Vector<String16> args;
             for (int i = 0; i < argc && data.dataAvail() > 0; i++) {

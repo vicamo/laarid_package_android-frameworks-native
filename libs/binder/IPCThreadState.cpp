@@ -525,8 +525,8 @@ void IPCThreadState::joinThreadPool(bool isMain)
         }
     } while (result != -ECONNREFUSED && result != -EBADF);
 
-    LOG_THREADPOOL("**** THREAD %p (PID %d) IS LEAVING THE THREAD POOL err=%p\n",
-        (void*)pthread_self(), getpid(), (void*)result);
+    LOG_THREADPOOL("**** THREAD %p (PID %d) IS LEAVING THE THREAD POOL err=0x%x\n",
+        (void*)pthread_self(), getpid(), result);
     
     mOut.writeInt32(BC_EXIT_LOOPER);
     talkWithDriver(false);

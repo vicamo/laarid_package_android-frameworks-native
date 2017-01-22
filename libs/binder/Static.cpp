@@ -54,7 +54,7 @@ public:
 protected:
     virtual status_t writeLines(const struct iovec& vec, size_t N)
     {
-        writev(mFD, &vec, N);
+        TEMP_FAILURE_RETRY(writev(mFD, &vec, N));
         return NO_ERROR;
     }
 
