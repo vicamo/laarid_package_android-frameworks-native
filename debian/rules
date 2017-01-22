@@ -15,7 +15,10 @@ endif
 
 # main packaging script based on dh7 syntax
 %:
-	dh $@ --with autoreconf --builddirectory=debian/build --parallel
+	dh $@ --with autoreconf,systemd --builddirectory=debian/build --parallel
 
 override_dh_auto_configure:
 	dh_auto_configure -- $(CONFFLAGS)
+
+override_dh_installinit:
+	dh_systemd_enable -pandroid-servicemanager --name=servicemanager

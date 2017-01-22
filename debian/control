@@ -6,16 +6,18 @@ Build-Depends:
  dh-autoreconf,
  autoconf-archive,
  pkg-config,
- libandroid-backtrace0-dev (>= 0.0.15),
- libandroid-base0-dev (>= 0.0.15),
+ libandroid-backtrace0-dev (>= 0.0.17),
+ libandroid-base0-dev (>= 0.0.17),
  libandroid-bionic0-dev (>= 0.1.4),
- libandroid-cutils0-dev (>= 0.0.15),
+ libandroid-cutils0-dev (>= 0.0.17),
  libandroid-hardware0-dev (>= 0.0.1+b1),
- libandroid-log0-dev (>= 0.0.15),
+ libandroid-log0-dev (>= 0.0.17),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-sync0-dev (>= 0.0.15),
- libandroid-utils0-dev (>= 0.0.15),
+ libandroid-sync0-dev (>= 0.0.17),
+ libandroid-uidmap0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.17),
  libgtest-dev,
+ libselinux1-dev,
  zlib1g-dev,
 Standards-Version: 3.9.5
 Section: libs
@@ -37,6 +39,20 @@ Description: Android native frameworks - utilities
  This package contains the utilities which are used by the libraries
  and other packages.
 
+Package: android-servicemanager
+Priority: extra
+Section: misc
+Architecture: any
+Multi-Arch: no
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Recommends:
+ android-logd,
+Description: Android native frameworks - service manager
+ This package contains servicemanager built from Android
+ platform/frameworks/native.
+
 Package: libandroid-batteryservice0-dev
 Priority: extra
 Section: libdevel
@@ -46,7 +62,7 @@ Depends:
  libandroid-batteryservice0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-utils0-dev (>= 0.0.15),
+ libandroid-utils0-dev (>= 0.0.17),
  ${misc:Depends},
 Description: Android libbatteryservice - development
  This package contains libbatteryservice built from Android
@@ -75,10 +91,10 @@ Multi-Arch: same
 Depends:
  libandroid-binder0 (= ${binary:Version}),
  libandroid-bionic0-dev (>= 0.1.4),
- libandroid-cutils0-dev (>= 0.0.15),
- libandroid-log0-dev (>= 0.0.15),
+ libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-log0-dev (>= 0.0.17),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-utils0-dev (>= 0.0.15),
+ libandroid-utils0-dev (>= 0.0.17),
  ${misc:Depends},
 Description: Android libbinder - development
  This package contains libbinder built from Android platform/frameworks/native.
@@ -132,9 +148,9 @@ Multi-Arch: same
 Depends:
  libandroid-input0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
- libandroid-cutils0-dev (>= 0.0.15),
- libandroid-log0-dev (>= 0.0.15),
- libandroid-utils0-dev (>= 0.0.15),
+ libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-log0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.17),
  ${misc:Depends},
 Description: Android libinput - development
  This package contains libinput built from Android platform/frameworks/native.
@@ -162,7 +178,7 @@ Depends:
  libandroid-powermanager0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-utils0-dev (>= 0.0.15),
+ libandroid-utils0-dev (>= 0.0.17),
  ${misc:Depends},
 Description: Android libpowermanager - development
  This package contains libpowermanager built from Android
@@ -191,11 +207,11 @@ Multi-Arch: same
 Depends:
  libandroid-ui0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
- libandroid-cutils0-dev (>= 0.0.15),
+ libandroid-cutils0-dev (>= 0.0.17),
  libandroid-hardware0-dev (>= 0.0.1+b1),
- libandroid-log0-dev (>= 0.0.15),
- libandroid-sync0-dev (>= 0.0.15),
- libandroid-utils0-dev (>= 0.0.15),
+ libandroid-log0-dev (>= 0.0.17),
+ libandroid-sync0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.17),
  ${misc:Depends},
 Description: Android libui - development
  This package contains libui built from Android platform/frameworks/native.

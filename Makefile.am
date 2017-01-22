@@ -72,6 +72,7 @@ include $(srcdir)/cmds/cmd/Android.mk
 include $(srcdir)/cmds/dumpsys/Android.mk
 include $(srcdir)/cmds/ip-up-vpn/Android.mk
 include $(srcdir)/cmds/service/Android.mk
+include $(srcdir)/cmds/servicemanager/Android.mk
 
 # PKG-CONFIG data files
 # ---------------------
