@@ -23,6 +23,7 @@
 #include <linux/android/binder.h>
 #include <binder/IBinder.h>
 #include <sys/mman.h>
+#include <sys/ioctl.h>
 #include <poll.h>
 
 #define BINDER_DEV_NAME "/dev/binder"
@@ -214,7 +215,6 @@ TEST_F(BinderDriverInterfaceTest, IncRefsAcquireReleaseDecRefs) {
 }
 
 TEST_F(BinderDriverInterfaceTest, Transaction) {
-    binder_uintptr_t cookie = 1234;
     struct {
         uint32_t cmd1;
         struct binder_transaction_data arg1;

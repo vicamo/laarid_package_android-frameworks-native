@@ -87,7 +87,7 @@ pid_t start_server_process(int arg2)
         close(pipefd[0]);
         execv(binderservername, childargv);
         status = -errno;
-        write(pipefd[1], &status, sizeof(status));
+        TEMP_FAILURE_RETRY(write(pipefd[1], &status, sizeof(status)));
         fprintf(stderr, "execv failed, %s\n", strerror(errno));
         _exit(EXIT_FAILURE);
     }
@@ -698,9 +698,8 @@ class BinderLibTestService : public BBinder
             }
             switch (code) {
             case BINDER_LIB_TEST_REGISTER_SERVER: {
-                int32_t id;
                 sp<IBinder> binder;
-                id = data.readInt32();
+                /*int32_t id =*/ data.readInt32();
                 binder = data.readStrongBinder();
                 if (binder == NULL) {
                     return BAD_VALUE;
@@ -720,7 +719,6 @@ class BinderLibTestService : public BBinder
             }
             case BINDER_LIB_TEST_ADD_SERVER: {
                 int ret;
-                uint8_t buf[1] = { 0 };
                 int serverid;
 
                 if (m_id != 0) {
@@ -921,7 +919,7 @@ int run_server(int index, int readypipefd)
             ret = server->transact(BINDER_LIB_TEST_REGISTER_SERVER, data, &reply);
         }
     }
-    write(readypipefd, &ret, sizeof(ret));
+    TEMP_FAILURE_RETRY(write(readypipefd, &ret, sizeof(ret)));
     close(readypipefd);
     //printf("%s: ret %d\n", __func__, ret);
     if (ret)
@@ -934,8 +932,6 @@ int run_server(int index, int readypipefd)
 }
 
 int main(int argc, char **argv) {
-    int ret;
-
     if (argc == 3 && !strcmp(argv[1], "--servername")) {
         binderservername = argv[2];
     } else {
