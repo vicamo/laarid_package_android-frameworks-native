@@ -145,6 +145,37 @@ AS_IF([test "x${with_64bit_binder}" = "x" ],
   [AS_CASE([${host_cpu}], [*64*], [with_64bit_binder=yes], [with_64bit_binder=no])])
 AM_CONDITIONAL([WITH_64BIT_BINDER], [test "x${with_64bit_binder}" = "xyes"])
 
+# GTest
+# -----
+AC_LANG_PUSH([C++])
+AC_ARG_WITH([gtest],
+  [AS_HELP_STRING([--with-gtest],
+    [Build with Google Test Frameworks based tests @<:@default=check@:>@])],
+  [], [])
+AS_IF([test "x${with_gtest}" != xno],
+  [GTEST_SRCDIR="/usr/src/gtest"
+  AS_IF([test "x${with_gtest}" != xyes],
+    [AS_IF([test -e "${with_gtest}/include/gtest/gtest.h"],
+      [GTEST_SRCDIR="${with_gtest}"])])
+  CPPFLAGS_save="$CPPFLAGS"
+  GTEST_CPPFLAGS="-I ${GTEST_SRCDIR}/include"
+  GTEST_LIBS="libgtest.la libgtest_main.la"
+  CPPFLAGS="${GTEST_CPPFLAGS}"
+  AC_CHECK_HEADER([gtest/gtest.h], [],
+    [AS_IF([test "x${with_gtest}" != xyes],
+      [AC_MSG_ERROR([Google Test Frameworks source folder not found])],
+      [with_gtest=no])])
+  CPPFLAGS="$CPPFLAGS_save"])
+AC_SUBST([GTEST_CPPFLAGS])
+AC_SUBST([GTEST_LIBS])
+AC_SUBST([GTEST_SRCDIR])
+AC_LANG_POP()
+AM_CONDITIONAL([HAVE_GTEST], [test "x${with_gtest}" != xno])
+
+dnl Whether should we run binder driver tests
+AC_CHECK_FILE([/dev/binder])
+AM_CONDITIONAL([HAVE_DEV_BINDER], [test "x${c_cv_file_dev_binder}" = xyes])
+
 dnl Output Files
 dnl ------------
 AC_CONFIG_FILES([

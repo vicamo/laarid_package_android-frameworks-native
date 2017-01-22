@@ -73,3 +73,5 @@ endif
 
 pkgconfig_DATA += \
     %reldir%/android-binder-0.0.pc
+
+include %reldir%/tests/Android.mk

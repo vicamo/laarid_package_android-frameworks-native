@@ -14,29 +14,73 @@
 # limitations under the License.
 #
 
-LOCAL_PATH:= $(call my-dir)
+if HAVE_GTEST
+check_PROGRAMS += \
+    %reldir%/binderDriverInterfaceTest \
+    %reldir%/binderLibTest \
+    %reldir%/binderThroughputTest
 
-include $(CLEAR_VARS)
-ifneq ($(TARGET_USES_64_BIT_BINDER),true)
-ifneq ($(TARGET_IS_64_BIT),true)
-LOCAL_CFLAGS += -DBINDER_IPC_32BIT=1
+if HAVE_DEV_BINDER
+TESTS += \
+    %reldir%/binderDriverInterfaceTest \
+    %reldir%/binderLibTest \
+    %reldir%/binderThroughputTest
 endif
+
+%canon_reldir%_binderDriverInterfaceTest_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS)
+    $(GTEST_CFLAGS)
+if !WITH_64BIT_BINDER
+%canon_reldir%_binderDriverInterfaceTest_CPPFLAGS += \
+    -DBINDER_IPC_32BIT=1
 endif
+%canon_reldir%_binderDriverInterfaceTest_SOURCES = \
+    %reldir%/binderDriverInterfaceTest.cpp
+%canon_reldir%_binderDriverInterfaceTest_LDADD = \
+    $(GTEST_LIBS)
+%canon_reldir%_binderDriverInterfaceTest_DEPENDENCIES = \
+    $(GTEST_LIBS)
 
-LOCAL_MODULE := binderDriverInterfaceTest
-LOCAL_SRC_FILES := binderDriverInterfaceTest.cpp
-include $(BUILD_NATIVE_TEST)
+%canon_reldir%_binderLibTest_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS)
+    $(GTEST_CFLAGS)
+if !WITH_64BIT_BINDER
+%canon_reldir%_binderLibTest_CPPFLAGS += \
+    -DBINDER_IPC_32BIT=1
+endif
+%canon_reldir%_binderLibTest_SOURCES = \
+    %reldir%/binderLibTest.cpp
+%canon_reldir%_binderLibTest_LDADD = \
+    $(UTILS_LIBS) \
+    libs/binder/libandroid-binder.la \
+    $(GTEST_LIBS)
+%canon_reldir%_binderLibTest_DEPENDENCIES = \
+    libs/binder/libandroid-binder.la \
+    $(GTEST_LIBS)
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := binderLibTest
-LOCAL_SRC_FILES := binderLibTest.cpp
-LOCAL_SHARED_LIBRARIES := libbinder libutils
-include $(BUILD_NATIVE_TEST)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := binderThroughputTest
-LOCAL_SRC_FILES := binderThroughputTest.cpp
-LOCAL_SHARED_LIBRARIES := libbinder libutils
-LOCAL_CLANG := true
-LOCAL_CFLAGS += -g -Wall -Werror -std=c++11 -Wno-missing-field-initializers -Wno-sign-compare -O3
-include $(BUILD_NATIVE_TEST)
+%canon_reldir%_binderThroughputTest_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS)
+    $(GTEST_CFLAGS)
+if !WITH_64BIT_BINDER
+%canon_reldir%_binderThroughputTest_CPPFLAGS += \
+    -DBINDER_IPC_32BIT=1
+endif
+%canon_reldir%_binderThroughputTest_CXXFLAGS = \
+    $(AM_CXXFLAGS) \
+    -Wno-missing-field-initializers -Wno-sign-compare -O3
+%canon_reldir%_binderThroughputTest_SOURCES = \
+    %reldir%/binderThroughputTest.cpp
+%canon_reldir%_binderThroughputTest_LDADD = \
+    $(UTILS_LIBS) \
+    libs/binder/libandroid-binder.la \
+    $(GTEST_LIBS)
+%canon_reldir%_binderThroughputTest_DEPENDENCIES = \
+    libs/binder/libandroid-binder.la \
+    $(GTEST_LIBS)
+endif # HAVE_GTEST

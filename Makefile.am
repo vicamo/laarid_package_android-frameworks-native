@@ -43,7 +43,11 @@ libtool_opts = \
 # ---------------------
 lib_LTLIBRARIES =
 pkgconfig_DATA =
+TESTS =
+check_PROGRAMS =
+check_LTLIBRARIES =
 
+include $(srcdir)/gtest.mk
 include $(srcdir)/include/Makefile.inc
 include $(srcdir)/libs/binder/Android.mk
 
