@@ -1,0 +1,116 @@
+dist: trusty
+sudo: required
+services:
+- docker
+language: cpp
+
+env:
+  matrix:
+  - BUILD_FLAVOR=amd64_deb
+  - BUILD_FLAVOR=amd64_distcheck
+  - BUILD_FLAVOR=arm64_deb
+  - BUILD_FLAVOR=arm64_distcheck
+  - BUILD_FLAVOR=armel_deb
+  - BUILD_FLAVOR=armel_distcheck
+  - BUILD_FLAVOR=armhf_deb
+  - BUILD_FLAVOR=armhf_distcheck
+  - BUILD_FLAVOR=i386_deb
+  - BUILD_FLAVOR=i386_distcheck
+  - BUILD_FLAVOR=mips_deb
+  - BUILD_FLAVOR=mips_distcheck
+  - BUILD_FLAVOR=mips64el_deb
+  - BUILD_FLAVOR=mips64el_distcheck
+  - BUILD_FLAVOR=mipsel_deb
+  - BUILD_FLAVOR=mipsel_distcheck
+  - BUILD_FLAVOR=ppc64el_deb
+  - BUILD_FLAVOR=ppc64el_distcheck
+  - BUILD_FLAVOR=s390x_deb
+  - BUILD_FLAVOR=s390x_distcheck
+  global:
+  - DOCKER_EXEC_ROOT="sudo docker exec --interactive --tty --user root test_container"
+  - DOCKER_EXEC="sudo docker exec --interactive --tty test_container"
+  - DOCKER_EXEC_NOTTY="sudo docker exec test_container"
+  - BINTRAY_USER=laarid
+  - BINTRAY_REPO=main
+  - BINTRAY_COMPONENT=main
+  - BINTRAY_DESC="Android native frameworks"
+
+matrix:
+  fast_finish: true
+  allow_failures:
+  - env: BUILD_FLAVOR=s390x_deb
+  - env: BUILD_FLAVOR=s390x_distcheck
+
+branches:
+  only:
+  - master
+  - /^v\d+\.\d+\.\d+/
+
+addons:
+  apt:
+    sources:
+    - sourceline: 'deb http://archive.ubuntu.com/ubuntu/ devel universe'
+    packages:
+    - binfmt-support
+    - qemu-user-static
+
+cache:
+- apt
+
+before_install:
+- sudo docker pull laarid/devel:${BUILD_FLAVOR%_*}
+- sudo docker images
+- |
+  sudo docker run --detach --interactive --tty \
+    --name test_container \
+    --volume ${TRAVIS_BUILD_DIR%${TRAVIS_REPO_SLUG}}:${TRAVIS_BUILD_DIR%${TRAVIS_REPO_SLUG}} \
+    --add-host dl.bintray.com:$(nslookup dl.bintray.com | grep -m1 -A1 Name: | grep Address: | awk '{print $2}') \
+    laarid/devel:${BUILD_FLAVOR%_*} \
+    /bin/bash
+
+install:
+- ${DOCKER_EXEC_ROOT} apt-get update -qq
+- ${DOCKER_EXEC_ROOT} mk-build-deps -i -s sudo -t 'apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y --allow-unauthenticated' ${TRAVIS_BUILD_DIR}/debian/control
+
+script:
+- case "${BUILD_FLAVOR#*_}" in
+    deb)
+      ${DOCKER_EXEC} /bin/sh -c "cd ${TRAVIS_BUILD_DIR}; debuild --preserve-env --preserve-envvar PATH --set-envvar=DEB_BUILD_OPTIONS=nocheck -i -us -uc -b";
+      ;;
+    distcheck)
+      ${DOCKER_EXEC} /bin/sh -c "cd ${TRAVIS_BUILD_DIR}; (mkdir debian/build && cd debian/build && autoreconf -i --warnings=all ../.. && ../../configure --build=\$(dpkg-architecture -qDEB_BUILD_GNU_TYPE) --host=\$(dpkg-architecture -qDEB_HOST_GNU_TYPE) --disable-dependency-tracking && make -j \$(nproc) .gitignore distcheck)";
+      ;;
+  esac
+- git status | grep 'working tree clean'
+
+before_deploy:
+- |
+  cat debian/bintray.json.in | \
+    sed -e "s#@BINTRAY_PACKAGE@#$(cat debian/control | grep ^Source: | awk '{print $2}')#g" \
+        -e "s#@BINTRAY_USER@#${BINTRAY_USER}#g" \
+        -e "s#@BINTRAY_REPO@#${BINTRAY_REPO}#g" \
+        -e "s#@BINTRAY_DESC@#${BINTRAY_DESC}#g" \
+        -e "s#@GITHUB_REPO@#${TRAVIS_REPO_SLUG}#g" \
+        -e "s,@BINTRAY_VERSION@,${TRAVIS_TAG#v},g" \
+        -e "s#@BINTRAY_RELEASE_DATE@#$(cat debian/changelog | grep -m 1 '^ -- ' | sed 's,^.*  ,,')#g" \
+        -e "s#@BINTRAY_OUTDIR@#$(dirname ${TRAVIS_BUILD_DIR})#g" \
+        -e "s#@BINTRAY_POOLABBR@#$(cat debian/control | grep ^Source: | awk '{print $2}' | cut -c1)#g" \
+        -e "s#@BINTRAY_SUITE@#$(${DOCKER_EXEC_NOTTY} cat /etc/apt/sources.list | grep -m 1 '^deb ' | awk '{print $3}')#g" \
+        -e "s#@BINTRAY_COMPONENT@#${BINTRAY_COMPONENT}#g" \
+        -e "s#@BINTRAY_ARCH@#$(${DOCKER_EXEC_NOTTY} dpkg --print-architecture)#g" | \
+    tee debian/bintray.json
+
+deploy:
+- provider: bintray
+  file: debian/bintray.json
+  user: vicamo
+  key:
+    secure: "MKK23X9KlmPUkKsAuI0qdvpjMvp5TCM0w4/WQXjVOyfWGxTpEQ9qkh2w5iiayuNp2Edw9zKr8yzK0qyFpwQicZu13IOQymZA116WldIkhCrwSzBWowOX/nqGY+Did9qVjcONrC73N9/rB9NvOvU6b9Uc+Cp/Y7FYaCiVFXyA0fhPAn1SlXLI4ZDR4sQ1b7/7P+0ladxoIW2/TU3QdNlnkwwb51F9uAzqHdNfNTrwaxBsLexKTUosWdxoTz3/OzRHk1PFnLkZgQ14yHsaq5LtyxPUGahYcw7HJRboH78BSvLwx7Bvi2vrAk3Cpj4KKGk2rH7xIUU4NdKro8rMoFF5kreS0qUyeMdVQs1bWFUAe8qrykzj2CKahbKx3UCzaibEDtKQLxf+f22rsEwtbHdyv5XuHT1k27+B4VCgvKLWLbJ5MNOMjz425qou7P9ujhuKzx3Dc4zNOSoaN/0+hafm7MkopYyhX5DOa4T6xbNcjytEb75gCL1m5N95l7dtv9/Lx7DLKSqlAnTFB2/+uT9xgaYpJgyLjh0bjJDTQ/ohoAtESGJV9jNq7ZYHwizukaGbNZWdrRHE3mChKWTA0pA56ZfpbePUcTIgJFr7cJo2H/9N76GGO2tyq1LD3ilEDknHXZsB3/G8TUTTQY+LrFqO3cca2A7iFH4jvz3VgquMWWc="
+  on:
+    tags: true
+    condition: ${BUILD_FLAVOR#*_} = deb
+
+notifications:
+  slack:
+    rooms:
+    - secure: "CDC+nsiImN3YzjSkSXdvynkuw0hNL2Z5fZ1h9nfR89u77uxqIOcCT0gotBYkQEEIxwoK7mfGI77VbiHE4Z0GCkwFPkaK32p8aXpMZOXm8VMYcfQou64dXrMvOZQIzYNWNecRS6Tb1/VG4zD+TF2zBX88lLkZ1zEubb0dgwvlW/bbSbxXQ5PR5wHtem4U/p+xbTegElztOf9B/+wP6qJVy3wmhQs8sNV68uAsHCKDsUx/C8aIA6C8ZyTaHGS8VuLMeTZIjrM72H9tZI3AiWiBVpEa1KOtzO1TZXq+/w+L7vrp+gq7N3rQwGOxcWmWrSR9L0b8jbvQTyLaEeT8ZHlPaFYpnLf80kV/xVwXZ2YeSkxUuEXdnv/9xXuj1B4nwhA39DRdCBR1r0liRASfQDj6ockcglHexfNI9U27C/zOced7QSa1C3wPmMm+V69SFbthXzK0zZz3Zcyy05yqhvS6TRwZpDRt+KwkwKt2mqsBv9kHUcRgPYKtUHIIB68TT+Wme28FYt+14zNkhrVOUo8FrnPcmQ4hbFMhrb9rf0Ouhg/nyqAPB3wYbmMCGjJvzR1jKDXNtcljxIIUSrOa632IJ+X8nsEg74miQ4eCslAYvZVNlRozFsZjYKkdb9Js8N1fTNHF4yu96iPOzyXceMB9hV/zjeS3y+qPvljl8Yzy+tY="
