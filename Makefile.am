@@ -13,7 +13,13 @@ MAINTAINERCLEANFILES = \
 	$(GITIGNORE_MAINTAINERCLEANFILES_M4_LIBTOOL) \
 	$(GITIGNORE_MAINTAINERCLEANFILES_MAKEFILE_IN)
 
+# We're running CI in docker, which reports host architecture as host,
+# not the docker image architecture as we expected, so specifying the
+# host/build information is necessary here.
 DISTCHECK_CONFIGURE_FLAGS = \
+	--host=$(host) \
+	--build=$(build) \
+	--disable-dependency-tracking \
 	--disable-maintainer-mode
 
 GITIGNOREFILES = \
