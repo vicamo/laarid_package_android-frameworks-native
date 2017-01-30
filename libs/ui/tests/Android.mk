@@ -14,23 +14,52 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := $(call my-dir)
+if HAVE_GTEST
+check_PROGRAMS += \
+    %reldir%/Region_test \
+    %reldir%/vec_test \
+    %reldir%/mat_test
 
-include $(CLEAR_VARS)
-LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
-LOCAL_SHARED_LIBRARIES := libui
-LOCAL_SRC_FILES := Region_test.cpp
-LOCAL_MODULE := Region_test
-include $(BUILD_NATIVE_TEST)
+TESTS += \
+    %reldir%/Region_test \
+    %reldir%/vec_test \
+    %reldir%/mat_test
 
-include $(CLEAR_VARS)
-LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
-LOCAL_SRC_FILES := vec_test.cpp
-LOCAL_MODULE := vec_test
-include $(BUILD_NATIVE_TEST)
+%canon_reldir%_Region_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(GTEST_CFLAGS)
+%canon_reldir%_Region_test_SOURCES = \
+    %reldir%/Region_test.cpp
+%canon_reldir%_Region_test_LDADD = \
+    $(LOG_LIBS) \
+    libs/ui/libandroid-ui.la \
+    $(GTEST_LIBS)
+%canon_reldir%_Region_test_DEPENDENCIES = \
+    $(GTEST_LIBS)
 
-include $(CLEAR_VARS)
-LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
-LOCAL_SRC_FILES := mat_test.cpp
-LOCAL_MODULE := mat_test
-include $(BUILD_NATIVE_TEST)
+%canon_reldir%_vec_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(GTEST_CFLAGS)
+%canon_reldir%_vec_test_SOURCES = \
+    %reldir%/vec_test.cpp
+%canon_reldir%_vec_test_LDADD = \
+    $(GTEST_LIBS)
+%canon_reldir%_vec_test_DEPENDENCIES = \
+    $(GTEST_LIBS)
+
+%canon_reldir%_mat_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(GTEST_CFLAGS)
+%canon_reldir%_mat_test_CXXFLAGS = \
+    $(AM_CXXFLAGS) \
+    -Wno-enum-compare
+%canon_reldir%_mat_test_SOURCES = \
+    %reldir%/mat_test.cpp
+%canon_reldir%_mat_test_LDADD = \
+    $(GTEST_LIBS)
+%canon_reldir%_mat_test_DEPENDENCIES = \
+    $(GTEST_LIBS)
+endif # HAVE_GTEST

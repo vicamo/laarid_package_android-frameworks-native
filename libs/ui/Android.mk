@@ -73,4 +73,4 @@ pkgconfig_DATA += \
 # Include subdirectory makefiles
 # ============================================================
 
-#include %reldir%/tests/Android.mk
+include %reldir%/tests/Android.mk
