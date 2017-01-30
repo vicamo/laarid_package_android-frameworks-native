@@ -1,3 +1,15 @@
+android-frameworks-native (0.0.2) testing; urgency=low
+
+  * build libandroid-ui.
+  * eliminate all __ANDROID__ usages
+  * tests: build libinput unit tests
+  * build libandroid-diskusage
+  * build libandroid-batteryservice
+  * build libandroid-powermanager
+  * build android-frameworks-native-bin
+
+ -- You-Sheng Yang <vicamo@gmail.com>  Mon, 30 Jan 2017 21:49:41 +0800
+
 android-frameworks-native (0.0.1) testing; urgency=low
 
   * Initial Release.
