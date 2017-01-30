@@ -12,62 +12,65 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := $(call my-dir)
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+	%reldir%/libandroid-ui.la
 
-LOCAL_CLANG := true
-LOCAL_CPPFLAGS := -std=c++1y -Weverything -Werror
-LOCAL_SANITIZE := integer
+%canon_reldir%_libandroid_ui_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(CUTILS_CFLAGS) \
+	$(SYNC_CFLAGS) \
+	$(UTILS_CFLAGS) \
+	$(NATIVEHELPER_CFLAGS) \
+	$(HARDWARE_CFLAGS)
+
+%canon_reldir%_libandroid_ui_la_CXXFLAGS = \
+	$(AM_CXXFLAGS)
 
 # The static constructors and destructors in this library have not been noted to
 # introduce significant overheads
-LOCAL_CPPFLAGS += -Wno-exit-time-destructors
-LOCAL_CPPFLAGS += -Wno-global-constructors
+#LOCAL_CPPFLAGS += -Wno-exit-time-destructors
+#LOCAL_CPPFLAGS += -Wno-global-constructors
 
 # We only care about compiling as C++14
-LOCAL_CPPFLAGS += -Wno-c++98-compat-pedantic
+#LOCAL_CPPFLAGS += -Wno-c++98-compat-pedantic
 
 # We use four-character constants for the GraphicBuffer header, and don't care
 # that they're non-portable as long as they're consistent within one execution
-LOCAL_CPPFLAGS += -Wno-four-char-constants
+%canon_reldir%_libandroid_ui_la_CXXFLAGS += \
+	-Wno-multichar
 
 # Don't warn about struct padding
-LOCAL_CPPFLAGS += -Wno-padded
+#LOCAL_CPPFLAGS += -Wno-padded
 
-LOCAL_SRC_FILES := \
-	Fence.cpp \
-	FrameStats.cpp \
-	GraphicBuffer.cpp \
-	GraphicBufferAllocator.cpp \
-	GraphicBufferMapper.cpp \
-	HdrCapabilities.cpp \
-	PixelFormat.cpp \
-	Rect.cpp \
-	Region.cpp \
-	UiConfig.cpp
+%canon_reldir%_libandroid_ui_la_SOURCES = \
+	include/private/ui/RegionHelper.h \
+	%reldir%/Fence.cpp \
+	%reldir%/FrameStats.cpp \
+	%reldir%/GraphicBuffer.cpp \
+	%reldir%/GraphicBufferAllocator.cpp \
+	%reldir%/GraphicBufferMapper.cpp \
+	%reldir%/HdrCapabilities.cpp \
+	%reldir%/PixelFormat.cpp \
+	%reldir%/Rect.cpp \
+	%reldir%/Region.cpp \
+	%reldir%/UiConfig.cpp
 
-LOCAL_SHARED_LIBRARIES := \
-	libbinder \
-	libcutils \
-	libhardware \
-	libsync \
-	libutils \
-	liblog
+%canon_reldir%_libandroid_ui_la_LIBADD = \
+	libs/binder/libandroid-binder.la \
+	$(CUTILS_LIBS) \
+	$(HARDWARE_LIBS) \
+	$(SYNC_LIBS) \
+	$(UTILS_LIBS) \
+	$(LOG_LIBS)
 
-ifneq ($(BOARD_FRAMEBUFFER_FORCE_FORMAT),)
-LOCAL_CFLAGS += -DFRAMEBUFFER_FORCE_FORMAT=$(BOARD_FRAMEBUFFER_FORCE_FORMAT)
-endif
+%canon_reldir%_libandroid_ui_la_LDFLAGS = \
+	$(AM_LDFLAGS) \
+	$(libtool_opts)
 
-LOCAL_MODULE := libui
-
-include $(BUILD_SHARED_LIBRARY)
-
+pkgconfig_DATA += \
+	%reldir%/android-ui-0.0.pc
 
 # Include subdirectory makefiles
 # ============================================================
 
-# If we're building with ONE_SHOT_MAKEFILE (mm, mmm), then what the framework
-# team really wants is to build the stuff defined by this makefile.
-ifeq (,$(ONE_SHOT_MAKEFILE))
-include $(call first-makefiles-under,$(LOCAL_PATH))
-endif
+#include %reldir%/tests/Android.mk

@@ -7,9 +7,11 @@ Build-Depends: debhelper (>= 9),
                pkg-config,
                libandroid-backtrace0-dev (>= 0.0.11),
                libandroid-bionic0-dev (>= 0.1.4),
-               libandroid-cutils0-dev (>= 0.0.12),
-               libandroid-log0-dev (>= 0.0.12),
+               libandroid-cutils0-dev (>= 0.0.13),
+               libandroid-hardware0-dev (>= 0.0.1+b1),
+               libandroid-log0-dev (>= 0.0.13),
                libandroid-nativehelper0-dev (>= 0.0.4),
+               libandroid-sync0-dev (>= 0.0.13),
                libandroid-utils0-dev (>= 0.0.11),
                libgtest-dev
 Standards-Version: 3.9.5
@@ -25,8 +27,8 @@ Architecture: any
 Multi-Arch: same
 Depends: libandroid-binder0 (= ${binary:Version}),
          libandroid-bionic0-dev (>= 0.1.4),
-         libandroid-cutils0-dev (>= 0.0.12),
-         libandroid-log0-dev (>= 0.0.12),
+         libandroid-cutils0-dev (>= 0.0.13),
+         libandroid-log0-dev (>= 0.0.13),
          libandroid-nativehelper0-dev (>= 0.0.4),
          libandroid-utils0-dev (>= 0.0.11),
          ${misc:Depends}
@@ -53,8 +55,8 @@ Architecture: any
 Multi-Arch: same
 Depends: libandroid-input0 (= ${binary:Version}),
          libandroid-binder0-dev (= ${binary:Version}),
-         libandroid-cutils0-dev (>= 0.0.12),
-         libandroid-log0-dev (>= 0.0.12),
+         libandroid-cutils0-dev (>= 0.0.13),
+         libandroid-log0-dev (>= 0.0.13),
          libandroid-utils0-dev (>= 0.0.11),
          ${misc:Depends}
 Description: Android libinput - development
@@ -72,3 +74,32 @@ Depends: ${shlibs:Depends},
          ${misc:Depends}
 Description: Android libinput
  This package contains libinput built from Android platform/frameworks/native.
+
+Package: libandroid-ui0-dev
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libandroid-ui0 (= ${binary:Version}),
+         libandroid-binder0-dev (= ${binary:Version}),
+         libandroid-cutils0-dev (>= 0.0.13),
+         libandroid-hardware0-dev (>= 0.0.1+b1),
+         libandroid-log0-dev (>= 0.0.13),
+         libandroid-sync0-dev (>= 0.0.13),
+         libandroid-utils0-dev (>= 0.0.11),
+         ${misc:Depends}
+Description: Android libui - development
+ This package contains libui built from Android platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-ui0
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Description: Android libui
+ This package contains libui built from Android platform/frameworks/native.

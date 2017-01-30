@@ -64,3 +64,26 @@
     %reldir%/input/VelocityControl.h \
     %reldir%/input/VelocityTracker.h \
     %reldir%/input/VirtualKeyMap.h
+
+%canon_reldir%_uiincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/ui
+%canon_reldir%_uiinc_HEADERS = \
+    %reldir%/ui/ANativeObjectBase.h \
+    %reldir%/ui/DisplayInfo.h \
+    %reldir%/ui/DisplayStatInfo.h \
+    %reldir%/ui/Fence.h \
+    %reldir%/ui/FrameStats.h \
+    %reldir%/ui/GraphicBuffer.h \
+    %reldir%/ui/GraphicBufferAllocator.h \
+    %reldir%/ui/GraphicBufferMapper.h \
+    %reldir%/ui/HdrCapabilities.h \
+    %reldir%/ui/PixelFormat.h \
+    %reldir%/ui/Point.h \
+    %reldir%/ui/Rect.h \
+    %reldir%/ui/Region.h \
+    %reldir%/ui/TMatHelpers.h \
+    %reldir%/ui/TVecHelpers.h \
+    %reldir%/ui/UiConfig.h \
+    %reldir%/ui/mat4.h \
+    %reldir%/ui/vec2.h \
+    %reldir%/ui/vec3.h \
+    %reldir%/ui/vec4.h

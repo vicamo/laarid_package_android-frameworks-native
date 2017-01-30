@@ -57,6 +57,7 @@ include $(srcdir)/gtest.mk
 include $(srcdir)/include/Makefile.inc
 include $(srcdir)/libs/binder/Android.mk
 include $(srcdir)/libs/input/Android.mk
+include $(srcdir)/libs/ui/Android.mk
 
 # PKG-CONFIG data files
 # ---------------------
