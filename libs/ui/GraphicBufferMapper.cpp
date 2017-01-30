@@ -22,10 +22,14 @@
 
 // We would eliminate the non-conforming zero-length array, but we can't since
 // this is effectively included from the Linux kernel
+#ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wzero-length-array"
+#endif
 #include <sync/sync.h>
+#ifdef __clang__
 #pragma clang diagnostic pop
+#endif
 
 #include <utils/Errors.h>
 #include <utils/Log.h>
