@@ -25,6 +25,7 @@
 #include <utils/Vector.h>
 
 #include <getopt.h>
+#include <signal.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

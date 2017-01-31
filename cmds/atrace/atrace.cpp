@@ -215,9 +215,6 @@ static const char* k_funcgraphProcPath =
 static const char* k_funcgraphFlatPath =
     "/sys/kernel/debug/tracing/options/funcgraph-flat";
 
-static const char* k_funcgraphDurationPath =
-    "/sys/kernel/debug/tracing/options/funcgraph-duration";
-
 static const char* k_ftraceFilterPath =
     "/sys/kernel/debug/tracing/set_ftrace_filter";
 
@@ -407,7 +404,6 @@ static bool clearTrace()
 static bool setTraceBufferSizeKB(int size)
 {
     char str[32] = "1";
-    int len;
     if (size < 1) {
         size = 1;
     }
@@ -437,13 +433,13 @@ static bool isTraceClock(const char *mode)
     }
     buf[n] = '\0';
 
-    char *start = strchr(buf, '[');
+    char *start = (char *) strchr(buf, '[');
     if (start == NULL) {
         return false;
     }
     start++;
 
-    char *end = strchr(start, ']');
+    char *end = (char *) strchr(start, ']');
     if (end == NULL) {
         return false;
     }
@@ -543,7 +539,7 @@ static bool setAppCmdlineProperty(const char* cmdline)
             clearAppProperties();
             return false;
         }
-        char* end = strchr(start, ',');
+        char* end = (char *) strchr(start, ',');
         if (end != NULL) {
             *end = '\0';
             end++;
@@ -827,7 +823,7 @@ static void streamTrace()
     while (!g_traceAborted) {
         ssize_t bytes_read = read(traceFD, trace_data, 4096);
         if (bytes_read > 0) {
-            write(STDOUT_FILENO, trace_data, bytes_read);
+            TEMP_FAILURE_RETRY(write(STDOUT_FILENO, trace_data, bytes_read));
             fflush(stdout);
         } else {
             if (!g_traceAborted) {
@@ -1157,7 +1153,7 @@ int main(int argc, char **argv)
             fflush(stdout);
             int outFd = STDOUT_FILENO;
             if (g_outputFile) {
-                outFd = open(g_outputFile, O_WRONLY | O_CREAT);
+                outFd = open(g_outputFile, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR | S_IRGRP);
             }
             if (outFd == -1) {
                 printf("Failed to open '%s', err=%d", g_outputFile, errno);

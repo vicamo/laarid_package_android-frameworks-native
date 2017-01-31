@@ -14,13 +14,15 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := $(call my-dir)
-include $(CLEAR_VARS)
+bin_PROGRAMS += \
+    %reldir%/ip-up-vpn
 
-LOCAL_SRC_FILES := ip-up-vpn.c
-LOCAL_SHARED_LIBRARIES := libcutils liblog
-LOCAL_MODULE := ip-up-vpn
-LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/ppp
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_ip_up_vpn_SOURCES = \
+    %reldir%/ip-up-vpn.c
+%canon_reldir%_ip_up_vpn_LDADD = \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS)
+%canon_reldir%_ip_up_vpn_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(LOG_CFLAGS) \
+    $(CUTILS_CFLAGS)

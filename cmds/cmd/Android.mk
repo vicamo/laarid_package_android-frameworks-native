@@ -1,20 +1,17 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+bin_PROGRAMS += \
+	%reldir%/cmd
 
-LOCAL_SRC_FILES:= \
-	cmd.cpp
+%canon_reldir%_cmd_SOURCES = \
+	%reldir%/cmd.cpp
 
-LOCAL_SHARED_LIBRARIES := \
-	libutils \
-	liblog \
-	libbinder
-	
+%canon_reldir%_cmd_LDADD = \
+	$(UTILS_LIBS) \
+	$(LOG_LIBS) \
+	libs/binder/libandroid-binder.la
 
-ifeq ($(TARGET_OS),linux)
-	LOCAL_CFLAGS += -DXP_UNIX
-	#LOCAL_SHARED_LIBRARIES += librt
-endif
-
-LOCAL_MODULE:= cmd
-
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_cmd_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(LOG_CFLAGS) \
+	$(NATIVEHELPER_CFLAGS) \
+	$(UTILS_CFLAGS) \
+	-DXP_UNIX

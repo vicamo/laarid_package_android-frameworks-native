@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 9),
                autoconf-archive,
                pkg-config,
                libandroid-backtrace0-dev (>= 0.0.11),
+               libandroid-base0-dev (>= 0.0.13),
                libandroid-bionic0-dev (>= 0.1.4),
                libandroid-cutils0-dev (>= 0.0.13),
                libandroid-hardware0-dev (>= 0.0.1+b1),
@@ -13,12 +14,26 @@ Build-Depends: debhelper (>= 9),
                libandroid-nativehelper0-dev (>= 0.0.4),
                libandroid-sync0-dev (>= 0.0.13),
                libandroid-utils0-dev (>= 0.0.11),
-               libgtest-dev
+               libgtest-dev,
+               zlib1g-dev,
 Standards-Version: 3.9.5
 Section: libs
 Homepage: https://github.com/laarid/package_android-frameworks-native
 Vcs-Git: https://github.com/laarid/package_android-frameworks-native.git
 Vcs-Browser: https://github.com/laarid/package_android-frameworks-native
+
+Package: android-frameworks-native-bin
+Priority: extra
+Section: misc
+Architecture: any
+Multi-Arch: no
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+Description: Android native frameworks - utilities
+ This package contains libsparse built from Android platform/frameworks/native.
+ .
+ This package contains the utilities which are used by the libraries
+ and other packages.
 
 Package: libandroid-batteryservice0-dev
 Priority: extra

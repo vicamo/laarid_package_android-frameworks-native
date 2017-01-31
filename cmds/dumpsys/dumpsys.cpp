@@ -20,6 +20,7 @@
 
 #include <fcntl.h>
 #include <getopt.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -224,7 +225,7 @@ int main(int argc, char* const argv[])
                 auto time_left_ms = [end]() {
                     auto now = std::chrono::steady_clock::now();
                     auto diff = std::chrono::duration_cast<std::chrono::milliseconds>(end - now);
-                    return std::max(diff.count(), 0ll);
+                    return std::max(diff.count(), (std::chrono::milliseconds::rep)0);
                 };
 
                 int rc = TEMP_FAILURE_RETRY(poll(&pfd, 1, time_left_ms()));

@@ -15,6 +15,8 @@
  */
 
 #include <errno.h>
+#include <string.h>
+#include <stdlib.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <sys/socket.h>

@@ -1,21 +1,22 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+bin_PROGRAMS += \
+	%reldir%/dumpsys
 
-LOCAL_SRC_FILES:= \
-	dumpsys.cpp
+%canon_reldir%_dumpsys_SOURCES = \
+	%reldir%/dumpsys.cpp
 
-LOCAL_SHARED_LIBRARIES := \
-	libbase \
-	libutils \
-	liblog \
-	libbinder
+%canon_reldir%_dumpsys_LDADD = \
+	$(BASE_LIBS) \
+	$(UTILS_LIBS) \
+	$(LOG_LIBS) \
+	libs/binder/libandroid-binder.la
 
+%canon_reldir%_dumpsys_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(BASE_CFLAGS) \
+	$(NATIVEHELPER_CFLAGS) \
+	$(UTILS_CFLAGS) \
+	-DXP_UNIX
 
-ifeq ($(TARGET_OS),linux)
-	LOCAL_CFLAGS += -DXP_UNIX
-	#LOCAL_SHARED_LIBRARIES += librt
-endif
-
-LOCAL_MODULE:= dumpsys
-
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_dumpsys_CXXFLAGS = \
+	$(AM_CXXFLAGS) \
+	-std=gnu++14

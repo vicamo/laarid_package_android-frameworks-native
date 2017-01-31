@@ -1,12 +1,11 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+bin_PROGRAMS += \
+    %reldir%/bugreport
 
-LOCAL_SRC_FILES:= bugreport.cpp
+%canon_reldir%_bugreport_SOURCES = \
+    %reldir%/bugreport.cpp
 
-LOCAL_MODULE:= bugreport
-
-LOCAL_CFLAGS := -Wall
-
-LOCAL_SHARED_LIBRARIES := libcutils
-
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_bugreport_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(CUTILS_CFLAGS)
+%canon_reldir%_bugreport_LDADD = \
+    $(CUTILS_LIBS)

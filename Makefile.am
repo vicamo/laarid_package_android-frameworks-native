@@ -47,6 +47,7 @@ libtool_opts = \
 
 # Various build targets
 # ---------------------
+bin_PROGRAMS =
 lib_LTLIBRARIES =
 pkgconfig_DATA =
 TESTS =
@@ -63,6 +64,14 @@ include $(srcdir)/libs/ui/Android.mk
 
 include $(srcdir)/services/batteryservice/Android.mk
 include $(srcdir)/services/powermanager/Android.mk
+
+include $(srcdir)/cmds/atrace/Android.mk
+include $(srcdir)/cmds/bugreport/Android.mk
+include $(srcdir)/cmds/bugreportz/Android.mk
+include $(srcdir)/cmds/cmd/Android.mk
+include $(srcdir)/cmds/dumpsys/Android.mk
+include $(srcdir)/cmds/ip-up-vpn/Android.mk
+include $(srcdir)/cmds/service/Android.mk
 
 # PKG-CONFIG data files
 # ---------------------

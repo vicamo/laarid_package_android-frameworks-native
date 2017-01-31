@@ -1,22 +1,22 @@
 # Copyright 2012 The Android Open Source Project
 
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+bin_PROGRAMS += \
+    %reldir%/atrace
 
-LOCAL_SRC_FILES:= atrace.cpp
+%canon_reldir%_atrace_SOURCES = \
+    %reldir%/atrace.cpp
 
-LOCAL_C_INCLUDES += external/zlib
+%canon_reldir%_atrace_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(ZLIB_CFLAGS) \
+    $(LOG_CFLAGS) \
+    $(CUTILS_CFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS)
 
-LOCAL_MODULE:= atrace
-
-LOCAL_MODULE_TAGS:= optional
-
-LOCAL_SHARED_LIBRARIES := \
-    libbinder \
-    libcutils \
-    libutils \
-    libz \
-
-LOCAL_INIT_RC := atrace.rc
-
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_atrace_LDADD = \
+    $(ZLIB_LIBS) \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS) \
+    $(UTILS_LIBS) \
+    libs/binder/libandroid-binder.la

@@ -1,16 +1,17 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+# This was named 'service', which conflict with /usr/bin/service from
+# init-system-helpers package.
+bin_PROGRAMS += \
+	%reldir%/aservice
 
-LOCAL_SRC_FILES:= \
-	service.cpp
+%canon_reldir%_aservice_SOURCES = \
+	%reldir%/service.cpp
 
-LOCAL_SHARED_LIBRARIES := libutils libbinder
+%canon_reldir%_aservice_LDADD = \
+	$(UTILS_LIBS) \
+	libs/binder/libandroid-binder.la
 
-ifeq ($(TARGET_OS),linux)
-	LOCAL_CFLAGS += -DXP_UNIX
-	#LOCAL_SHARED_LIBRARIES += librt
-endif
-
-LOCAL_MODULE:= service
-
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_aservice_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(CUTILS_CFLAGS) \
+	$(NATIVEHELPER_CFLAGS) \
+	-DXP_UNIX
