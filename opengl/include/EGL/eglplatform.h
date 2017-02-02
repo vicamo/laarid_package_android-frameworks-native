@@ -83,7 +83,7 @@ typedef int   EGLNativeDisplayType;
 typedef void *EGLNativeWindowType;
 typedef void *EGLNativePixmapType;
 
-#elif defined(__ANDROID__) || defined(ANDROID)
+#else
 
 struct ANativeWindow;
 struct egl_native_pixmap_t;
@@ -92,18 +92,6 @@ typedef struct ANativeWindow*           EGLNativeWindowType;
 typedef struct egl_native_pixmap_t*     EGLNativePixmapType;
 typedef void*                           EGLNativeDisplayType;
 
-#elif defined(__unix__)
-
-/* X11 (tentative)  */
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-
-typedef Display *EGLNativeDisplayType;
-typedef Pixmap   EGLNativePixmapType;
-typedef Window   EGLNativeWindowType;
-
-#else
-#error "Platform not recognized"
 #endif
 
 /* EGL 1.2 types, renamed for consistency in EGL 1.3 */

@@ -21,9 +21,6 @@
 #include <stddef.h>
 #include <sys/types.h>
 #include <pthread.h>
-#ifdef __ANDROID__
-#include <bionic_tls.h>
-#endif
 
 #include <private/pixelflinger/ggl_context.h>
 #include <hardware/gralloc.h>
@@ -579,15 +576,6 @@ private:
 // state
 // ----------------------------------------------------------------------------
 
-#ifdef __ANDROID__
-    // We have a dedicated TLS slot in bionic
-    inline void setGlThreadSpecific(ogles_context_t *value) {
-        __get_tls()[TLS_SLOT_OPENGL] = value;
-    }
-    inline ogles_context_t* getGlThreadSpecific() {
-        return static_cast<ogles_context_t*>(__get_tls()[TLS_SLOT_OPENGL]);
-    }
-#else
     extern pthread_key_t gGLKey;
     inline void setGlThreadSpecific(ogles_context_t *value) {
         pthread_setspecific(gGLKey, value);
@@ -595,7 +583,6 @@ private:
     inline ogles_context_t* getGlThreadSpecific() {
         return static_cast<ogles_context_t*>(pthread_getspecific(gGLKey));
     }
-#endif
 
 
 struct prims_t {

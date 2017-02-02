@@ -19,9 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef __ANDROID__
 #include <binder/Parcel.h>
-#endif
 
 #include <android/keycodes.h>
 #include <input/InputEventLabels.h>
@@ -599,7 +597,6 @@ void KeyCharacterMap::addLockedMetaKey(Vector<KeyEvent>& outEvents,
     }
 }
 
-#ifdef __ANDROID__
 sp<KeyCharacterMap> KeyCharacterMap::readFromParcel(Parcel* parcel) {
     sp<KeyCharacterMap> map = new KeyCharacterMap();
     map->mType = parcel->readInt32();
@@ -677,7 +674,6 @@ void KeyCharacterMap::writeToParcel(Parcel* parcel) const {
         parcel->writeInt32(0);
     }
 }
-#endif
 
 
 // --- KeyCharacterMap::Key ---
