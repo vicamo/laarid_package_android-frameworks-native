@@ -25,10 +25,10 @@
 #include <stdlib.h>
 #include <string>
 #include <string.h>
-#include <sys/capability.h>
+#include <linux/capability.h>
 #include <sys/inotify.h>
 #include <sys/stat.h>
-#include <sys/sysconf.h>
+#include <unistd.h>
 #include <sys/time.h>
 #include <sys/wait.h>
 #include <sys/klog.h>
@@ -42,7 +42,6 @@
 #include <cutils/log.h>
 #include <cutils/properties.h>
 #include <cutils/sockets.h>
-#include <private/android_filesystem_config.h>
 
 #include <selinux/android.h>
 

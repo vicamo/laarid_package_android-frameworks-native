@@ -1,24 +1,32 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
-LOCAL_SRC_FILES := libdumpstate_default.cpp
-LOCAL_MODULE := libdumpstate.default
-include $(BUILD_STATIC_LIBRARY)
+bin_PROGRAMS += \
+    %reldir%/dumpstate
 
-include $(CLEAR_VARS)
+%canon_reldir%_dumpstate_SOURCES = \
+    %reldir%/dumpstate.cpp \
+    %reldir%/libdumpstate_default.cpp \
+    %reldir%/utils.cpp
 
-ifdef BOARD_WLAN_DEVICE
-LOCAL_CFLAGS := -DFWDUMP_$(BOARD_WLAN_DEVICE)
-endif
+%canon_reldir%_dumpstate_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(BASE_CFLAGS) \
+    $(CUTILS_CFLAGS) \
+    $(LOG_CFLAGS) \
+    $(MINCRYPT_CFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(SELINUX_CFLAGS) \
+    $(ZIPARCHIVE_CFLAGS) \
+    $(ZLIB_CFLAGS)
 
-LOCAL_SRC_FILES := dumpstate.cpp utils.cpp
-
-LOCAL_MODULE := dumpstate
-
-LOCAL_SHARED_LIBRARIES := libcutils liblog libselinux
 # ZipArchive support, the order matters here to get all symbols.
-LOCAL_STATIC_LIBRARIES := libziparchive libz libbase libmincrypt
-LOCAL_HAL_STATIC_LIBRARIES := libdumpstate
-LOCAL_CFLAGS += -Wall -Werror -Wno-unused-parameter
-LOCAL_INIT_RC := dumpstate.rc
+%canon_reldir%_dumpstate_LDADD = \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS) \
+    $(SELINUX_LIBS) \
+    $(ZIPARCHIVE_LIBS) \
+    $(ZLIB_LIBS) \
+    $(BASE_LIBS) \
+    $(MINCRYPT_LIBS)
 
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_dumpstate_CXXFLAGS = \
+    $(AM_CXXFLAGS) \
+    -Wno-unused-parameter

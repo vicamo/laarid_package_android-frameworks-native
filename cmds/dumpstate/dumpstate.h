@@ -46,6 +46,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <vector>
+#include <string>
 
 #define SU_PATH "/system/xbin/su"
 

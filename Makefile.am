@@ -73,6 +73,7 @@ include $(srcdir)/opengl/libs/Android.mk
 # ---------------------
 include $(srcdir)/cmds/atrace/Android.mk
 include $(srcdir)/cmds/cmd/Android.mk
+include $(srcdir)/cmds/dumpstate/Android.mk
 include $(srcdir)/cmds/dumpsys/Android.mk
 include $(srcdir)/cmds/service/Android.mk
 include $(srcdir)/libs/input/Android.mk

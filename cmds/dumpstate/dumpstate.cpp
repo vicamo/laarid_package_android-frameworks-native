@@ -31,22 +31,25 @@
 #include <sys/resource.h>
 #include <sys/stat.h>
 #include <sys/time.h>
+#include <sys/user.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
 #include <android-base/stringprintf.h>
 #include <cutils/properties.h>
 
-#include "private/android_filesystem_config.h"
-
 #define LOG_TAG "dumpstate"
 #include <cutils/log.h>
 
 #include "dumpstate.h"
-#include "ScopedFd.h"
+#include "nativehelper/ScopedFd.h"
 #include "ziparchive/zip_writer.h"
 
 #include "mincrypt/sha256.h"
+
+#ifndef __unused
+#define __unused __attribute__((__unused__))
+#endif
 
 using android::base::StringPrintf;
 
