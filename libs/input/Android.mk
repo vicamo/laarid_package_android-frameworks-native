@@ -51,3 +51,5 @@ lib_LTLIBRARIES += \
 
 pkgconfig_DATA += \
     %reldir%/android-input-0.0.pc
+
+include %reldir%/tests/Android.mk

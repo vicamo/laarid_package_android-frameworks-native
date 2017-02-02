@@ -28,12 +28,12 @@ public:
     int sendFd;
     int receiveFd;
 
-    Pipe() {
+    Pipe() : sendFd(-1), receiveFd(-1) {
         int fds[2];
-        ::pipe(fds);
-
-        receiveFd = fds[0];
-        sendFd = fds[1];
+        if (0 == ::pipe(fds)) {
+            receiveFd = fds[0];
+            sendFd = fds[1];
+        }
     }
 
     ~Pipe() {

@@ -1,40 +1,93 @@
+if HAVE_GTEST
 # Build the unit tests.
-LOCAL_PATH:= $(call my-dir)
+check_PROGRAMS += \
+    %reldir%/InputChannel_test \
+    %reldir%/InputEvent_test \
+    %reldir%/InputPublisherAndConsumer_test
 
-# Build the unit tests.
-test_src_files := \
-    InputChannel_test.cpp \
-    InputEvent_test.cpp \
-    InputPublisherAndConsumer_test.cpp
+TESTS += \
+    %reldir%/InputChannel_test \
+    %reldir%/InputEvent_test \
+    %reldir%/InputPublisherAndConsumer_test
 
-shared_libraries := \
-    libinput \
-    libcutils \
-    libutils \
-    libbinder \
-    libui \
+%canon_reldir%_InputChannel_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(GTEST_CFLAGS)
+%canon_reldir%_InputChannel_test_SOURCES = \
+    %reldir%/TestHelpers.h \
+    %reldir%/InputChannel_test.cpp
+%canon_reldir%_InputChannel_test_LDADD = \
+    $(CUTILS_LIBS) \
+    $(UTILS_LIBS) \
+    $(GTEST_LIBS) \
+    libs/binder/libandroid-binder.la \
+    libs/input/libandroid-input.la \
+    libs/ui/libandroid-ui.la
+%canon_reldir%_InputChannel_test_DEPENDENCIES = \
+    $(GTEST_LIBS) \
+    libs/binder/libandroid-binder.la \
+    libs/input/libandroid-input.la \
+    libs/ui/libandroid-ui.la
 
-$(foreach file,$(test_src_files), \
-    $(eval include $(CLEAR_VARS)) \
-    $(eval LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk) \
-    $(eval LOCAL_SHARED_LIBRARIES := $(shared_libraries)) \
-    $(eval LOCAL_STATIC_LIBRARIES := $(static_libraries)) \
-    $(eval LOCAL_SRC_FILES := $(file)) \
-    $(eval LOCAL_MODULE := $(notdir $(file:%.cpp=%))) \
-    $(eval include $(BUILD_NATIVE_TEST)) \
-)
+%canon_reldir%_InputEvent_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(GTEST_CFLAGS)
+if HAVE_DEV_BINDER
+%canon_reldir%_InputEvent_test_CPPFLAGS += \
+    -DENABLE_PARCEL_TESTS
+endif
+%canon_reldir%_InputEvent_test_SOURCES = \
+    %reldir%/InputEvent_test.cpp
+%canon_reldir%_InputEvent_test_LDADD = \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS) \
+    $(UTILS_LIBS) \
+    $(GTEST_LIBS) \
+    libs/binder/libandroid-binder.la \
+    libs/input/libandroid-input.la \
+    libs/ui/libandroid-ui.la
+%canon_reldir%_InputEvent_test_DEPENDENCIES = \
+    $(GTEST_LIBS) \
+    libs/binder/libandroid-binder.la \
+    libs/input/libandroid-input.la \
+    libs/ui/libandroid-ui.la
+
+%canon_reldir%_InputPublisherAndConsumer_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(GTEST_CFLAGS)
+%canon_reldir%_InputPublisherAndConsumer_test_SOURCES = \
+    %reldir%/TestHelpers.h \
+    %reldir%/InputPublisherAndConsumer_test.cpp
+%canon_reldir%_InputPublisherAndConsumer_test_LDADD = \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS) \
+    $(UTILS_LIBS) \
+    $(GTEST_LIBS) \
+    libs/binder/libandroid-binder.la \
+    libs/input/libandroid-input.la \
+    libs/ui/libandroid-ui.la
+%canon_reldir%_InputPublisherAndConsumer_test_DEPENDENCIES = \
+    $(GTEST_LIBS) \
+    libs/binder/libandroid-binder.la \
+    libs/input/libandroid-input.la \
+    libs/ui/libandroid-ui.la
+endif # HAVE_GTEST
 
 # NOTE: This is a compile time test, and does not need to be
 # run. All assertions are static_asserts and will fail during
 # buildtime if something's wrong.
-include $(CLEAR_VARS)
-LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
-LOCAL_SRC_FILES := StructLayout_test.cpp
-LOCAL_MODULE := StructLayout_test
-LOCAL_CFLAGS := -std=c++11 -O0
-LOCAL_MULTILIB := both
-include $(BUILD_STATIC_LIBRARY)
+check_LIBRARIES += \
+    %reldir%/libStructLayout_test.a
 
-
-# Build the manual test programs.
-include $(call all-makefiles-under, $(LOCAL_PATH))
+%canon_reldir%_libStructLayout_test_a_SOURCES = \
+    %reldir%/StructLayout_test.cpp
+%canon_reldir%_libStructLayout_test_a_CXXFLAGS = \
+    $(AM_CXXFLAGS) \
+    -std=c++11 -O0
+%canon_reldir%_libStructLayout_test_a_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(UTILS_CFLAGS)

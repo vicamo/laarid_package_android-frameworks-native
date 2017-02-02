@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include <stddef.h> // offsetof
 #include <input/InputTransport.h>
 #include <input/Input.h>
 

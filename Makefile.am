@@ -51,6 +51,7 @@ lib_LTLIBRARIES =
 pkgconfig_DATA =
 TESTS =
 check_PROGRAMS =
+check_LIBRARIES =
 check_LTLIBRARIES =
 
 include $(srcdir)/gtest.mk

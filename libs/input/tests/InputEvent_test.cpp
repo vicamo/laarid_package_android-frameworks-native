@@ -41,7 +41,6 @@ TEST_F(PointerCoordsTest, ClearSetsBitsToZero) {
 }
 
 TEST_F(PointerCoordsTest, AxisValues) {
-    float* valuePtr;
     PointerCoords coords;
     coords.clear();
 
@@ -138,7 +137,11 @@ TEST_F(PointerCoordsTest, AxisValues) {
     ASSERT_EQ(PointerCoords::MAX_AXES, __builtin_popcountll(coords.bits));
 }
 
+#ifdef ENABLE_PARCEL_TESTS
 TEST_F(PointerCoordsTest, Parcel) {
+#else
+TEST_F(PointerCoordsTest, DISABLED_Parcel) {
+#endif
     Parcel parcel;
 
     PointerCoords inCoords;
@@ -503,7 +506,11 @@ TEST_F(MotionEventTest, Scale) {
     ASSERT_EQ(218, event.getOrientation(0));
 }
 
+#ifdef ENABLE_PARCEL_TESTS
 TEST_F(MotionEventTest, Parcel) {
+#else
+TEST_F(MotionEventTest, DISABLED_Parcel) {
+#endif
     Parcel parcel;
 
     MotionEvent inEvent;
