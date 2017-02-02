@@ -192,6 +192,7 @@ dnl ------------
 AC_CONFIG_FILES([
   Makefile
   libs/binder/android-binder-$LAARID_API_VERSION.pc
+  libs/diskusage/android-diskusage-$LAARID_API_VERSION.pc
   libs/input/android-input-$LAARID_API_VERSION.pc
   libs/ui/android-ui-$LAARID_API_VERSION.pc
 ])

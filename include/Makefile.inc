@@ -51,6 +51,10 @@
     %reldir%/binder/Status.h \
     %reldir%/binder/TextOutput.h
 
+%canon_reldir%_diskusageincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/diskusage
+%canon_reldir%_diskusageinc_HEADERS = \
+    %reldir%/diskusage/dirsize.h
+
 %canon_reldir%_inputincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/input
 %canon_reldir%_inputinc_HEADERS = \
     %reldir%/input/IInputFlinger.h \

@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: android-diskusage-@LAARID_API_VERSION@
+Description: Android Binder library
+Version: @VERSION@
+Libs: -L${libdir} -landroid-diskusage
+Cflags: -I${includedir}/android/frameworks-native-@LAARID_API_VERSION@

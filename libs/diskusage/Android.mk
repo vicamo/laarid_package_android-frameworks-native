@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+    %reldir%/libandroid-diskusage.la
 
-LOCAL_MODULE := libdiskusage
+%canon_reldir%_libandroid_diskusage_la_SOURCES = \
+    %reldir%/dirsize.c
+%canon_reldir%_libandroid_diskusage_la_LDFLAGS = \
+    $(AM_LCFLAGS) \
+    $(libtool_opts)
 
-LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := dirsize.c
-
-include $(BUILD_STATIC_LIBRARY)
+pkgconfig_DATA += \
+    %reldir%/android-diskusage-0.0.pc

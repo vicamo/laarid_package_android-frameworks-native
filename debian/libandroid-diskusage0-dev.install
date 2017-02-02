@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/diskusage/*
+usr/lib/*/libandroid-diskusage.a
+usr/lib/*/libandroid-diskusage.so
+usr/lib/*/pkgconfig/android-diskusage-0.0.pc
