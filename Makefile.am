@@ -62,6 +62,7 @@ include $(srcdir)/libs/input/Android.mk
 include $(srcdir)/libs/ui/Android.mk
 
 include $(srcdir)/services/batteryservice/Android.mk
+include $(srcdir)/services/powermanager/Android.mk
 
 # PKG-CONFIG data files
 # ---------------------

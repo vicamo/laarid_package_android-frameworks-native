@@ -1,19 +1,22 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+    %reldir%/libandroid-powermanager.la
 
-LOCAL_SRC_FILES:= \
-    IPowerManager.cpp
+%canon_reldir%_libandroid_powermanager_la_SOURCES = \
+    %reldir%/IPowerManager.cpp
 
-LOCAL_SHARED_LIBRARIES := \
-    libutils \
-    libbinder
+%canon_reldir%_libandroid_powermanager_la_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(HARDWARE_CFLAGS)
 
-LOCAL_MODULE:= libpowermanager
+%canon_reldir%_libandroid_powermanager_la_LIBADD = \
+    $(UTILS_LIBS) \
+    libs/binder/libandroid-binder.la
 
-LOCAL_MODULE_TAGS := optional
+%canon_reldir%_libandroid_powermanager_la_LDFLAGS = \
+    $(AM_LDFLAGS) \
+    $(libtool_opts)
 
-LOCAL_CFLAGS += -Wall -Werror -Wunused -Wunreachable-code
-
-LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/../../include
-
-include $(BUILD_SHARED_LIBRARY)
+pkgconfig_DATA += \
+    %reldir%/android-powermanager-0.0.pc

@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/powermanager/*
+usr/lib/*/libandroid-powermanager.a
+usr/lib/*/libandroid-powermanager.so
+usr/lib/*/pkgconfig/android-powermanager-0.0.pc

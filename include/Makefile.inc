@@ -75,6 +75,11 @@
     %reldir%/input/VelocityTracker.h \
     %reldir%/input/VirtualKeyMap.h
 
+%canon_reldir%_powermanagerincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/powermanager
+%canon_reldir%_powermanagerinc_HEADERS = \
+    %reldir%/powermanager/IPowerManager.h \
+    %reldir%/powermanager/PowerManager.h
+
 %canon_reldir%_uiincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/ui
 %canon_reldir%_uiinc_HEADERS = \
     %reldir%/ui/ANativeObjectBase.h \
