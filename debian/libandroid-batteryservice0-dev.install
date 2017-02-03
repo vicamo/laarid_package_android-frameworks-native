@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/batteryservice/*
+usr/lib/*/libandroid-batteryservice.a
+usr/lib/*/libandroid-batteryservice.so
+usr/lib/*/pkgconfig/android-batteryservice-0.0.pc

@@ -19,6 +19,12 @@
     %reldir%/android/trace.h \
     %reldir%/android/window.h
 
+%canon_reldir%_batteryserviceincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/batteryservice
+%canon_reldir%_batteryserviceinc_HEADERS = \
+    %reldir%/batteryservice/BatteryService.h \
+    %reldir%/batteryservice/IBatteryPropertiesListener.h \
+    %reldir%/batteryservice/IBatteryPropertiesRegistrar.h
+
 %canon_reldir%_binderincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/binder
 %canon_reldir%_binderinc_HEADERS = \
     %reldir%/binder/AppOpsManager.h \

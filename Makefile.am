@@ -61,6 +61,8 @@ include $(srcdir)/libs/diskusage/Android.mk
 include $(srcdir)/libs/input/Android.mk
 include $(srcdir)/libs/ui/Android.mk
 
+include $(srcdir)/services/batteryservice/Android.mk
+
 # PKG-CONFIG data files
 # ---------------------
 pkgconfigdir = $(libdir)/pkgconfig

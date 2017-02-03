@@ -195,5 +195,6 @@ AC_CONFIG_FILES([
   libs/diskusage/android-diskusage-$LAARID_API_VERSION.pc
   libs/input/android-input-$LAARID_API_VERSION.pc
   libs/ui/android-ui-$LAARID_API_VERSION.pc
+  services/batteryservice/android-batteryservice-$LAARID_API_VERSION.pc
 ])
 AC_OUTPUT

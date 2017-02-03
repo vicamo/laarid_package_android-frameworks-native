@@ -1,20 +1,24 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+    %reldir%/libandroid-batteryservice.la
 
-LOCAL_SRC_FILES:= \
-    BatteryProperties.cpp \
-    BatteryProperty.cpp \
-    IBatteryPropertiesListener.cpp \
-    IBatteryPropertiesRegistrar.cpp
+%canon_reldir%_libandroid_batteryservice_la_SOURCES = \
+    %reldir%/BatteryProperties.cpp \
+    %reldir%/BatteryProperty.cpp \
+    %reldir%/IBatteryPropertiesListener.cpp \
+    %reldir%/IBatteryPropertiesRegistrar.cpp
 
-LOCAL_STATIC_LIBRARIES := \
-    libutils \
-    libbinder
+%canon_reldir%_libandroid_batteryservice_la_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(UTILS_CFLAGS)
 
-LOCAL_MODULE:= libbatteryservice
+%canon_reldir%_libandroid_batteryservice_la_LIBADD = \
+    $(UTILS_LIBS) \
+    libs/binder/libandroid-binder.la
 
-LOCAL_MODULE_TAGS := optional
+%canon_reldir%_libandroid_batteryservice_la_LDFLAGS = \
+    $(AM_LDFLAGS) \
+    $(libtool_opts)
 
-LOCAL_CFLAGS += -Wall -Werror -Wunused -Wunreachable-code
-
-include $(BUILD_STATIC_LIBRARY)
+pkgconfig_DATA += \
+    %reldir%/android-batteryservice-0.0.pc
