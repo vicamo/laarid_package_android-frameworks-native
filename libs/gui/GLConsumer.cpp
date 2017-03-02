@@ -125,6 +125,7 @@ static bool hasEglAndroidImageCrop() {
     return hasIt;
 }
 
+#if defined(EGL_ANDROID_image_crop)
 static bool hasEglProtectedContentImpl() {
     EGLDisplay dpy = eglGetDisplay(EGL_DEFAULT_DISPLAY);
     const char* exts = eglQueryString(dpy, EGL_EXTENSIONS);
@@ -144,6 +145,7 @@ static bool hasEglProtectedContent() {
     static bool hasIt = hasEglProtectedContentImpl();
     return hasIt;
 }
+#endif /* EGL_ANDROID_image_crop */
 
 static bool isEglImageCroppable(const Rect& crop) {
     return hasEglAndroidImageCrop() && (crop.left == 0 && crop.top == 0);
@@ -1213,17 +1215,21 @@ EGLImageKHR GLConsumer::EglImage::createImage(EGLDisplay dpy,
         const sp<GraphicBuffer>& graphicBuffer, const Rect& crop) {
     EGLClientBuffer cbuf =
             static_cast<EGLClientBuffer>(graphicBuffer->getNativeBuffer());
+#if defined(EGL_ANDROID_image_crop)
     const bool createProtectedImage =
             (graphicBuffer->getUsage() & GRALLOC_USAGE_PROTECTED) &&
             hasEglProtectedContent();
+#endif
     EGLint attrs[] = {
         EGL_IMAGE_PRESERVED_KHR,        EGL_TRUE,
+#if defined(EGL_ANDROID_image_crop)
         EGL_IMAGE_CROP_LEFT_ANDROID,    crop.left,
         EGL_IMAGE_CROP_TOP_ANDROID,     crop.top,
         EGL_IMAGE_CROP_RIGHT_ANDROID,   crop.right,
         EGL_IMAGE_CROP_BOTTOM_ANDROID,  crop.bottom,
         createProtectedImage ? EGL_PROTECTED_CONTENT_EXT : EGL_NONE,
         createProtectedImage ? EGL_TRUE : EGL_NONE,
+#endif
         EGL_NONE,
     };
     if (!crop.isValid()) {
