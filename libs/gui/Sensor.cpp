@@ -27,7 +27,7 @@
 #include <inttypes.h>
 #include <stdint.h>
 #include <sys/types.h>
-#include <sys/limits.h>
+#include <limits.h>
 
 // ----------------------------------------------------------------------------
 namespace android {
