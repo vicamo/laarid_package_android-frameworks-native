@@ -12,89 +12,81 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := $(call my-dir)
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+	%reldir%/libandroid-gui.la
 
-LOCAL_CLANG := true
-LOCAL_CPPFLAGS := -std=c++1y -Weverything -Werror
+%canon_reldir%_libandroid_gui_la_CXXFLAGS = \
+	$(AM_CXXFLAGS) \
+	-Wno-multichar
 
-# The static constructors and destructors in this library have not been noted to
-# introduce significant overheads
-LOCAL_CPPFLAGS += -Wno-exit-time-destructors
-LOCAL_CPPFLAGS += -Wno-global-constructors
+%canon_reldir%_libandroid_gui_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(EGL_CFLAGS) \
+	$(HARDWARE_CFLAGS) \
+	$(NATIVEHELPER_CFLAGS) \
+	$(UIDMAP_CFLAGS) \
+	$(UTILS_CFLAGS) \
+	-DANDROID_EGL_PLATFORM
+#	-DDEBUG_ONLY_CODE=1
 
-# We only care about compiling as C++14
-LOCAL_CPPFLAGS += -Wno-c++98-compat-pedantic
+%canon_reldir%_libandroid_gui_la_SOURCES = \
+	include/private/gui/ComposerService.h \
+	include/private/gui/LayerState.h \
+	include/private/gui/SyncFeatures.h \
+	%reldir%/IGraphicBufferConsumer.cpp \
+	%reldir%/IConsumerListener.cpp \
+	%reldir%/BitTube.cpp \
+	%reldir%/BufferItem.cpp \
+	%reldir%/BufferItemConsumer.cpp \
+	%reldir%/BufferQueue.cpp \
+	%reldir%/BufferQueueConsumer.cpp \
+	%reldir%/BufferQueueCore.cpp \
+	%reldir%/BufferQueueProducer.cpp \
+	%reldir%/BufferSlot.cpp \
+	%reldir%/ConsumerBase.cpp \
+	%reldir%/CpuConsumer.cpp \
+	%reldir%/DisplayEventReceiver.cpp \
+	%reldir%/GLConsumer.cpp \
+	%reldir%/GraphicBufferAlloc.cpp \
+	%reldir%/GuiConfig.cpp \
+	%reldir%/IDisplayEventConnection.cpp \
+	%reldir%/IGraphicBufferAlloc.cpp \
+	%reldir%/IGraphicBufferProducer.cpp \
+	%reldir%/IProducerListener.cpp \
+	%reldir%/ISensorEventConnection.cpp \
+	%reldir%/ISensorServer.cpp \
+	%reldir%/ISurfaceComposer.cpp \
+	%reldir%/ISurfaceComposerClient.cpp \
+	%reldir%/LayerState.cpp \
+	%reldir%/Sensor.cpp \
+	%reldir%/SensorEventQueue.cpp \
+	%reldir%/SensorManager.cpp \
+	%reldir%/StreamSplitter.cpp \
+	%reldir%/Surface.cpp \
+	%reldir%/SurfaceControl.cpp \
+	%reldir%/SurfaceComposerClient.cpp \
+	%reldir%/SyncFeatures.cpp
 
-# We don't need to enumerate every case in a switch as long as a default case
-# is present
-LOCAL_CPPFLAGS += -Wno-switch-enum
+%canon_reldir%_libandroid_gui_la_LDFLAGS = \
+	$(AM_LDFLAGS) \
+	$(libtool_opts)
 
-# Allow calling variadic macros without a __VA_ARGS__ list
-LOCAL_CPPFLAGS += -Wno-gnu-zero-variadic-macro-arguments
+%canon_reldir%_libandroid_gui_la_LIBADD = \
+	$(EGL_LIBS) \
+	$(GLESV2_LIBS) \
+	$(LOG_LIBS) \
+	$(CUTILS_LIBS) \
+	$(UIDMAP_LIBS) \
+	$(UTILS_LIBS) \
+	libs/binder/libandroid-binder.la \
+	libs/ui/libandroid-ui.la \
+	opengl/libs/EGL/libandroid-EGL.la \
+	opengl/libs/GLES2/libandroid-GLESv2.la
 
-# Don't warn about struct padding
-LOCAL_CPPFLAGS += -Wno-padded
-
-LOCAL_CPPFLAGS += -DDEBUG_ONLY_CODE=$(if $(filter userdebug eng,$(TARGET_BUILD_VARIANT)),1,0)
-
-LOCAL_SRC_FILES := \
-	IGraphicBufferConsumer.cpp \
-	IConsumerListener.cpp \
-	BitTube.cpp \
-	BufferItem.cpp \
-	BufferItemConsumer.cpp \
-	BufferQueue.cpp \
-	BufferQueueConsumer.cpp \
-	BufferQueueCore.cpp \
-	BufferQueueProducer.cpp \
-	BufferSlot.cpp \
-	ConsumerBase.cpp \
-	CpuConsumer.cpp \
-	DisplayEventReceiver.cpp \
-	GLConsumer.cpp \
-	GraphicBufferAlloc.cpp \
-	GuiConfig.cpp \
-	IDisplayEventConnection.cpp \
-	IGraphicBufferAlloc.cpp \
-	IGraphicBufferProducer.cpp \
-	IProducerListener.cpp \
-	ISensorEventConnection.cpp \
-	ISensorServer.cpp \
-	ISurfaceComposer.cpp \
-	ISurfaceComposerClient.cpp \
-	LayerState.cpp \
-	Sensor.cpp \
-	SensorEventQueue.cpp \
-	SensorManager.cpp \
-	StreamSplitter.cpp \
-	Surface.cpp \
-	SurfaceControl.cpp \
-	SurfaceComposerClient.cpp \
-	SyncFeatures.cpp \
-
-LOCAL_SHARED_LIBRARIES := \
-	libbinder \
-	libcutils \
-	libEGL \
-	libGLESv2 \
-	libsync \
-	libui \
-	libutils \
-	liblog
-
-
-LOCAL_MODULE := libgui
-
-ifeq ($(TARGET_BOARD_PLATFORM), tegra)
-	LOCAL_CFLAGS += -DDONT_USE_FENCE_SYNC
-endif
-ifeq ($(TARGET_BOARD_PLATFORM), tegra3)
-	LOCAL_CFLAGS += -DDONT_USE_FENCE_SYNC
+if !ENABLE_FENCE_SYNC
+%canon_reldir%_libandroid_gui_la_CPPFLAGS += \
+	-DDONT_USE_FENCE_SYNC
 endif
 
-include $(BUILD_SHARED_LIBRARY)
-
-ifeq (,$(ONE_SHOT_MAKEFILE))
-include $(call first-makefiles-under,$(LOCAL_PATH))
-endif
+pkgconfig_DATA += \
+	%reldir%/android-gui-0.0.pc

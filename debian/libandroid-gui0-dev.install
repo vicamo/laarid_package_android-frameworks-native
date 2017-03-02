@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/gui/*
+usr/lib/*/libandroid-gui.a
+usr/lib/*/libandroid-gui.so
+usr/lib/*/pkgconfig/android-gui-0.0.pc

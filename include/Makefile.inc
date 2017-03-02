@@ -63,6 +63,41 @@ frameworks_native_incdir = $(includedir)/android/frameworks-native-$(LAARID_API_
 %canon_reldir%_diskusageinc_HEADERS = \
     %reldir%/diskusage/dirsize.h
 
+%canon_reldir%_guiincdir = $(frameworks_native_incdir)/gui
+%canon_reldir%_guiinc_HEADERS = \
+    %reldir%/gui/BitTube.h \
+    %reldir%/gui/BufferItemConsumer.h \
+    %reldir%/gui/BufferItem.h \
+    %reldir%/gui/BufferQueueConsumer.h \
+    %reldir%/gui/BufferQueueCore.h \
+    %reldir%/gui/BufferQueueDefs.h \
+    %reldir%/gui/BufferQueue.h \
+    %reldir%/gui/BufferQueueProducer.h \
+    %reldir%/gui/BufferSlot.h \
+    %reldir%/gui/ConsumerBase.h \
+    %reldir%/gui/CpuConsumer.h \
+    %reldir%/gui/DisplayEventReceiver.h \
+    %reldir%/gui/GLConsumer.h \
+    %reldir%/gui/GraphicBufferAlloc.h \
+    %reldir%/gui/GuiConfig.h \
+    %reldir%/gui/IConsumerListener.h \
+    %reldir%/gui/IDisplayEventConnection.h \
+    %reldir%/gui/IGraphicBufferAlloc.h \
+    %reldir%/gui/IGraphicBufferConsumer.h \
+    %reldir%/gui/IGraphicBufferProducer.h \
+    %reldir%/gui/IProducerListener.h \
+    %reldir%/gui/ISensorEventConnection.h \
+    %reldir%/gui/ISensorServer.h \
+    %reldir%/gui/ISurfaceComposerClient.h \
+    %reldir%/gui/ISurfaceComposer.h \
+    %reldir%/gui/SensorEventQueue.h \
+    %reldir%/gui/Sensor.h \
+    %reldir%/gui/SensorManager.h \
+    %reldir%/gui/StreamSplitter.h \
+    %reldir%/gui/SurfaceComposerClient.h \
+    %reldir%/gui/SurfaceControl.h \
+    %reldir%/gui/Surface.h
+
 %canon_reldir%_inputincdir = $(frameworks_native_incdir)/input
 %canon_reldir%_inputinc_HEADERS = \
     %reldir%/input/IInputFlinger.h \

@@ -151,6 +151,10 @@ AS_IF([test "x${with_64bit_binder}" = "x" ],
   [AS_CASE([${host_cpu}], [*64*], [with_64bit_binder=yes], [with_64bit_binder=no])])
 AM_CONDITIONAL([WITH_64BIT_BINDER], [test "x${with_64bit_binder}" = "xyes"])
 
+AC_ARG_ENABLE([fence-sync],
+  [AS_HELP_STRING([--enable-fence-sync], [Use fence sync])], [], [])
+AM_CONDITIONAL([ENABLE_FENCE_SYNC], [test "x${enable_fence_sync}" != "xno"])
+
 # GTest
 # -----
 AC_LANG_PUSH([C++])
@@ -189,6 +193,7 @@ AC_CONFIG_FILES([
   Makefile
   libs/binder/android-binder-$LAARID_API_VERSION.pc
   libs/diskusage/android-diskusage-$LAARID_API_VERSION.pc
+  libs/gui/android-gui-$LAARID_API_VERSION.pc
   libs/input/android-input-$LAARID_API_VERSION.pc
   libs/ui/android-ui-$LAARID_API_VERSION.pc
   opengl/libs/EGL/android-egl-$LAARID_API_VERSION.pc
