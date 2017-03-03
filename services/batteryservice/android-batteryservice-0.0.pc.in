@@ -6,7 +6,7 @@ includedir=@includedir@
 Name: android-batteryservice-@LAARID_API_VERSION@
 Description: Android Binder library
 Version: @VERSION@
-Requires.private: android-utils-@SYSTEMCORE2_API_VERSION@ >= @SYSTEMCORE2_REQUIRED_VERSION@, android-binder-@LAARID_API_VERSION@
+Requires.private: android-utils-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@, android-binder-@LAARID_API_VERSION@
 Libs: -L${libdir} -landroid-batteryservice
 Cflags: -I${includedir}/android/frameworks-native-@LAARID_API_VERSION@
 
