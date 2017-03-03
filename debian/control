@@ -1,21 +1,22 @@
 Source: android-frameworks-native
 Priority: extra
 Maintainer: You-Sheng Yang <vicamo@gmail.com>
-Build-Depends: debhelper (>= 9),
-               dh-autoreconf,
-               autoconf-archive,
-               pkg-config,
-               libandroid-backtrace0-dev (>= 0.0.14),
-               libandroid-base0-dev (>= 0.0.14),
-               libandroid-bionic0-dev (>= 0.1.4),
-               libandroid-cutils0-dev (>= 0.0.14),
-               libandroid-hardware0-dev (>= 0.0.1+b1),
-               libandroid-log0-dev (>= 0.0.14),
-               libandroid-nativehelper0-dev (>= 0.0.4),
-               libandroid-sync0-dev (>= 0.0.14),
-               libandroid-utils0-dev (>= 0.0.14),
-               libgtest-dev,
-               zlib1g-dev,
+Build-Depends:
+ debhelper (>= 9),
+ dh-autoreconf,
+ autoconf-archive,
+ pkg-config,
+ libandroid-backtrace0-dev (>= 0.0.14),
+ libandroid-base0-dev (>= 0.0.14),
+ libandroid-bionic0-dev (>= 0.1.4),
+ libandroid-cutils0-dev (>= 0.0.14),
+ libandroid-hardware0-dev (>= 0.0.1+b1),
+ libandroid-log0-dev (>= 0.0.14),
+ libandroid-nativehelper0-dev (>= 0.0.4),
+ libandroid-sync0-dev (>= 0.0.14),
+ libandroid-utils0-dev (>= 0.0.14),
+ libgtest-dev,
+ zlib1g-dev,
 Standards-Version: 3.9.5
 Section: libs
 Homepage: https://github.com/laarid/package_android-frameworks-native
@@ -27,8 +28,9 @@ Priority: extra
 Section: misc
 Architecture: any
 Multi-Arch: no
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
 Description: Android native frameworks - utilities
  This package contains libsparse built from Android platform/frameworks/native.
  .
@@ -40,11 +42,12 @@ Priority: extra
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libandroid-batteryservice0 (= ${binary:Version}),
-         libandroid-binder0-dev (= ${binary:Version}),
-         libandroid-nativehelper0-dev (>= 0.0.4),
-         libandroid-utils0-dev (>= 0.0.14),
-         ${misc:Depends}
+Depends:
+ libandroid-batteryservice0 (= ${binary:Version}),
+ libandroid-binder0-dev (= ${binary:Version}),
+ libandroid-nativehelper0-dev (>= 0.0.4),
+ libandroid-utils0-dev (>= 0.0.14),
+ ${misc:Depends},
 Description: Android libbatteryservice - development
  This package contains libbatteryservice built from Android
  platform/frameworks/native.
@@ -57,8 +60,9 @@ Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
 Description: Android libbatteryservice
  This package contains libbatteryservice built from Android
  platform/frameworks/native.
@@ -68,13 +72,14 @@ Priority: extra
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libandroid-binder0 (= ${binary:Version}),
-         libandroid-bionic0-dev (>= 0.1.4),
-         libandroid-cutils0-dev (>= 0.0.14),
-         libandroid-log0-dev (>= 0.0.14),
-         libandroid-nativehelper0-dev (>= 0.0.4),
-         libandroid-utils0-dev (>= 0.0.14),
-         ${misc:Depends}
+Depends:
+ libandroid-binder0 (= ${binary:Version}),
+ libandroid-bionic0-dev (>= 0.1.4),
+ libandroid-cutils0-dev (>= 0.0.14),
+ libandroid-log0-dev (>= 0.0.14),
+ libandroid-nativehelper0-dev (>= 0.0.4),
+ libandroid-utils0-dev (>= 0.0.14),
+ ${misc:Depends},
 Description: Android libbinder - development
  This package contains libbinder built from Android platform/frameworks/native.
  .
@@ -86,8 +91,9 @@ Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
 Description: Android libbinder
  This package contains libbinder built from Android platform/frameworks/native.
 
@@ -123,12 +129,13 @@ Priority: extra
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libandroid-input0 (= ${binary:Version}),
-         libandroid-binder0-dev (= ${binary:Version}),
-         libandroid-cutils0-dev (>= 0.0.14),
-         libandroid-log0-dev (>= 0.0.14),
-         libandroid-utils0-dev (>= 0.0.14),
-         ${misc:Depends}
+Depends:
+ libandroid-input0 (= ${binary:Version}),
+ libandroid-binder0-dev (= ${binary:Version}),
+ libandroid-cutils0-dev (>= 0.0.14),
+ libandroid-log0-dev (>= 0.0.14),
+ libandroid-utils0-dev (>= 0.0.14),
+ ${misc:Depends},
 Description: Android libinput - development
  This package contains libinput built from Android platform/frameworks/native.
  .
@@ -140,8 +147,9 @@ Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
 Description: Android libinput
  This package contains libinput built from Android platform/frameworks/native.
 
@@ -150,11 +158,12 @@ Priority: extra
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libandroid-powermanager0 (= ${binary:Version}),
-         libandroid-binder0-dev (= ${binary:Version}),
-         libandroid-nativehelper0-dev (>= 0.0.4),
-         libandroid-utils0-dev (>= 0.0.14),
-         ${misc:Depends}
+Depends:
+ libandroid-powermanager0 (= ${binary:Version}),
+ libandroid-binder0-dev (= ${binary:Version}),
+ libandroid-nativehelper0-dev (>= 0.0.4),
+ libandroid-utils0-dev (>= 0.0.14),
+ ${misc:Depends},
 Description: Android libpowermanager - development
  This package contains libpowermanager built from Android
  platform/frameworks/native.
@@ -167,8 +176,9 @@ Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
 Description: Android libpowermanager
  This package contains libpowermanager built from Android
  platform/frameworks/native.
@@ -178,14 +188,15 @@ Priority: extra
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Depends: libandroid-ui0 (= ${binary:Version}),
-         libandroid-binder0-dev (= ${binary:Version}),
-         libandroid-cutils0-dev (>= 0.0.14),
-         libandroid-hardware0-dev (>= 0.0.1+b1),
-         libandroid-log0-dev (>= 0.0.14),
-         libandroid-sync0-dev (>= 0.0.14),
-         libandroid-utils0-dev (>= 0.0.14),
-         ${misc:Depends}
+Depends:
+ libandroid-ui0 (= ${binary:Version}),
+ libandroid-binder0-dev (= ${binary:Version}),
+ libandroid-cutils0-dev (>= 0.0.14),
+ libandroid-hardware0-dev (>= 0.0.1+b1),
+ libandroid-log0-dev (>= 0.0.14),
+ libandroid-sync0-dev (>= 0.0.14),
+ libandroid-utils0-dev (>= 0.0.14),
+ ${misc:Depends},
 Description: Android libui - development
  This package contains libui built from Android platform/frameworks/native.
  .
@@ -197,7 +208,8 @@ Section: libs
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
 Description: Android libui
  This package contains libui built from Android platform/frameworks/native.
