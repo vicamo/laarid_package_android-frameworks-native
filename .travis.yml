@@ -6,26 +6,26 @@ language: cpp
 
 env:
   matrix:
-  - BUILD_FLAVOR=amd64_deb
-  - BUILD_FLAVOR=amd64_distcheck
-  - BUILD_FLAVOR=arm64_deb
-  - BUILD_FLAVOR=arm64_distcheck
-  - BUILD_FLAVOR=armel_deb
-  - BUILD_FLAVOR=armel_distcheck
-  - BUILD_FLAVOR=armhf_deb
-  - BUILD_FLAVOR=armhf_distcheck
-  - BUILD_FLAVOR=i386_deb
-  - BUILD_FLAVOR=i386_distcheck
-  - BUILD_FLAVOR=mips_deb
-  - BUILD_FLAVOR=mips_distcheck
-  - BUILD_FLAVOR=mips64el_deb
-  - BUILD_FLAVOR=mips64el_distcheck
-  - BUILD_FLAVOR=mipsel_deb
-  - BUILD_FLAVOR=mipsel_distcheck
-  - BUILD_FLAVOR=ppc64el_deb
-  - BUILD_FLAVOR=ppc64el_distcheck
-  - BUILD_FLAVOR=s390x_deb
-  - BUILD_FLAVOR=s390x_distcheck
+  - JOB_ARCH=amd64 JOB_TASK=deb
+  - JOB_ARCH=amd64 JOB_TASK=distcheck
+  - JOB_ARCH=arm64 JOB_TASK=deb
+  - JOB_ARCH=arm64 JOB_TASK=distcheck
+  - JOB_ARCH=armel JOB_TASK=deb
+  - JOB_ARCH=armel JOB_TASK=distcheck
+  - JOB_ARCH=armhf JOB_TASK=deb
+  - JOB_ARCH=armhf JOB_TASK=distcheck
+  - JOB_ARCH=i386 JOB_TASK=deb
+  - JOB_ARCH=i386 JOB_TASK=distcheck
+  - JOB_ARCH=mips JOB_TASK=deb
+  - JOB_ARCH=mips JOB_TASK=distcheck
+  - JOB_ARCH=mips64el JOB_TASK=deb
+  - JOB_ARCH=mips64el JOB_TASK=distcheck
+  - JOB_ARCH=mipsel JOB_TASK=deb
+  - JOB_ARCH=mipsel JOB_TASK=distcheck
+  - JOB_ARCH=ppc64el JOB_TASK=deb
+  - JOB_ARCH=ppc64el JOB_TASK=distcheck
+  - JOB_ARCH=s390x JOB_TASK=deb
+  - JOB_ARCH=s390x JOB_TASK=distcheck
   global:
   - DOCKER_EXEC_ROOT="sudo docker exec --interactive --tty --user root test_container"
   - DOCKER_EXEC="sudo docker exec --interactive --tty test_container"
@@ -38,8 +38,8 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-  - env: BUILD_FLAVOR=s390x_deb
-  - env: BUILD_FLAVOR=s390x_distcheck
+  - env: JOB_ARCH=s390x JOB_TASK=deb
+  - env: JOB_ARCH=s390x JOB_TASK=distcheck
 
 branches:
   only:
@@ -58,14 +58,14 @@ cache:
 - apt
 
 before_install:
-- sudo docker pull laarid/devel:${BUILD_FLAVOR%_*}
+- sudo docker pull laarid/devel:${JOB_ARCH}
 - sudo docker images
 - |
   sudo docker run --detach --interactive --tty \
     --name test_container \
     --volume ${TRAVIS_BUILD_DIR%${TRAVIS_REPO_SLUG}}:${TRAVIS_BUILD_DIR%${TRAVIS_REPO_SLUG}} \
     --add-host dl.bintray.com:$(nslookup dl.bintray.com | grep -m1 -A1 Name: | grep Address: | awk '{print $2}') \
-    laarid/devel:${BUILD_FLAVOR%_*} \
+    laarid/devel:${JOB_ARCH} \
     /bin/bash
 
 install:
@@ -73,7 +73,7 @@ install:
 - ${DOCKER_EXEC_ROOT} mk-build-deps -i -s sudo -t 'apt-get -o Debug::pkgProblemResolver=yes --no-install-recommends -y --allow-unauthenticated' ${TRAVIS_BUILD_DIR}/debian/control
 
 script:
-- case "${BUILD_FLAVOR#*_}" in
+- case "${JOB_TASK}" in
     deb)
       ${DOCKER_EXEC} /bin/sh -c "cd ${TRAVIS_BUILD_DIR}; debuild --preserve-env --preserve-envvar PATH --set-envvar=DEB_BUILD_OPTIONS=nocheck -i -us -uc -b";
       ;;
@@ -108,7 +108,7 @@ deploy:
     secure: "MKK23X9KlmPUkKsAuI0qdvpjMvp5TCM0w4/WQXjVOyfWGxTpEQ9qkh2w5iiayuNp2Edw9zKr8yzK0qyFpwQicZu13IOQymZA116WldIkhCrwSzBWowOX/nqGY+Did9qVjcONrC73N9/rB9NvOvU6b9Uc+Cp/Y7FYaCiVFXyA0fhPAn1SlXLI4ZDR4sQ1b7/7P+0ladxoIW2/TU3QdNlnkwwb51F9uAzqHdNfNTrwaxBsLexKTUosWdxoTz3/OzRHk1PFnLkZgQ14yHsaq5LtyxPUGahYcw7HJRboH78BSvLwx7Bvi2vrAk3Cpj4KKGk2rH7xIUU4NdKro8rMoFF5kreS0qUyeMdVQs1bWFUAe8qrykzj2CKahbKx3UCzaibEDtKQLxf+f22rsEwtbHdyv5XuHT1k27+B4VCgvKLWLbJ5MNOMjz425qou7P9ujhuKzx3Dc4zNOSoaN/0+hafm7MkopYyhX5DOa4T6xbNcjytEb75gCL1m5N95l7dtv9/Lx7DLKSqlAnTFB2/+uT9xgaYpJgyLjh0bjJDTQ/ohoAtESGJV9jNq7ZYHwizukaGbNZWdrRHE3mChKWTA0pA56ZfpbePUcTIgJFr7cJo2H/9N76GGO2tyq1LD3ilEDknHXZsB3/G8TUTTQY+LrFqO3cca2A7iFH4jvz3VgquMWWc="
   on:
     tags: true
-    condition: ${BUILD_FLAVOR#*_} = deb
+    condition: ${JOB_TASK} = deb
 
 notifications:
   slack:
