@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: android-binder-@LAARID_API_VERSION@
 Description: Android Binder library
 Version: @VERSION@
-Requires.private: android-bionic-@BIONIC_API_VERSION@ >= @BIONIC_REQUIRED_VERSION@, android-log-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@, android-cutils-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@, android-nativehelper-@NATIVEHELPER_API_VERSION@ >= @NATIVEHELPER_REQUIRED_VERSION@, android-utils-@SYSTEMCORE2_API_VERSION@ >= @SYSTEMCORE2_REQUIRED_VERSION@
+Requires.private: android-bionic-@BIONIC_API_VERSION@ >= @BIONIC_REQUIRED_VERSION@, android-log-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@, android-cutils-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@, android-nativehelper-@NATIVEHELPER_API_VERSION@ >= @NATIVEHELPER_REQUIRED_VERSION@, android-utils-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@
 Libs: -L${libdir} -landroid-binder
 Cflags: -I${includedir}/android/frameworks-native-@LAARID_API_VERSION@
