@@ -89,6 +89,7 @@ script:
       ${DOCKER_EXEC} /bin/sh -c "(mkdir debian/build && cd debian/build && autoreconf -i --warnings=all ../.. && ../../configure --build=\$(dpkg-architecture -qDEB_BUILD_GNU_TYPE) --host=\$(dpkg-architecture -qDEB_HOST_GNU_TYPE) --disable-dependency-tracking && make -j \$(nproc) .gitignore distcheck)";
       ;;
   esac
+- git status
 - git status | grep 'working tree clean'
 
 before_deploy:
