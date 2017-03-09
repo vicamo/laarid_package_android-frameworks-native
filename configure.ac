@@ -186,7 +186,8 @@ AC_LANG_POP()
 AM_CONDITIONAL([HAVE_GTEST], [test "x${with_gtest}" != xno])
 
 dnl Whether should we run binder driver tests
-AC_CHECK_FILE([/dev/binder])
+AS_IF([test "x${cross_compiling}" != xyes],
+  [AC_CHECK_FILE([/dev/binder])])
 AM_CONDITIONAL([HAVE_DEV_BINDER], [test "x${c_cv_file_dev_binder}" = xyes])
 
 dnl Output Files
