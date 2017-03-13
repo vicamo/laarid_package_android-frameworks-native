@@ -34,7 +34,7 @@
 
 #include <binder/IPCThreadState.h>
 #include <binder/PermissionCache.h>
-#include <private/android_filesystem_config.h>
+#include <android/uidmap.h>
 
 namespace android {
 
@@ -721,7 +721,7 @@ void BufferQueueConsumer::dump(String8& result, const char* prefix) const {
     const IPCThreadState* ipc = IPCThreadState::self();
     const pid_t pid = ipc->getCallingPid();
     const uid_t uid = ipc->getCallingUid();
-    if ((uid != AID_SHELL)
+    if ((uid != AUID_SHELL)
             && !PermissionCache::checkPermission(String16(
             "android.permission.DUMP"), pid, uid)) {
         result.appendFormat("Permission Denial: can't dump BufferQueueConsumer "
