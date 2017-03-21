@@ -6,26 +6,16 @@ language: cpp
 
 env:
   matrix:
-  - JOB_ARCH=amd64 JOB_TASK=deb
-  - JOB_ARCH=amd64 JOB_TASK=distcheck
-  - JOB_ARCH=arm64 JOB_TASK=deb
-  - JOB_ARCH=arm64 JOB_TASK=distcheck
-  - JOB_ARCH=armel JOB_TASK=deb
-  - JOB_ARCH=armel JOB_TASK=distcheck
-  - JOB_ARCH=armhf JOB_TASK=deb
-  - JOB_ARCH=armhf JOB_TASK=distcheck
-  - JOB_ARCH=i386 JOB_TASK=deb
-  - JOB_ARCH=i386 JOB_TASK=distcheck
-  - JOB_ARCH=mips JOB_TASK=deb
-  - JOB_ARCH=mips JOB_TASK=distcheck
-  - JOB_ARCH=mips64el JOB_TASK=deb
-  - JOB_ARCH=mips64el JOB_TASK=distcheck
-  - JOB_ARCH=mipsel JOB_TASK=deb
-  - JOB_ARCH=mipsel JOB_TASK=distcheck
-  - JOB_ARCH=ppc64el JOB_TASK=deb
-  - JOB_ARCH=ppc64el JOB_TASK=distcheck
-  - JOB_ARCH=s390x JOB_TASK=deb
-  - JOB_ARCH=s390x JOB_TASK=distcheck
+  - JOB_ARCH=amd64
+  - JOB_ARCH=arm64
+  - JOB_ARCH=armel
+  - JOB_ARCH=armhf
+  - JOB_ARCH=i386
+  - JOB_ARCH=mips
+  - JOB_ARCH=mips64el
+  - JOB_ARCH=mipsel
+  - JOB_ARCH=ppc64el
+  - JOB_ARCH=s390x
   global:
   - DOCKER_EXEC_ROOT="sudo docker exec --interactive --tty --user root test_container"
   - DOCKER_EXEC="sudo docker exec --interactive --tty test_container"
@@ -38,8 +28,7 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
-  - env: JOB_ARCH=s390x JOB_TASK=deb
-  - env: JOB_ARCH=s390x JOB_TASK=distcheck
+  - env: JOB_ARCH=s390x
 
 branches:
   only:
@@ -78,18 +67,12 @@ install:
 
 script:
 - |
-  case "${JOB_TASK}" in
-    deb)
-      ${DOCKER_EXEC} env \
-          "DEB_BUILD_OPTIONS=nocheck" \
-        dpkg-buildpackage \
-          --host-arch ${JOB_ARCH} \
-          -i -us -uc -b;
-      ;;
-    distcheck)
-      ${DOCKER_EXEC} /bin/sh -c "(mkdir debian/build && cd debian/build && autoreconf -i --warnings=all ../.. && ../../configure --build=\$(dpkg-architecture -a ${JOB_ARCH} -qDEB_BUILD_GNU_TYPE) --host=\$(dpkg-architecture -a ${JOB_ARCH} -qDEB_HOST_GNU_TYPE) --disable-dependency-tracking && make -j \$(nproc) .gitignore distcheck)";
-      ;;
-  esac
+  ${DOCKER_EXEC} env \
+      "DEB_BUILD_OPTIONS=nocheck" \
+    dpkg-buildpackage \
+      --host-arch ${JOB_ARCH} \
+      -i -us -uc -b;
+- ${DOCKER_EXEC} make -C debian/build -j $(nproc) .gitignore distcheck
 - git status
 - git status | grep 'working tree clean'
 
@@ -118,7 +101,6 @@ deploy:
     secure: "MKK23X9KlmPUkKsAuI0qdvpjMvp5TCM0w4/WQXjVOyfWGxTpEQ9qkh2w5iiayuNp2Edw9zKr8yzK0qyFpwQicZu13IOQymZA116WldIkhCrwSzBWowOX/nqGY+Did9qVjcONrC73N9/rB9NvOvU6b9Uc+Cp/Y7FYaCiVFXyA0fhPAn1SlXLI4ZDR4sQ1b7/7P+0ladxoIW2/TU3QdNlnkwwb51F9uAzqHdNfNTrwaxBsLexKTUosWdxoTz3/OzRHk1PFnLkZgQ14yHsaq5LtyxPUGahYcw7HJRboH78BSvLwx7Bvi2vrAk3Cpj4KKGk2rH7xIUU4NdKro8rMoFF5kreS0qUyeMdVQs1bWFUAe8qrykzj2CKahbKx3UCzaibEDtKQLxf+f22rsEwtbHdyv5XuHT1k27+B4VCgvKLWLbJ5MNOMjz425qou7P9ujhuKzx3Dc4zNOSoaN/0+hafm7MkopYyhX5DOa4T6xbNcjytEb75gCL1m5N95l7dtv9/Lx7DLKSqlAnTFB2/+uT9xgaYpJgyLjh0bjJDTQ/ohoAtESGJV9jNq7ZYHwizukaGbNZWdrRHE3mChKWTA0pA56ZfpbePUcTIgJFr7cJo2H/9N76GGO2tyq1LD3ilEDknHXZsB3/G8TUTTQY+LrFqO3cca2A7iFH4jvz3VgquMWWc="
   on:
     tags: true
-    condition: ${JOB_TASK} = deb
 
 notifications:
   slack:
