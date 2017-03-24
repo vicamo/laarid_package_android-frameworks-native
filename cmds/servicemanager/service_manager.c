@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <private/android_filesystem_config.h>
+#include <android/uidmap.h>
 
 #if defined(__ANDROID__)
 #include <selinux/android.h>
@@ -23,6 +23,10 @@
 #else
 #define LOG_TAG "ServiceManager"
 #include <cutils/log.h>
+#endif
+
+#ifndef __unused
+#define __unused __attribute__((__unused__))
 #endif
 
 struct audit_data {
@@ -290,6 +294,7 @@ int svcmgr_handler(struct binder_state *bs,
     // Note that we ignore the strict_policy and don't propagate it
     // further (since we do no outbound RPCs anyway).
     strict_policy = bio_get_uint32(msg);
+    (void) strict_policy;
     s = bio_get_string16(msg, &len);
     if (s == NULL) {
         return -1;
