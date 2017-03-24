@@ -62,16 +62,16 @@ static int selinux_enabled;
 static char *service_manager_context;
 static struct selabel_handle* sehandle;
 
-static bool check_mac_perms(pid_t spid, uid_t uid, const char *tctx, const char *perm, const char *name)
+static int check_mac_perms(pid_t spid, uid_t uid, const char *tctx, const char *perm, const char *name)
 {
     char *sctx = NULL;
     const char *class = "service_manager";
-    bool allowed;
+    int allowed;
     struct audit_data ad;
 
     if (getpidcon(spid, &sctx) < 0) {
         ALOGE("SELinux: getpidcon(pid=%d) failed to retrieve pid context.\n", spid);
-        return false;
+        return 0;
     }
 
     ad.pid = spid;
@@ -79,28 +79,28 @@ static bool check_mac_perms(pid_t spid, uid_t uid, const char *tctx, const char 
     ad.name = name;
 
     int result = selinux_check_access(sctx, tctx, class, perm, (void *) &ad);
-    allowed = (result == 0);
+    allowed = (result == 0) ? 1 : 0;
 
     freecon(sctx);
     return allowed;
 }
 
-static bool check_mac_perms_from_getcon(pid_t spid, uid_t uid, const char *perm)
+static int check_mac_perms_from_getcon(pid_t spid, uid_t uid, const char *perm)
 {
     if (selinux_enabled <= 0) {
-        return true;
+        return 1;
     }
 
     return check_mac_perms(spid, uid, service_manager_context, perm, NULL);
 }
 
-static bool check_mac_perms_from_lookup(pid_t spid, uid_t uid, const char *perm, const char *name)
+static int check_mac_perms_from_lookup(pid_t spid, uid_t uid, const char *perm, const char *name)
 {
-    bool allowed;
+    int allowed;
     char *tctx = NULL;
 
     if (selinux_enabled <= 0) {
-        return true;
+        return 1;
     }
 
     if (!sehandle) {
@@ -110,7 +110,7 @@ static bool check_mac_perms_from_lookup(pid_t spid, uid_t uid, const char *perm,
 
     if (selabel_lookup(sehandle, &tctx, name, 0) != 0) {
         ALOGE("SELinux: No match for %s in service_contexts.\n", name);
-        return false;
+        return 0;
     }
 
     allowed = check_mac_perms(spid, uid, tctx, perm, name);
