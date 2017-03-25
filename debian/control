@@ -32,10 +32,7 @@ Depends:
  ${shlibs:Depends},
  ${misc:Depends},
 Description: Android native frameworks - utilities
- This package contains libsparse built from Android platform/frameworks/native.
- .
- This package contains the utilities which are used by the libraries
- and other packages.
+ This package contains utilities built from Android platform/frameworks/native.
 
 Package: libandroid-batteryservice0-dev
 Priority: extra
