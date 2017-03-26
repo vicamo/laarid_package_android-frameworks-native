@@ -19,6 +19,10 @@
 #define LOG_TAG "Binder"
 #include <cutils/log.h>
 
+#ifndef __unused
+#define __unused __attribute__((__unused__))
+#endif
+
 void bio_init_from_txn(struct binder_io *io, struct binder_transaction_data *txn);
 
 #if TRACE
