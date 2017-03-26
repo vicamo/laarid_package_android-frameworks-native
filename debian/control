@@ -11,6 +11,7 @@ Build-Depends:
  libandroid-bionic0-dev (>= 0.1.4),
  libandroid-cutils0-dev (>= 0.0.17),
  libandroid-hardware0-dev (>= 0.0.1+b1),
+ libandroid-hardware-legacy0-dev (>= 0.0.2),
  libandroid-log0-dev (>= 0.0.17),
  libandroid-nativehelper0-dev (>= 0.0.4),
  libandroid-sync0-dev (>= 0.0.17),
@@ -18,6 +19,7 @@ Build-Depends:
  libandroid-utils0-dev (>= 0.0.17),
  libgtest-dev,
  libselinux1-dev,
+ libssl-dev,
  zlib1g-dev,
 Standards-Version: 3.9.5
 Section: libs
@@ -165,6 +167,38 @@ Depends:
  ${misc:Depends},
 Description: Android libinput
  This package contains libinput built from Android platform/frameworks/native.
+
+Package: libandroid-inputflinger0-dev
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libandroid-inputflinger0 (= ${binary:Version}),
+ libandroid-binder0-dev (= ${binary:Version}),
+ libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-input0-dev (= ${binary:Version}),
+ libandroid-ui0-dev (= ${binary:Version}),
+ libandroid-utils0-dev (>= 0.0.17),
+ ${misc:Depends},
+Description: Android libinputflinger - development
+ This package contains libinputflinger built from Android
+ platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-inputflinger0
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Android libinputflinger
+ This package contains libinputflinger built from Android
+ platform/frameworks/native.
 
 Package: libandroid-powermanager0-dev
 Priority: extra

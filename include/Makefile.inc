@@ -1,4 +1,6 @@
-%canon_reldir%_androidincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/android
+frameworks_native_incdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)
+
+%canon_reldir%_androidincdir = $(frameworks_native_incdir)/android
 %canon_reldir%_androidinc_HEADERS = \
     %reldir%/android/asset_manager.h \
     %reldir%/android/asset_manager_jni.h \
@@ -19,13 +21,13 @@
     %reldir%/android/trace.h \
     %reldir%/android/window.h
 
-%canon_reldir%_batteryserviceincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/batteryservice
+%canon_reldir%_batteryserviceincdir = $(frameworks_native_incdir)/batteryservice
 %canon_reldir%_batteryserviceinc_HEADERS = \
     %reldir%/batteryservice/BatteryService.h \
     %reldir%/batteryservice/IBatteryPropertiesListener.h \
     %reldir%/batteryservice/IBatteryPropertiesRegistrar.h
 
-%canon_reldir%_binderincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/binder
+%canon_reldir%_binderincdir = $(frameworks_native_incdir)/binder
 %canon_reldir%_binderinc_HEADERS = \
     %reldir%/binder/AppOpsManager.h \
     %reldir%/binder/Binder.h \
@@ -57,11 +59,11 @@
     %reldir%/binder/Status.h \
     %reldir%/binder/TextOutput.h
 
-%canon_reldir%_diskusageincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/diskusage
+%canon_reldir%_diskusageincdir = $(frameworks_native_incdir)/diskusage
 %canon_reldir%_diskusageinc_HEADERS = \
     %reldir%/diskusage/dirsize.h
 
-%canon_reldir%_inputincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/input
+%canon_reldir%_inputincdir = $(frameworks_native_incdir)/input
 %canon_reldir%_inputinc_HEADERS = \
     %reldir%/input/IInputFlinger.h \
     %reldir%/input/InputDevice.h \
@@ -75,12 +77,12 @@
     %reldir%/input/VelocityTracker.h \
     %reldir%/input/VirtualKeyMap.h
 
-%canon_reldir%_powermanagerincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/powermanager
+%canon_reldir%_powermanagerincdir = $(frameworks_native_incdir)/powermanager
 %canon_reldir%_powermanagerinc_HEADERS = \
     %reldir%/powermanager/IPowerManager.h \
     %reldir%/powermanager/PowerManager.h
 
-%canon_reldir%_uiincdir = $(includedir)/android/frameworks-native-$(LAARID_API_VERSION)/ui
+%canon_reldir%_uiincdir = $(frameworks_native_incdir)/ui
 %canon_reldir%_uiinc_HEADERS = \
     %reldir%/ui/ANativeObjectBase.h \
     %reldir%/ui/DisplayInfo.h \

@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: android-inputflinger-@LAARID_API_VERSION@
+Description: Android inputflinger library
+Version: @VERSION@
+Requires.private: android-binder-@LAARID_API_VERSION@, android-cutils-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@, android-input-@LAARID_API_VERSION@, android-ui-@LAARID_API_VERSION@, android-utils-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@
+Libs: -L${libdir} -landroid-inputflinger
+Cflags: -I${includedir}/android/frameworks-native-@LAARID_API_VERSION@

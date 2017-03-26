@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/inputflinger/*
+usr/lib/*/libandroid-inputflinger.a
+usr/lib/*/libandroid-inputflinger.so
+usr/lib/*/pkgconfig/android-inputflinger-0.0.pc
