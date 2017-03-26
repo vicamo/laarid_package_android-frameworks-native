@@ -32,6 +32,7 @@
 #include <utils/String8.h>
 #include <utils/BitSet.h>
 
+#include <limits.h>
 #include <stddef.h>
 #include <unistd.h>
 
