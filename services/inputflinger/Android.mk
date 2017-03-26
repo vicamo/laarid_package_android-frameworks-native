@@ -48,7 +48,8 @@ lib_LTLIBRARIES += \
     $(LOG_CFLAGS) \
     $(HARDWARE_CFLAGS) \
     $(HARDWARE_LEGACY_CFLAGS) \
-    $(UTILS_CFLAGS)
+    $(UTILS_CFLAGS) \
+    -I$(srcdir)/services
 
 %canon_reldir%_libandroid_inputflinger_la_CXXFLAGS = \
     $(AM_CXXFLAGS)

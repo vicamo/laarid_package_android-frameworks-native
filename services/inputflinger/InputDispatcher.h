@@ -33,9 +33,9 @@
 #include <unistd.h>
 #include <limits.h>
 
-#include "InputWindow.h"
-#include "InputApplication.h"
-#include "InputListener.h"
+#include <inputflinger/InputWindow.h>
+#include <inputflinger/InputApplication.h>
+#include <inputflinger/InputListener.h>
 
 
 namespace android {

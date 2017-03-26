@@ -17,9 +17,9 @@
 #ifndef _UI_INPUT_READER_H
 #define _UI_INPUT_READER_H
 
-#include "EventHub.h"
-#include "PointerControllerInterface.h"
-#include "InputListener.h"
+#include <inputflinger/EventHub.h>
+#include <inputflinger/PointerControllerInterface.h>
+#include <inputflinger/InputListener.h>
 
 #include <input/Input.h>
 #include <input/VelocityControl.h>

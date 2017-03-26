@@ -25,7 +25,7 @@
 #include <utils/Timers.h>
 #include <utils/String8.h>
 
-#include "InputApplication.h"
+#include <inputflinger/InputApplication.h>
 
 namespace android {
 
