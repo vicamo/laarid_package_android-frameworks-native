@@ -57,23 +57,24 @@ check_LTLIBRARIES =
 
 include $(srcdir)/gtest.mk
 include $(srcdir)/include/Makefile.inc
-include $(srcdir)/libs/binder/Android.mk
-include $(srcdir)/libs/diskusage/Android.mk
-include $(srcdir)/libs/input/Android.mk
-include $(srcdir)/libs/ui/Android.mk
-
-include $(srcdir)/services/batteryservice/Android.mk
-include $(srcdir)/services/inputflinger/Android.mk
-include $(srcdir)/services/powermanager/Android.mk
-
-include $(srcdir)/cmds/atrace/Android.mk
+# ---------------------
 include $(srcdir)/cmds/bugreport/Android.mk
 include $(srcdir)/cmds/bugreportz/Android.mk
+include $(srcdir)/cmds/ip-up-vpn/Android.mk
+include $(srcdir)/cmds/servicemanager/Android.mk
+include $(srcdir)/libs/binder/Android.mk
+include $(srcdir)/libs/diskusage/Android.mk
+# ---------------------
+include $(srcdir)/cmds/atrace/Android.mk
 include $(srcdir)/cmds/cmd/Android.mk
 include $(srcdir)/cmds/dumpsys/Android.mk
-include $(srcdir)/cmds/ip-up-vpn/Android.mk
 include $(srcdir)/cmds/service/Android.mk
-include $(srcdir)/cmds/servicemanager/Android.mk
+include $(srcdir)/libs/input/Android.mk
+include $(srcdir)/libs/ui/Android.mk
+include $(srcdir)/services/batteryservice/Android.mk
+include $(srcdir)/services/powermanager/Android.mk
+# ---------------------
+include $(srcdir)/services/inputflinger/Android.mk
 
 # PKG-CONFIG data files
 # ---------------------
