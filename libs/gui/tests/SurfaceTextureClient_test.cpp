@@ -27,7 +27,11 @@
 #include <utils/Log.h>
 #include <utils/Thread.h>
 
+#if defined(__ANDROID__)
 EGLAPI const char* eglQueryStringImplementationANDROID(EGLDisplay dpy, EGLint name);
+#else
+#define eglQueryStringImplementationANDROID eglQueryString
+#endif
 #define CROP_EXT_STR "EGL_ANDROID_image_crop"
 
 namespace android {

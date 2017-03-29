@@ -25,7 +25,11 @@
 #include "GLExtensions.h"
 #include "Mesh.h"
 
+#if defined(__ANDROID__)
 EGLAPI const char* eglQueryStringImplementationANDROID(EGLDisplay dpy, EGLint name);
+#else
+#define eglQueryStringImplementationANDROID eglQueryString
+#endif
 
 // ---------------------------------------------------------------------------
 namespace android {
