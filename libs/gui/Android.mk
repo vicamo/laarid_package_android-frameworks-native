@@ -90,3 +90,5 @@ endif
 
 pkgconfig_DATA += \
 	%reldir%/android-gui-0.0.pc
+
+include %reldir%/tests/Android.mk

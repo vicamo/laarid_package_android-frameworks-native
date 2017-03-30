@@ -19,7 +19,11 @@
 
 // Ignore for this file because it flags every instance of
 // ASSERT_EQ(GL_NO_ERROR, glGetError());
+#if defined(__clang__)
 #pragma clang diagnostic ignored "-Wsign-compare"
+#elif defined(__GNUC__)
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
 
 #include "GLTest.h"
 
@@ -435,8 +439,10 @@ TEST_F(SRGBTest, DISABLED_RenderToSRGBSurface) {
     ASSERT_EQ(NO_ERROR, mCpuConsumer->unlockBuffer(mLockedBuffer));
 
     // Switch to SRGB window surface
+#if defined(__ANDROID__)
 #define EGL_GL_COLORSPACE_KHR      EGL_VG_COLORSPACE
 #define EGL_GL_COLORSPACE_SRGB_KHR EGL_VG_COLORSPACE_sRGB
+#endif
 
     static const int srgbAttribs[] = {
         EGL_GL_COLORSPACE_KHR, EGL_GL_COLORSPACE_SRGB_KHR,

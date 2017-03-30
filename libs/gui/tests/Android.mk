@@ -1,52 +1,72 @@
+if HAVE_GTEST
+
 # Build the unit tests,
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
-LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+check_PROGRAMS += \
+    %reldir%/libgui_test
 
-LOCAL_CLANG := true
+#TESTS += \
+#    %reldir%/libgui_test
 
-LOCAL_MODULE := libgui_test
+%canon_reldir%_libgui_test_CPPFLAGS = \
+    $(AM_CPPFLAGS) \
+    $(GTEST_CFLAGS) \
+    $(LOG_CFLAGS) \
+    $(CUTILS_CFLAGS) \
+    $(UTILS_CFLAGS) \
+    $(HARDWARE_CFLAGS) \
+    $(NATIVEHELPER_CFLAGS) \
+    $(EGL_CFLAGS) \
+    $(GLESV1_CM_CFLAGS) \
+    $(GLESV2_CFLAGS) \
+    -DANDROID_EGL_PLATFORM
 
-LOCAL_MODULE_TAGS := tests
+%canon_reldir%_libgui_test_CXXFLAGS = \
+    $(AM_CXXFLAGS) \
+    -Wno-unused-variable
 
-LOCAL_SRC_FILES := \
-    BufferQueue_test.cpp \
-    CpuConsumer_test.cpp \
-    FillBuffer.cpp \
-    GLTest.cpp \
-    IGraphicBufferProducer_test.cpp \
-    MultiTextureConsumer_test.cpp \
-    SRGB_test.cpp \
-    StreamSplitter_test.cpp \
-    SurfaceTextureClient_test.cpp \
-    SurfaceTextureFBO_test.cpp \
-    SurfaceTextureGLThreadToGL_test.cpp \
-    SurfaceTextureGLToGL_test.cpp \
-    SurfaceTextureGL_test.cpp \
-    SurfaceTextureMultiContextGL_test.cpp \
-    Surface_test.cpp \
-    TextureRenderer.cpp \
+%canon_reldir%_libgui_test_SOURCES = \
+    %reldir%/BufferQueue_test.cpp \
+    %reldir%/CpuConsumer_test.cpp \
+    %reldir%/DisconnectWaiter.h \
+    %reldir%/DummyConsumer.h \
+    %reldir%/FillBuffer.cpp \
+    %reldir%/FillBuffer.h \
+    %reldir%/FrameWaiter.h \
+    %reldir%/GLTest.cpp \
+    %reldir%/GLTest.h \
+    %reldir%/IGraphicBufferProducer_test.cpp \
+    %reldir%/MultiTextureConsumer_test.cpp \
+    %reldir%/SRGB_test.cpp \
+    %reldir%/StreamSplitter_test.cpp \
+    %reldir%/SurfaceTextureClient_test.cpp \
+    %reldir%/SurfaceTextureFBO.h \
+    %reldir%/SurfaceTextureFBO_test.cpp \
+    %reldir%/SurfaceTextureGL.h \
+    %reldir%/SurfaceTextureGLThreadToGL.h \
+    %reldir%/SurfaceTextureGLThreadToGL_test.cpp \
+    %reldir%/SurfaceTextureGLToGL.h \
+    %reldir%/SurfaceTextureGLToGL_test.cpp \
+    %reldir%/SurfaceTextureGL_test.cpp \
+    %reldir%/SurfaceTextureMultiContextGL_test.cpp \
+    %reldir%/SurfaceTextureMultiContextGL.h \
+    %reldir%/Surface_test.cpp \
+    %reldir%/TextureRenderer.cpp \
+    %reldir%/TextureRenderer.h
 
-LOCAL_SHARED_LIBRARIES := \
-	libEGL \
-	libGLESv1_CM \
-	libGLESv2 \
-	libbinder \
-	libcutils \
-	libgui \
-	libsync \
-	libui \
-	libutils \
+%canon_reldir%_libgui_test_LDADD = \
+    $(EGL_LIBS) \
+    $(GLESV1_CM_LIBS) \
+    $(GLESV2_LIBS) \
+    $(LOG_LIBS) \
+    $(CUTILS_LIBS) \
+    $(SYNC_LIBS) \
+    $(UTILS_LIBS) \
+    $(GTEST_LIBS) \
+    libs/binder/libandroid-binder.la \
+    libs/ui/libandroid-ui.la \
+    libs/gui/libandroid-gui.la
 
-# Build the binary to $(TARGET_OUT_DATA_NATIVE_TESTS)/$(LOCAL_MODULE)
-# to integrate with auto-test framework.
-include $(BUILD_NATIVE_TEST)
+%canon_reldir%_libgui_test_DEPENDENCIES = \
+    $(GTEST_LIBS)
 
-# Include subdirectory makefiles
-# ============================================================
-
-# If we're building with ONE_SHOT_MAKEFILE (mm, mmm), then what the framework
-# team really wants is to build the stuff defined by this makefile.
-ifeq (,$(ONE_SHOT_MAKEFILE))
-include $(call first-makefiles-under,$(LOCAL_PATH))
-endif
+endif # HAVE_GTEST
