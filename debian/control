@@ -17,6 +17,9 @@ Build-Depends:
  libandroid-sync0-dev (>= 0.0.17),
  libandroid-uidmap0-dev (>= 0.0.17),
  libandroid-utils0-dev (>= 0.0.17),
+ libegl1-mesa-dev,
+ libgles1-mesa-dev,
+ libgles2-mesa-dev,
  libgtest-dev,
  libselinux1-dev,
  libssl-dev,
@@ -138,6 +141,111 @@ Depends:
 Description: Android libdiskusage
  This package contains libdiskusage built from Android
  platform/frameworks/native.
+
+Package: libandroid-egl0-dev
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libandroid-egl0 (= ${binary:Version}),
+ libegl1-mesa-dev,
+ ${misc:Depends},
+Description: Android libEGL - development
+ This package contains libEGL built from Android platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-egl0
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Android libEGL
+ This package contains libEGL built from Android platform/frameworks/native.
+
+Package: libandroid-etc1-0-dev
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libandroid-etc1-0 (= ${binary:Version}),
+ ${misc:Depends},
+Description: Android libETC1 - development
+ This package contains libETC1 built from Android platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-etc1-0
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Android libETC1
+ This package contains libETC1 built from Android platform/frameworks/native.
+
+Package: libandroid-glesv1-cm0-dev
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libandroid-glesv1-cm0 (= ${binary:Version}),
+ libgles1-mesa-dev,
+ ${misc:Depends},
+Description: Android libGLESv1_CM - development
+ This package contains libGLESv1_CM built from Android
+ platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-glesv1-cm0
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Android libGLESv1_CM
+ This package contains libGLESv1_CM built from Android
+ platform/frameworks/native.
+
+Package: libandroid-glesv2-0-dev
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libandroid-glesv2-0 (= ${binary:Version}),
+ libgles2-mesa-dev,
+ ${misc:Depends},
+Description: Android libGLESv2 - development
+ This package contains libGLESv2 built from Android platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-glesv2-0
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Android libGLESv2
+ This package contains libGLESv2 built from Android platform/frameworks/native.
 
 Package: libandroid-input0-dev
 Priority: extra

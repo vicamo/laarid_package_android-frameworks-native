@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: android-egl-@LAARID_API_VERSION@
+Description: Android EGL library
+Version: @VERSION@
+Requires: egl
+Libs: -L${libdir} -landroid-EGL

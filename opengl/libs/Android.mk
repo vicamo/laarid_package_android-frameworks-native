@@ -1,182 +1,86 @@
-LOCAL_PATH:= $(call my-dir)
+lib_LTLIBRARIES += \
+	%reldir%/EGL/libandroid-EGL.la
 
-###############################################################################
-# Build META EGL library
-#
+%canon_reldir%_EGL_libandroid_EGL_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(EGL_CPPFLAGS)
+%canon_reldir%_EGL_libandroid_EGL_la_SOURCES = \
+	%reldir%/EGL/export.c
+%canon_reldir%_EGL_libandroid_EGL_la_LDFLAGS = \
+	$(AM_LDFLAGS) \
+	$(libtool_opts)
+%canon_reldir%_EGL_libandroid_EGL_la_LIBADD = \
+	$(EGL_LIBS)
 
-egl.cfg_config_module :=
-# OpenGL drivers config file
-ifneq ($(BOARD_EGL_CFG),)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := egl.cfg
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT)/lib/egl
-LOCAL_SRC_FILES := ../../../../$(BOARD_EGL_CFG)
-include $(BUILD_PREBUILT)
-egl.cfg_config_module := $(LOCAL_MODULE)
-endif
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES:= 	       \
-	EGL/egl_tls.cpp        \
-	EGL/egl_cache.cpp      \
-	EGL/egl_display.cpp    \
-	EGL/egl_object.cpp     \
-	EGL/egl.cpp 	       \
-	EGL/eglApi.cpp 	       \
-	EGL/getProcAddress.cpp.arm \
-	EGL/Loader.cpp 	       \
-#
-
-LOCAL_SHARED_LIBRARIES += libcutils libutils liblog libui
-LOCAL_MODULE:= libEGL
-LOCAL_LDFLAGS += -Wl,--exclude-libs=ALL
-LOCAL_SHARED_LIBRARIES += libdl
-# we need to access the private Bionic header <bionic_tls.h>
-LOCAL_C_INCLUDES += bionic/libc/private
-
-LOCAL_CFLAGS += -DLOG_TAG=\"libEGL\"
-LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES
-LOCAL_CFLAGS += -fvisibility=hidden
-
-ifeq ($(BOARD_ALLOW_EGL_HIBERNATION),true)
-  LOCAL_CFLAGS += -DBOARD_ALLOW_EGL_HIBERNATION
-endif
-ifneq ($(MAX_EGL_CACHE_ENTRY_SIZE),)
-  LOCAL_CFLAGS += -DMAX_EGL_CACHE_ENTRY_SIZE=$(MAX_EGL_CACHE_ENTRY_SIZE)
-endif
-
-ifneq ($(MAX_EGL_CACHE_KEY_SIZE),)
-  LOCAL_CFLAGS += -DMAX_EGL_CACHE_KEY_SIZE=$(MAX_EGL_CACHE_KEY_SIZE)
-endif
-
-ifneq ($(MAX_EGL_CACHE_SIZE),)
-  LOCAL_CFLAGS += -DMAX_EGL_CACHE_SIZE=$(MAX_EGL_CACHE_SIZE)
-endif
-
-ifneq ($(filter address,$(SANITIZE_TARGET)),)
-  LOCAL_CFLAGS_32 += -DEGL_WRAPPER_DIR=\"/$(TARGET_COPY_OUT_DATA)/lib\"
-  LOCAL_CFLAGS_64 += -DEGL_WRAPPER_DIR=\"/$(TARGET_COPY_OUT_DATA)/lib64\"
-endif
-
-LOCAL_REQUIRED_MODULES := $(egl.cfg_config_module)
-egl.cfg_config_module :=
-
-include $(BUILD_SHARED_LIBRARY)
+pkgconfig_DATA += \
+    %reldir%/EGL/android-egl-0.0.pc
 
 ###############################################################################
 # Build the wrapper OpenGL ES 1.x library
 #
 
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+	%reldir%/GLES_CM/libandroid-GLESv1_CM.la
 
-LOCAL_SRC_FILES:= 		\
-	GLES_CM/gl.cpp.arm 	\
-#
+%canon_reldir%_GLES_CM_libandroid_GLESv1_CM_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(GLESV1_CM_CPPFLAGS)
+%canon_reldir%_GLES_CM_libandroid_GLESv1_CM_la_SOURCES = \
+	%reldir%/GLES_CM/export.c
+%canon_reldir%_GLES_CM_libandroid_GLESv1_CM_la_LDFLAGS = \
+	$(AM_LDFLAGS) \
+	$(libtool_opts)
+%canon_reldir%_GLES_CM_libandroid_GLESv1_CM_la_LIBADD = \
+	$(EGL_LIBS) \
+	$(GLESV1_CM_LIBS)
 
-LOCAL_CLANG := false
-LOCAL_SHARED_LIBRARIES += libcutils liblog libEGL
-LOCAL_MODULE:= libGLESv1_CM
-
-LOCAL_SHARED_LIBRARIES += libdl
-# we need to access the private Bionic header <bionic_tls.h>
-LOCAL_C_INCLUDES += bionic/libc/private
-
-LOCAL_CFLAGS += -DLOG_TAG=\"libGLESv1\"
-LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES
-LOCAL_CFLAGS += -fvisibility=hidden
-
-# TODO: This is to work around b/20093774. Remove after root cause is fixed
-LOCAL_LDFLAGS_arm += -Wl,--hash-style,both
-
-include $(BUILD_SHARED_LIBRARY)
-
+pkgconfig_DATA += \
+    %reldir%/GLES_CM/android-glesv1_cm-0.0.pc
 
 ###############################################################################
 # Build the wrapper OpenGL ES 2.x library
 #
 
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+	%reldir%/GLES2/libandroid-GLESv2.la
 
-LOCAL_SRC_FILES:= \
-	GLES2/gl2.cpp   \
-#
+%canon_reldir%_GLES2_libandroid_GLESv2_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(GLESV2_CPPFLAGS)
+%canon_reldir%_GLES2_libandroid_GLESv2_la_SOURCES = \
+	%reldir%/GLES2/export.c
+%canon_reldir%_GLES2_libandroid_GLESv2_la_LDFLAGS = \
+	$(AM_LDFLAGS) \
+	$(libtool_opts)
+%canon_reldir%_GLES2_libandroid_GLESv2_la_LIBADD = \
+	$(EGL_LIBS) \
+	$(GLESV2_LIBS)
 
-LOCAL_CLANG := false
-LOCAL_ARM_MODE := arm
-LOCAL_SHARED_LIBRARIES += libcutils libutils liblog libEGL
-LOCAL_MODULE:= libGLESv2
-
-LOCAL_SHARED_LIBRARIES += libdl
-# we need to access the private Bionic header <bionic_tls.h>
-LOCAL_C_INCLUDES += bionic/libc/private
-
-LOCAL_CFLAGS += -DLOG_TAG=\"libGLESv2\"
-LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES
-LOCAL_CFLAGS += -fvisibility=hidden
-
-# TODO: This is to work around b/20093774. Remove after root cause is fixed
-LOCAL_LDFLAGS_arm += -Wl,--hash-style,both
-
-include $(BUILD_SHARED_LIBRARY)
-
-###############################################################################
-# Build the wrapper OpenGL ES 3.x library (this is just different name for v2)
-#
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES:= \
-	GLES2/gl2.cpp   \
-#
-
-LOCAL_CLANG := false
-LOCAL_ARM_MODE := arm
-LOCAL_SHARED_LIBRARIES += libcutils libutils liblog libEGL
-LOCAL_MODULE:= libGLESv3
-LOCAL_SHARED_LIBRARIES += libdl
-# we need to access the private Bionic header <bionic_tls.h>
-LOCAL_C_INCLUDES += bionic/libc/private
-
-LOCAL_CFLAGS += -DLOG_TAG=\"libGLESv3\"
-LOCAL_CFLAGS += -DGL_GLEXT_PROTOTYPES -DEGL_EGLEXT_PROTOTYPES
-LOCAL_CFLAGS += -fvisibility=hidden
-
-# TODO: This is to work around b/20093774. Remove after root cause is fixed
-LOCAL_LDFLAGS_arm += -Wl,--hash-style,both
-
-include $(BUILD_SHARED_LIBRARY)
-
-###############################################################################
-# Build the ETC1 host static library
-#
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES:= 		\
-	ETC1/etc1.cpp 	\
-#
-
-LOCAL_MODULE:= libETC1
-LOCAL_MODULE_HOST_OS := darwin linux windows
-
-include $(BUILD_HOST_STATIC_LIBRARY)
+pkgconfig_DATA += \
+    %reldir%/GLES2/android-glesv2-0.0.pc
 
 ###############################################################################
 # Build the ETC1 device library
 #
 
-include $(CLEAR_VARS)
+lib_LTLIBRARIES += \
+	%reldir%/ETC1/libandroid-ETC1.la
 
-LOCAL_SRC_FILES:= 		\
-	ETC1/etc1.cpp 	\
-#
+%canon_reldir%_ETC1_libandroid_ETC1_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	-I$(srcdir)/opengl/include
+%canon_reldir%_ETC1_libandroid_ETC1_la_SOURCES = \
+	opengl/include/ETC1/etc1.h \
+	%reldir%/ETC1/etc1.cpp
+%canon_reldir%_ETC1_libandroid_ETC1_la_LDFLAGS = \
+	$(AM_LDFLAGS) \
+	$(libtool_opts)
 
-LOCAL_MODULE:= libETC1
+%canon_reldir%_ETC1incdir = $(frameworks_native_incdir)/ETC1
+%canon_reldir%_ETC1inc_HEADERS = \
+	opengl/include/ETC1/etc1.h
 
-include $(BUILD_SHARED_LIBRARY)
+pkgconfig_DATA += \
+    %reldir%/ETC1/android-etc1-0.0.pc
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+#include $(call all-makefiles-under,$(LOCAL_PATH))

@@ -64,6 +64,7 @@ include $(srcdir)/cmds/ip-up-vpn/Android.mk
 include $(srcdir)/cmds/servicemanager/Android.mk
 include $(srcdir)/libs/binder/Android.mk
 include $(srcdir)/libs/diskusage/Android.mk
+include $(srcdir)/opengl/libs/Android.mk
 # ---------------------
 include $(srcdir)/cmds/atrace/Android.mk
 include $(srcdir)/cmds/cmd/Android.mk

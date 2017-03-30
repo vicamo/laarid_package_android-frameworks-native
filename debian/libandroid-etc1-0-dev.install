@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/ETC1/*
+usr/lib/*/libandroid-ETC1.a
+usr/lib/*/libandroid-ETC1.so
+usr/lib/*/pkgconfig/android-etc1-0.0.pc

@@ -1,0 +1,3 @@
+usr/lib/*/libandroid-EGL.a
+usr/lib/*/libandroid-EGL.so
+usr/lib/*/pkgconfig/android-egl-0.0.pc

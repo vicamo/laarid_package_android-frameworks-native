@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: android-glesv1_cm-@LAARID_API_VERSION@
+Description: Android GLESv1_CM library
+Version: @VERSION@
+Requires: glesv1_cm
+Libs: -L${libdir} -landroid-GLESv1_CM

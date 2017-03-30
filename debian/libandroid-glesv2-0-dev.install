@@ -1,0 +1,3 @@
+usr/lib/*/libandroid-GLESv2.a
+usr/lib/*/libandroid-GLESv2.so
+usr/lib/*/pkgconfig/android-glesv2-0.0.pc

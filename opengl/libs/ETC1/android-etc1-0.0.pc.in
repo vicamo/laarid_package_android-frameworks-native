@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: android-etc1-@LAARID_API_VERSION@
+Description: Android ETC1 library
+Version: @VERSION@
+Libs: -L${libdir} -landroid-ETC1
+Cflags: -I${includedir}/android/frameworks-native-@LAARID_API_VERSION@

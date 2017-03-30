@@ -133,6 +133,9 @@ AC_SUBST([HARDWARE_LEGACY_API_VERSION])
 AC_SUBST([HARDWARE_LEGACY_REQUIRED_VERSION])
 PKG_CHECK_MODULES([HARDWARE_LEGACY], [android-hardware-legacy-$HARDWARE_LEGACY_API_VERSION >= $HARDWARE_LEGACY_REQUIRED_VERSION])
 
+PKG_CHECK_MODULES([EGL], [egl])
+PKG_CHECK_MODULES([GLESV1_CM], [glesv1_cm])
+PKG_CHECK_MODULES([GLESV2], [glesv2])
 PKG_CHECK_MODULES([ZLIB], [zlib])
 PKG_CHECK_MODULES([CRYPTO], [libcrypto])
 PKG_CHECK_MODULES([SELINUX], [libselinux])
@@ -188,6 +191,10 @@ AC_CONFIG_FILES([
   libs/diskusage/android-diskusage-$LAARID_API_VERSION.pc
   libs/input/android-input-$LAARID_API_VERSION.pc
   libs/ui/android-ui-$LAARID_API_VERSION.pc
+  opengl/libs/EGL/android-egl-$LAARID_API_VERSION.pc
+  opengl/libs/ETC1/android-etc1-$LAARID_API_VERSION.pc
+  opengl/libs/GLES2/android-glesv2-$LAARID_API_VERSION.pc
+  opengl/libs/GLES_CM/android-glesv1_cm-$LAARID_API_VERSION.pc
   services/batteryservice/android-batteryservice-$LAARID_API_VERSION.pc
   services/inputflinger/android-inputflinger-$LAARID_API_VERSION.pc
   services/powermanager/android-powermanager-$LAARID_API_VERSION.pc
