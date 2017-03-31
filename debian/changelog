@@ -1,3 +1,9 @@
+android-frameworks-native (0.0.4) testing; urgency=low
+
+  * install un-owned headers as android-frameworks-native-headers
+
+ -- You-Sheng Yang <vicamo@gmail.com>  Fri, 31 Mar 2017 16:22:44 +0800
+
 android-frameworks-native (0.0.3) testing; urgency=low
 
   * accommodate to unified system core v0.0.16
