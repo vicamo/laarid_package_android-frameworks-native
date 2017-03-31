@@ -44,7 +44,8 @@ Description: Android native frameworks - utilities
 Package: android-frameworks-native-headers
 Priority: extra
 Section: misc
-Architecture: all
+Architecture: any
+Multi-Arch: same
 Depends:
  libandroid-cutils0-dev (>= 0.0.17),
  libandroid-nativehelper0-dev (>= 0.0.4),
