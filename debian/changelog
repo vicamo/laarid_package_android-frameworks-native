@@ -1,3 +1,14 @@
+android-frameworks-native (0.0.3) testing; urgency=low
+
+  * accommodate to unified system core v0.0.16
+  * ci cross build
+  * build servicemanager
+  * build libinputflinger
+  * build android OpenGL stubs
+  * build libgui
+
+ -- You-Sheng Yang <vicamo@gmail.com>  Fri, 31 Mar 2017 14:16:21 +0800
+
 android-frameworks-native (0.0.2) testing; urgency=low
 
   * build libandroid-ui.
