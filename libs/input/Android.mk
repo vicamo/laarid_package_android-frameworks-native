@@ -50,6 +50,6 @@ lib_LTLIBRARIES += \
     $(libtool_opts)
 
 pkgconfig_DATA += \
-    %reldir%/android-input-0.0.pc
+    %reldir%/android-input-$(LAARID_API_VERSION).pc
 
 include %reldir%/tests/Android.mk

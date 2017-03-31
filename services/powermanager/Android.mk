@@ -19,4 +19,4 @@ lib_LTLIBRARIES += \
     $(libtool_opts)
 
 pkgconfig_DATA += \
-    %reldir%/android-powermanager-0.0.pc
+    %reldir%/android-powermanager-$(LAARID_API_VERSION).pc

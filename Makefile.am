@@ -58,7 +58,7 @@ check_LTLIBRARIES =
 include $(srcdir)/gtest.mk
 include $(srcdir)/include/Makefile.inc
 pkgconfig_DATA += \
-    android-frameworks-native-0.0.pc
+    android-frameworks-native-$(LAARID_API_VERSION).pc
 # ---------------------
 include $(srcdir)/cmds/bugreport/Android.mk
 include $(srcdir)/cmds/bugreportz/Android.mk

@@ -72,6 +72,6 @@ endif
     $(UTILS_LIBS)
 
 pkgconfig_DATA += \
-    %reldir%/android-binder-0.0.pc
+    %reldir%/android-binder-$(LAARID_API_VERSION).pc
 
 include %reldir%/tests/Android.mk

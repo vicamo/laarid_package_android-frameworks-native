@@ -13,7 +13,7 @@ lib_LTLIBRARIES += \
 	$(EGL_LIBS)
 
 pkgconfig_DATA += \
-    %reldir%/EGL/android-egl-0.0.pc
+    %reldir%/EGL/android-egl-$(LAARID_API_VERSION).pc
 
 ###############################################################################
 # Build the wrapper OpenGL ES 1.x library
@@ -35,7 +35,7 @@ lib_LTLIBRARIES += \
 	$(GLESV1_CM_LIBS)
 
 pkgconfig_DATA += \
-    %reldir%/GLES_CM/android-glesv1_cm-0.0.pc
+    %reldir%/GLES_CM/android-glesv1_cm-$(LAARID_API_VERSION).pc
 
 ###############################################################################
 # Build the wrapper OpenGL ES 2.x library
@@ -57,7 +57,7 @@ lib_LTLIBRARIES += \
 	$(GLESV2_LIBS)
 
 pkgconfig_DATA += \
-    %reldir%/GLES2/android-glesv2-0.0.pc
+    %reldir%/GLES2/android-glesv2-$(LAARID_API_VERSION).pc
 
 ###############################################################################
 # Build the ETC1 device library
@@ -81,6 +81,6 @@ lib_LTLIBRARIES += \
 	opengl/include/ETC1/etc1.h
 
 pkgconfig_DATA += \
-    %reldir%/ETC1/android-etc1-0.0.pc
+    %reldir%/ETC1/android-etc1-$(LAARID_API_VERSION).pc
 
 #include $(call all-makefiles-under,$(LOCAL_PATH))

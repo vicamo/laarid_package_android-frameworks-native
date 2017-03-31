@@ -78,6 +78,6 @@ lib_LTLIBRARIES += \
     %reldir%/PointerControllerInterface.h
 
 pkgconfig_DATA += \
-    %reldir%/android-inputflinger-0.0.pc
+    %reldir%/android-inputflinger-$(LAARID_API_VERSION).pc
 
 #include $(call all-makefiles-under,$(LOCAL_PATH))

@@ -89,6 +89,6 @@ if !ENABLE_FENCE_SYNC
 endif
 
 pkgconfig_DATA += \
-	%reldir%/android-gui-0.0.pc
+	%reldir%/android-gui-$(LAARID_API_VERSION).pc
 
 include %reldir%/tests/Android.mk

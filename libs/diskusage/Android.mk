@@ -22,4 +22,4 @@ lib_LTLIBRARIES += \
     $(libtool_opts)
 
 pkgconfig_DATA += \
-    %reldir%/android-diskusage-0.0.pc
+    %reldir%/android-diskusage-$(LAARID_API_VERSION).pc

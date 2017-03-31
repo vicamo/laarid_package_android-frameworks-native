@@ -68,7 +68,7 @@ lib_LTLIBRARIES += \
 	$(libtool_opts)
 
 pkgconfig_DATA += \
-	%reldir%/android-ui-0.0.pc
+	%reldir%/android-ui-$(LAARID_API_VERSION).pc
 
 # Include subdirectory makefiles
 # ============================================================
