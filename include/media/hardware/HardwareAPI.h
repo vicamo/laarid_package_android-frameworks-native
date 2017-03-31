@@ -23,9 +23,9 @@
 #include <system/window.h>
 #include <utils/RefBase.h>
 
-#include "VideoAPI.h"
+#include <media/hardware/VideoAPI.h>
 
-#include <OMX_Component.h>
+#include <media/openmax/OMX_Component.h>
 
 namespace android {
 

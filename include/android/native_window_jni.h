@@ -28,7 +28,7 @@
 
 #include <android/native_window.h>
 
-#include <jni.h>
+#include <nativehelper/jni.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -38,7 +38,7 @@ extern "C" {
  * header to compile without errors.  The includes below are required
  * for this header file to compile successfully
  */
-#include <OMX_Core.h>
+#include <media/openmax/OMX_Core.h>
 
 #define OMX_AUDIO_AACToolAndroidSSBR (OMX_AUDIO_AACToolVendor << 0) /**< SSBR: MPEG-4 Single-rate (downsampled) Spectral Band Replication tool allowed or active */
 #define OMX_AUDIO_AACToolAndroidDSBR (OMX_AUDIO_AACToolVendor << 1) /**< DSBR: MPEG-4 Dual-rate Spectral Band Replication tool allowed or active */

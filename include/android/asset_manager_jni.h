@@ -27,7 +27,7 @@
 #define ANDROID_ASSET_MANAGER_JNI_H
 
 #include <android/asset_manager.h>
-#include <jni.h>
+#include <nativehelper/jni.h>
 
 #ifdef __cplusplus
 extern "C" {

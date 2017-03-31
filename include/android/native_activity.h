@@ -29,7 +29,7 @@
 #include <stdint.h>
 #include <sys/types.h>
 
-#include <jni.h>
+#include <nativehelper/jni.h>
 
 #include <android/asset_manager.h>
 #include <android/input.h>

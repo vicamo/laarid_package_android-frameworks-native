@@ -27,7 +27,7 @@
 #define ANDROID_BITMAP_H
 
 #include <stdint.h>
-#include <jni.h>
+#include <nativehelper/jni.h>
 
 #ifdef __cplusplus
 extern "C" {
