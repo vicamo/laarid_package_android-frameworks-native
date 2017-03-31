@@ -191,6 +191,7 @@ dnl Output Files
 dnl ------------
 AC_CONFIG_FILES([
   Makefile
+  android-frameworks-native-$LAARID_API_VERSION.pc
   libs/binder/android-binder-$LAARID_API_VERSION.pc
   libs/diskusage/android-diskusage-$LAARID_API_VERSION.pc
   libs/gui/android-gui-$LAARID_API_VERSION.pc

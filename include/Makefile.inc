@@ -112,6 +112,38 @@ frameworks_native_incdir = $(includedir)/android/frameworks-native-$(LAARID_API_
     %reldir%/input/VelocityTracker.h \
     %reldir%/input/VirtualKeyMap.h
 
+%canon_reldir%_mediaincdir = $(frameworks_native_incdir)/media
+%canon_reldir%_media_drmincdir = $(%canon_reldir%_mediaincdir)/drm
+%canon_reldir%_media_drminc_HEADERS = \
+    %reldir%/media/drm/DrmAPI.h
+%canon_reldir%_media_editorincdir = $(%canon_reldir%_mediaincdir)/editor
+%canon_reldir%_media_editorinc_HEADERS = \
+    %reldir%/media/editor/II420ColorConverter.h
+%canon_reldir%_media_hardwareincdir = $(%canon_reldir%_mediaincdir)/hardware
+%canon_reldir%_media_hardwareinc_HEADERS = \
+    %reldir%/media/hardware/CryptoAPI.h \
+    %reldir%/media/hardware/HardwareAPI.h \
+    %reldir%/media/hardware/HDCPAPI.h \
+    %reldir%/media/hardware/MetadataBufferType.h \
+    %reldir%/media/hardware/OMXPluginBase.h \
+    %reldir%/media/hardware/VideoAPI.h
+%canon_reldir%_media_openmaxincdir = $(%canon_reldir%_mediaincdir)/openmax
+%canon_reldir%_media_openmaxinc_HEADERS = \
+    %reldir%/media/openmax/OMX_AsString.h \
+    %reldir%/media/openmax/OMX_AudioExt.h \
+    %reldir%/media/openmax/OMX_Audio.h \
+    %reldir%/media/openmax/OMX_Component.h \
+    %reldir%/media/openmax/OMX_ContentPipe.h \
+    %reldir%/media/openmax/OMX_Core.h \
+    %reldir%/media/openmax/OMX_Image.h \
+    %reldir%/media/openmax/OMX_IndexExt.h \
+    %reldir%/media/openmax/OMX_Index.h \
+    %reldir%/media/openmax/OMX_IVCommon.h \
+    %reldir%/media/openmax/OMX_Other.h \
+    %reldir%/media/openmax/OMX_Types.h \
+    %reldir%/media/openmax/OMX_VideoExt.h \
+    %reldir%/media/openmax/OMX_Video.h
+
 %canon_reldir%_powermanagerincdir = $(frameworks_native_incdir)/powermanager
 %canon_reldir%_powermanagerinc_HEADERS = \
     %reldir%/powermanager/IPowerManager.h \

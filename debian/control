@@ -41,6 +41,19 @@ Depends:
 Description: Android native frameworks - utilities
  This package contains utilities built from Android platform/frameworks/native.
 
+Package: android-frameworks-native-headers
+Priority: extra
+Section: misc
+Architecture: all
+Depends:
+ libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-nativehelper0-dev (>= 0.0.4),
+ libandroid-utils0-dev (>= 0.0.17),
+ ${misc:Depends},
+Description: Android native framework headers
+ This package contains headers from Android platform/frameworks/native that are
+ not belong to any local module.
+
 Package: android-servicemanager
 Priority: extra
 Section: misc

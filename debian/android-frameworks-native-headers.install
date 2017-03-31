@@ -1,0 +1,3 @@
+usr/include/android/frameworks-native-*/android/*
+usr/include/android/frameworks-native-*/media/*
+usr/lib/*/pkgconfig/android-frameworks-native-0.0.pc
