@@ -152,7 +152,11 @@ AC_ARG_WITH([64bit-binder],
     [Use 64-bit binder IPC. Default no on 32-bit platforms, yes otherwise.])],
   [], [])
 AS_IF([test "x${with_64bit_binder}" = "x" ],
-  [AS_CASE([${host_cpu}], [*64*], [with_64bit_binder=yes], [with_64bit_binder=no])])
+  [AC_TRY_COMPILE([
+#if !defined(__LP64__)
+#error "Not 64 bit systems"
+#endif
+], [], [with_64bit_binder=yes], [with_64bit_binder=no])])
 AM_CONDITIONAL([WITH_64BIT_BINDER], [test "x${with_64bit_binder}" = "xyes"])
 
 AC_ARG_ENABLE([fence-sync],
