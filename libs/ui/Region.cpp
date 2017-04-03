@@ -21,7 +21,9 @@
 
 #include <utils/Log.h>
 #include <utils/String8.h>
+#if defined(WITH_ANDROID_BACKTRACE)
 #include <utils/CallStack.h>
+#endif
 
 #include <ui/Rect.h>
 #include <ui/Region.h>
@@ -577,7 +579,9 @@ bool Region::validate(const Region& reg, const char* name, bool silent)
     }
     if (result == false && !silent) {
         reg.dump(name);
+#if defined(WITH_ANDROID_BACKTRACE)
         CallStack stack(LOG_TAG);
+#endif
     }
     return result;
 }

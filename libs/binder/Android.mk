@@ -52,8 +52,11 @@ lib_LTLIBRARIES += \
     $(LOG_CFLAGS) \
     $(CUTILS_CFLAGS) \
     $(NATIVEHELPER_CFLAGS) \
-    $(BACKTRACE_CFLAGS) \
     $(UTILS_CFLAGS)
+if WITH_ANDROID_BACKTRACE
+%canon_reldir%_libandroid_binder_la_CPPFLAGS += \
+    $(BACKTRACE_CFLAGS)
+endif
 if !WITH_64BIT_BINDER
 %canon_reldir%_libandroid_binder_la_CPPFLAGS += \
     -DBINDER_IPC_32BIT=1
@@ -66,7 +69,6 @@ endif
     $(libtool_opts)
 %canon_reldir%_libandroid_binder_la_LIBADD = \
     $(PTHREAD_LIBS) -lpthread \
-    $(BIONIC_LIBS) \
     $(LOG_LIBS) \
     $(CUTILS_LIBS) \
     $(UTILS_LIBS)

@@ -31,7 +31,9 @@
 #include <utils/threads.h>
 #include <utils/Atomic.h>
 #include <binder/Parcel.h>
+#if defined(WITH_ANDROID_BACKTRACE)
 #include <utils/CallStack.h>
+#endif
 
 #define VERBOSE   0
 
@@ -258,7 +260,9 @@ BpMemoryHeap::~BpMemoryHeap() {
                 if (VERBOSE) {
                     ALOGD("UNMAPPING binder=%p, heap=%p, size=%zu, fd=%d",
                             binder.get(), this, mSize, mHeapId);
+#if defined(WITH_ANDROID_BACKTRACE)
                     CallStack stack(LOG_TAG);
+#endif
                 }
 
                 munmap(mBase, mSize);

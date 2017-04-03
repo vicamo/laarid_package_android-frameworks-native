@@ -6,17 +6,17 @@ Build-Depends:
  dh-autoreconf,
  autoconf-archive,
  pkg-config (>= 0.24),
- libandroid-backtrace0-dev (>= 0.0.17),
- libandroid-base0-dev (>= 0.0.17),
+ libandroid-backtrace0-dev (>= 0.0.19) [amd64 i386 arm64 armel armhf mips mips64el mipsel ppc64el],
+ libandroid-base0-dev (>= 0.0.19),
  libandroid-bionic0-dev (>= 0.1.4),
- libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-cutils0-dev (>= 0.0.19),
  libandroid-hardware0-dev (>= 0.0.1+b1),
  libandroid-hardware-legacy0-dev (>= 0.0.2),
- libandroid-log0-dev (>= 0.0.17),
+ libandroid-log0-dev (>= 0.0.19),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-sync0-dev (>= 0.0.17),
- libandroid-uidmap0-dev (>= 0.0.17),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-sync0-dev (>= 0.0.19),
+ libandroid-uidmap0-dev (>= 0.0.19),
+ libandroid-utils0-dev (>= 0.0.19),
  libegl1-mesa-dev,
  libgles1-mesa-dev,
  libgles2-mesa-dev,
@@ -47,9 +47,9 @@ Section: misc
 Architecture: any
 Multi-Arch: same
 Depends:
- libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-cutils0-dev (>= 0.0.19),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.19),
  ${misc:Depends},
 Description: Android native framework headers
  This package contains headers from Android platform/frameworks/native that are
@@ -78,7 +78,7 @@ Depends:
  libandroid-batteryservice0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.19),
  ${misc:Depends},
 Description: Android libbatteryservice - development
  This package contains libbatteryservice built from Android
@@ -107,10 +107,10 @@ Multi-Arch: same
 Depends:
  libandroid-binder0 (= ${binary:Version}),
  libandroid-bionic0-dev (>= 0.1.4),
- libandroid-cutils0-dev (>= 0.0.17),
- libandroid-log0-dev (>= 0.0.17),
+ libandroid-cutils0-dev (>= 0.0.19),
+ libandroid-log0-dev (>= 0.0.19),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.19),
  ${misc:Depends},
 Description: Android libbinder - development
  This package contains libbinder built from Android platform/frameworks/native.
@@ -296,9 +296,9 @@ Multi-Arch: same
 Depends:
  libandroid-input0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
- libandroid-cutils0-dev (>= 0.0.17),
- libandroid-log0-dev (>= 0.0.17),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-cutils0-dev (>= 0.0.19),
+ libandroid-log0-dev (>= 0.0.19),
+ libandroid-utils0-dev (>= 0.0.19),
  ${misc:Depends},
 Description: Android libinput - development
  This package contains libinput built from Android platform/frameworks/native.
@@ -325,10 +325,10 @@ Multi-Arch: same
 Depends:
  libandroid-inputflinger0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
- libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-cutils0-dev (>= 0.0.19),
  libandroid-input0-dev (= ${binary:Version}),
  libandroid-ui0-dev (= ${binary:Version}),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.19),
  ${misc:Depends},
 Description: Android libinputflinger - development
  This package contains libinputflinger built from Android
@@ -358,7 +358,7 @@ Depends:
  libandroid-powermanager0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
  libandroid-nativehelper0-dev (>= 0.0.4),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-utils0-dev (>= 0.0.19),
  ${misc:Depends},
 Description: Android libpowermanager - development
  This package contains libpowermanager built from Android
@@ -387,11 +387,11 @@ Multi-Arch: same
 Depends:
  libandroid-ui0 (= ${binary:Version}),
  libandroid-binder0-dev (= ${binary:Version}),
- libandroid-cutils0-dev (>= 0.0.17),
+ libandroid-cutils0-dev (>= 0.0.19),
  libandroid-hardware0-dev (>= 0.0.1+b1),
- libandroid-log0-dev (>= 0.0.17),
- libandroid-sync0-dev (>= 0.0.17),
- libandroid-utils0-dev (>= 0.0.17),
+ libandroid-log0-dev (>= 0.0.19),
+ libandroid-sync0-dev (>= 0.0.19),
+ libandroid-utils0-dev (>= 0.0.19),
  ${misc:Depends},
 Description: Android libui - development
  This package contains libui built from Android platform/frameworks/native.
