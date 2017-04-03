@@ -23,6 +23,7 @@
 #include <binder/TextOutput.h>
 
 #include <cutils/sched_policy.h>
+#include <cutils/threads.h>
 #include <utils/Log.h>
 #include <utils/SystemClock.h>
 #include <utils/threads.h>
