@@ -12,6 +12,9 @@ CONFFLAGS =
 ifneq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 CONFFLAGS += --without-gtest
 endif
+ifneq ($(filter pkg.android-frameworks-native.stage2,$(DEB_BUILD_PROFILES)),)
+CONFFLAGS += --with-stage=2
+endif
 
 # main packaging script based on dh7 syntax
 %:
@@ -20,5 +23,7 @@ endif
 override_dh_auto_configure:
 	dh_auto_configure -- $(CONFFLAGS)
 
+ifeq ($(filter pkg.android-frameworks-native.stage2,$(DEB_BUILD_PROFILES)),)
 override_dh_installinit:
 	dh_systemd_enable -pandroid-servicemanager --name=servicemanager
+endif

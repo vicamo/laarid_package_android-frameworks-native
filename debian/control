@@ -6,24 +6,27 @@ Build-Depends:
  dh-autoreconf,
  autoconf-archive,
  pkg-config (>= 0.24),
+ android-frameworks-native-headers <pkg.android-frameworks-native.stage2>,
  libandroid-backtrace0-dev (>= 0.0.19) [amd64 i386 arm64 armel armhf mips mips64el mipsel ppc64el],
  libandroid-base0-dev (>= 0.0.19),
+ libandroid-binder0-dev <pkg.android-frameworks-native.stage2>,
  libandroid-bionic0-dev (>= 0.1.4),
  libandroid-cutils0-dev (>= 0.0.19),
  libandroid-hardware0-dev (>= 0.0.1+b1),
- libandroid-hardware-legacy0-dev (>= 0.0.2),
+ libandroid-hardware-legacy0-dev (>= 0.0.2) <!pkg.android-frameworks-native.stage2>,
  libandroid-log0-dev (>= 0.0.19),
  libandroid-nativehelper0-dev (>= 0.0.4),
  libandroid-sync0-dev (>= 0.0.19),
+ libandroid-ui0-dev <pkg.android-frameworks-native.stage2>,
  libandroid-uidmap0-dev (>= 0.0.19),
  libandroid-utils0-dev (>= 0.0.19),
- libegl1-mesa-dev,
- libgles1-mesa-dev,
- libgles2-mesa-dev,
+ libegl1-mesa-dev <pkg.android-frameworks-native.stage2>,
+ libgles1-mesa-dev <pkg.android-frameworks-native.stage2>,
+ libgles2-mesa-dev <pkg.android-frameworks-native.stage2>,
  libgtest-dev,
- libselinux1-dev,
- libssl-dev,
- zlib1g-dev,
+ libselinux1-dev <!pkg.android-frameworks-native.stage2>,
+ libssl-dev <!pkg.android-frameworks-native.stage2>,
+ zlib1g-dev <!pkg.android-frameworks-native.stage2>,
 Standards-Version: 3.9.5
 Section: libs
 Homepage: https://github.com/laarid/package_android-frameworks-native
@@ -31,6 +34,7 @@ Vcs-Git: https://github.com/laarid/package_android-frameworks-native.git
 Vcs-Browser: https://github.com/laarid/package_android-frameworks-native
 
 Package: android-frameworks-native-bin
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: misc
 Architecture: any
@@ -42,6 +46,7 @@ Description: Android native frameworks - utilities
  This package contains utilities built from Android platform/frameworks/native.
 
 Package: android-frameworks-native-headers
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: misc
 Architecture: any
@@ -56,6 +61,7 @@ Description: Android native framework headers
  not belong to any local module.
 
 Package: android-servicemanager
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: misc
 Architecture: any
@@ -70,6 +76,7 @@ Description: Android native frameworks - service manager
  platform/frameworks/native.
 
 Package: libandroid-batteryservice0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -87,6 +94,7 @@ Description: Android libbatteryservice - development
  This package contains the development files.
 
 Package: libandroid-batteryservice0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -100,6 +108,7 @@ Description: Android libbatteryservice
  platform/frameworks/native.
 
 Package: libandroid-binder0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -118,6 +127,7 @@ Description: Android libbinder - development
  This package contains the development files.
 
 Package: libandroid-binder0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -130,6 +140,7 @@ Description: Android libbinder
  This package contains libbinder built from Android platform/frameworks/native.
 
 Package: libandroid-diskusage0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -144,6 +155,7 @@ Description: Android libdiskusage - development
  This package contains the development files.
 
 Package: libandroid-diskusage0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -157,6 +169,7 @@ Description: Android libdiskusage
  platform/frameworks/native.
 
 Package: libandroid-egl0-dev
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -171,6 +184,7 @@ Description: Android libEGL - development
  This package contains the development files.
 
 Package: libandroid-egl0
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -183,6 +197,7 @@ Description: Android libEGL
  This package contains libEGL built from Android platform/frameworks/native.
 
 Package: libandroid-etc1-0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -196,6 +211,7 @@ Description: Android libETC1 - development
  This package contains the development files.
 
 Package: libandroid-etc1-0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -208,6 +224,7 @@ Description: Android libETC1
  This package contains libETC1 built from Android platform/frameworks/native.
 
 Package: libandroid-glesv1-cm0-dev
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -223,6 +240,7 @@ Description: Android libGLESv1_CM - development
  This package contains the development files.
 
 Package: libandroid-glesv1-cm0
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -236,6 +254,7 @@ Description: Android libGLESv1_CM
  platform/frameworks/native.
 
 Package: libandroid-glesv2-0-dev
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -250,6 +269,7 @@ Description: Android libGLESv2 - development
  This package contains the development files.
 
 Package: libandroid-glesv2-0
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -262,6 +282,7 @@ Description: Android libGLESv2
  This package contains libGLESv2 built from Android platform/frameworks/native.
 
 Package: libandroid-gui0-dev
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -277,6 +298,7 @@ Description: Android libgui - development
  This package contains the development files.
 
 Package: libandroid-gui0
+Build-Profiles: <pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -289,6 +311,7 @@ Description: Android libgui
  This package contains libgui built from Android platform/frameworks/native.
 
 Package: libandroid-input0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -306,6 +329,7 @@ Description: Android libinput - development
  This package contains the development files.
 
 Package: libandroid-input0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -318,6 +342,7 @@ Description: Android libinput
  This package contains libinput built from Android platform/frameworks/native.
 
 Package: libandroid-inputflinger0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -337,6 +362,7 @@ Description: Android libinputflinger - development
  This package contains the development files.
 
 Package: libandroid-inputflinger0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -350,6 +376,7 @@ Description: Android libinputflinger
  platform/frameworks/native.
 
 Package: libandroid-powermanager0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -367,6 +394,7 @@ Description: Android libpowermanager - development
  This package contains the development files.
 
 Package: libandroid-powermanager0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
@@ -380,6 +408,7 @@ Description: Android libpowermanager
  platform/frameworks/native.
 
 Package: libandroid-ui0-dev
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libdevel
 Architecture: any
@@ -399,6 +428,7 @@ Description: Android libui - development
  This package contains the development files.
 
 Package: libandroid-ui0
+Build-Profiles: <!pkg.android-frameworks-native.stage2>
 Priority: extra
 Section: libs
 Architecture: any
