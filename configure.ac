@@ -86,6 +86,20 @@ AC_SUBST([LT_VERSION_INFO])
 
 LT_OUTPUT
 
+# Build stages
+# ------------
+# Android source code might have circular dependency between two or more
+# source repositories, so spliting them into some stages is necessary. Here
+# we have currently stage 1 and 2 only.
+AC_ARG_WITH([stage],
+  [AS_HELP_STRING([--with-stage], [Stage to build with @<:@default=1@:>@])],
+  [AS_CASE([${with_stage}],
+    [1|2], [AC_MSG_RESULT([Building for stage ${with_stage}])],
+    [AC_MSG_ERROR([Unknown stage "${with_stage}"])])],
+  [with_stage=1])
+AM_CONDITIONAL([WITH_STAGE_1], [test "x${with_stage}" = x1])
+AM_CONDITIONAL([WITH_STAGE_2], [test "x${with_stage}" = x2])
+
 dnl Thread implementation
 dnl ---------------------
 AX_PTHREAD(
@@ -131,36 +145,55 @@ AC_SUBST([HARDWARE_API_VERSION])
 AC_SUBST([HARDWARE_REQUIRED_VERSION])
 PKG_CHECK_MODULES([HARDWARE], [android-hardware-$HARDWARE_API_VERSION >= $HARDWARE_REQUIRED_VERSION])
 
-HARDWARE_LEGACY_API_VERSION=0.0
-HARDWARE_LEGACY_REQUIRED_VERSION=0.0.2
-AC_SUBST([HARDWARE_LEGACY_API_VERSION])
-AC_SUBST([HARDWARE_LEGACY_REQUIRED_VERSION])
-PKG_CHECK_MODULES([HARDWARE_LEGACY], [android-hardware-legacy-$HARDWARE_LEGACY_API_VERSION >= $HARDWARE_LEGACY_REQUIRED_VERSION])
+AM_COND_IF([WITH_STAGE_1],
+  [HARDWARE_LEGACY_API_VERSION=0.0
+  HARDWARE_LEGACY_REQUIRED_VERSION=0.0.2
+  AC_SUBST([HARDWARE_LEGACY_API_VERSION])
+  AC_SUBST([HARDWARE_LEGACY_REQUIRED_VERSION])
+  PKG_CHECK_MODULES([HARDWARE_LEGACY], [android-hardware-legacy-$HARDWARE_LEGACY_API_VERSION >= $HARDWARE_LEGACY_REQUIRED_VERSION])
 
-PKG_CHECK_MODULES([EGL], [egl])
-PKG_CHECK_MODULES([GLESV1_CM], [glesv1_cm])
-PKG_CHECK_MODULES([GLESV2], [glesv2])
-PKG_CHECK_MODULES([ZLIB], [zlib])
-PKG_CHECK_MODULES([CRYPTO], [libcrypto])
-PKG_CHECK_MODULES([SELINUX], [libselinux])
+  PKG_CHECK_MODULES([CRYPTO], [libcrypto])
+  PKG_CHECK_MODULES([SELINUX], [libselinux])
+  PKG_CHECK_MODULES([ZLIB], [zlib])]
+)
+
+AM_COND_IF([WITH_STAGE_2],
+  [PKG_CHECK_MODULES([BINDER], [android-binder-$LAARID_API_VERSION])
+  PKG_CHECK_MODULES([UI], [android-ui-$LAARID_API_VERSION])
+  PKG_CHECK_MODULES([EGL], [egl])
+  PKG_CHECK_MODULES([GLESV1_CM], [glesv1_cm])
+  PKG_CHECK_MODULES([GLESV2], [glesv2])]
+)
 
 dnl Extra Features
 dnl --------------
 
-AC_ARG_WITH([64bit-binder],
-  [AS_HELP_STRING([--with-64bit-binder],
-    [Use 64-bit binder IPC. Default no on 32-bit platforms, yes otherwise.])],
-  [], [])
-AS_IF([test "x${with_64bit_binder}" = "x" ],
-  [AC_TRY_COMPILE([
+AM_COND_IF([WITH_STAGE_1],
+  [AC_ARG_WITH([64bit-binder],
+    [AS_HELP_STRING([--with-64bit-binder],
+      [Use 64-bit binder IPC. Default no on 32-bit platforms, yes otherwise.])],
+    [], [])
+  AS_IF([test "x${with_64bit_binder}" = "x"],
+    [AC_TRY_COMPILE([
 #if !defined(__LP64__)
 #error "Not 64 bit systems"
 #endif
-], [], [with_64bit_binder=yes], [with_64bit_binder=no])])
-AM_CONDITIONAL([WITH_64BIT_BINDER], [test "x${with_64bit_binder}" = "xyes"])
+      ], [], [with_64bit_binder=yes], [with_64bit_binder=no])
+    ])
+  dnl Whether should we run binder driver tests
+  AS_IF([test "x${cross_compiling}" != xyes],
+    [AC_CHECK_FILE([/dev/binder])])
+  ]
+) dnl WITH_STAGE_1
 
-AC_ARG_ENABLE([fence-sync],
-  [AS_HELP_STRING([--enable-fence-sync], [Use fence sync])], [], [])
+AM_CONDITIONAL([WITH_64BIT_BINDER], [test "x${with_64bit_binder}" = "xyes"])
+AM_CONDITIONAL([HAVE_DEV_BINDER], [test "x${c_cv_file_dev_binder}" = xyes])
+
+AM_COND_IF([WITH_STAGE_2],
+  [AC_ARG_ENABLE([fence-sync],
+    [AS_HELP_STRING([--enable-fence-sync], [Use fence sync])])]
+) dnl WITH_STAGE_2
+
 AM_CONDITIONAL([ENABLE_FENCE_SYNC], [test "x${enable_fence_sync}" != "xno"])
 
 # GTest
@@ -190,27 +223,30 @@ AC_SUBST([GTEST_SRCDIR])
 AC_LANG_POP()
 AM_CONDITIONAL([HAVE_GTEST], [test "x${with_gtest}" != xno])
 
-dnl Whether should we run binder driver tests
-AS_IF([test "x${cross_compiling}" != xyes],
-  [AC_CHECK_FILE([/dev/binder])])
-AM_CONDITIONAL([HAVE_DEV_BINDER], [test "x${c_cv_file_dev_binder}" = xyes])
-
 dnl Output Files
 dnl ------------
 AC_CONFIG_FILES([
   Makefile
-  android-frameworks-native-$LAARID_API_VERSION.pc
-  libs/binder/android-binder-$LAARID_API_VERSION.pc
-  libs/diskusage/android-diskusage-$LAARID_API_VERSION.pc
-  libs/gui/android-gui-$LAARID_API_VERSION.pc
-  libs/input/android-input-$LAARID_API_VERSION.pc
-  libs/ui/android-ui-$LAARID_API_VERSION.pc
-  opengl/libs/EGL/android-egl-$LAARID_API_VERSION.pc
-  opengl/libs/ETC1/android-etc1-$LAARID_API_VERSION.pc
-  opengl/libs/GLES2/android-glesv2-$LAARID_API_VERSION.pc
-  opengl/libs/GLES_CM/android-glesv1_cm-$LAARID_API_VERSION.pc
-  services/batteryservice/android-batteryservice-$LAARID_API_VERSION.pc
-  services/inputflinger/android-inputflinger-$LAARID_API_VERSION.pc
-  services/powermanager/android-powermanager-$LAARID_API_VERSION.pc
 ])
+AM_COND_IF([WITH_STAGE_1],
+  [AC_CONFIG_FILES(
+    [android-frameworks-native-$LAARID_API_VERSION.pc
+    libs/binder/android-binder-$LAARID_API_VERSION.pc
+    libs/diskusage/android-diskusage-$LAARID_API_VERSION.pc
+    libs/input/android-input-$LAARID_API_VERSION.pc
+    libs/ui/android-ui-$LAARID_API_VERSION.pc
+    opengl/libs/ETC1/android-etc1-$LAARID_API_VERSION.pc
+    services/batteryservice/android-batteryservice-$LAARID_API_VERSION.pc
+    services/inputflinger/android-inputflinger-$LAARID_API_VERSION.pc
+    services/powermanager/android-powermanager-$LAARID_API_VERSION.pc]
+  )]
+)
+AM_COND_IF([WITH_STAGE_2],
+  [AC_CONFIG_FILES(
+    [libs/gui/android-gui-$LAARID_API_VERSION.pc
+    opengl/libs/EGL/android-egl-$LAARID_API_VERSION.pc
+    opengl/libs/GLES2/android-glesv2-$LAARID_API_VERSION.pc
+    opengl/libs/GLES_CM/android-glesv1_cm-$LAARID_API_VERSION.pc]
+  )]
+)
 AC_OUTPUT

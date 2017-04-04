@@ -62,8 +62,8 @@ check_PROGRAMS += \
     $(SYNC_LIBS) \
     $(UTILS_LIBS) \
     $(GTEST_LIBS) \
-    libs/binder/libandroid-binder.la \
-    libs/ui/libandroid-ui.la \
+    $(BINDER_LIBS) \
+    $(UI_LIBS) \
     libs/gui/libandroid-gui.la
 
 %canon_reldir%_libgui_test_DEPENDENCIES = \

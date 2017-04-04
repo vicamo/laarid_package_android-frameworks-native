@@ -6,16 +6,26 @@ language: cpp
 
 env:
   matrix:
-  - JOB_ARCH=amd64
-  - JOB_ARCH=arm64
-  - JOB_ARCH=armel
-  - JOB_ARCH=armhf
-  - JOB_ARCH=i386
-  - JOB_ARCH=mips
-  - JOB_ARCH=mips64el
-  - JOB_ARCH=mipsel
-  - JOB_ARCH=ppc64el
-  - JOB_ARCH=s390x
+  - JOB_STAGE=1 JOB_ARCH=amd64
+  - JOB_STAGE=1 JOB_ARCH=arm64
+  - JOB_STAGE=1 JOB_ARCH=armel
+  - JOB_STAGE=1 JOB_ARCH=armhf
+  - JOB_STAGE=1 JOB_ARCH=i386
+  - JOB_STAGE=1 JOB_ARCH=mips
+  - JOB_STAGE=1 JOB_ARCH=mips64el
+  - JOB_STAGE=1 JOB_ARCH=mipsel
+  - JOB_STAGE=1 JOB_ARCH=ppc64el
+  - JOB_STAGE=1 JOB_ARCH=s390x
+  - JOB_STAGE=2 JOB_ARCH=amd64
+  - JOB_STAGE=2 JOB_ARCH=arm64
+  - JOB_STAGE=2 JOB_ARCH=armel
+  - JOB_STAGE=2 JOB_ARCH=armhf
+  - JOB_STAGE=2 JOB_ARCH=i386
+  - JOB_STAGE=2 JOB_ARCH=mips
+  - JOB_STAGE=2 JOB_ARCH=mips64el
+  - JOB_STAGE=2 JOB_ARCH=mipsel
+  - JOB_STAGE=2 JOB_ARCH=ppc64el
+  - JOB_STAGE=2 JOB_ARCH=s390x
   global:
   - DOCKER_EXEC_ROOT="sudo docker exec --interactive --tty --user root test_container"
   - DOCKER_EXEC="sudo docker exec --interactive --tty test_container"
@@ -55,6 +65,7 @@ install:
 - ${DOCKER_EXEC_ROOT} apt-get update -qq
 - |
   ${DOCKER_EXEC_ROOT} \
+    env "DEB_BUILD_PROFILES=pkg.$(cat debian/control | grep ^Source: | awk '{print $2}').stage${JOB_STAGE}" \
     mk-build-deps --install --remove \
       --host-arch ${JOB_ARCH} \
       --root-cmd sudo \
@@ -66,6 +77,7 @@ script:
       "DEB_BUILD_OPTIONS=nocheck" \
     dpkg-buildpackage \
       --host-arch ${JOB_ARCH} \
+      --build-profiles=pkg.$(cat debian/control | grep ^Source: | awk '{print $2}').stage${JOB_STAGE},nocheck \
       -i -us -uc -b;
 - ${DOCKER_EXEC} make -C debian/build -j $(nproc) .gitignore distcheck
 - git status

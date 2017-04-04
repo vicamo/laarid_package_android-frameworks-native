@@ -26,6 +26,8 @@ lib_LTLIBRARIES += \
 	$(NATIVEHELPER_CFLAGS) \
 	$(UIDMAP_CFLAGS) \
 	$(UTILS_CFLAGS) \
+	$(BINDER_CFLAGS) \
+	$(UI_CFLAGS) \
 	-DANDROID_EGL_PLATFORM
 #	-DDEBUG_ONLY_CODE=1
 
@@ -78,8 +80,8 @@ lib_LTLIBRARIES += \
 	$(CUTILS_LIBS) \
 	$(UIDMAP_LIBS) \
 	$(UTILS_LIBS) \
-	libs/binder/libandroid-binder.la \
-	libs/ui/libandroid-ui.la \
+	$(BINDER_LIBS) \
+	$(UI_LIBS) \
 	opengl/libs/EGL/libandroid-EGL.la \
 	opengl/libs/GLES2/libandroid-GLESv2.la
 

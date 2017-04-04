@@ -1,3 +1,4 @@
+if WITH_STAGE_2
 lib_LTLIBRARIES += \
 	%reldir%/EGL/libandroid-EGL.la
 
@@ -59,6 +60,9 @@ lib_LTLIBRARIES += \
 pkgconfig_DATA += \
     %reldir%/GLES2/android-glesv2-$(LAARID_API_VERSION).pc
 
+else
+if WITH_STAGE_1
+
 ###############################################################################
 # Build the ETC1 device library
 #
@@ -82,5 +86,8 @@ lib_LTLIBRARIES += \
 
 pkgconfig_DATA += \
     %reldir%/ETC1/android-etc1-$(LAARID_API_VERSION).pc
+
+endif # WITH_STAGE_1
+endif # !WITH_STAGE_2
 
 #include $(call all-makefiles-under,$(LOCAL_PATH))

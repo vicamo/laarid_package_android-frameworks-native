@@ -57,6 +57,9 @@ check_LTLIBRARIES =
 
 include $(srcdir)/gtest.mk
 include $(srcdir)/include/Makefile.inc
+
+
+if WITH_STAGE_1
 pkgconfig_DATA += \
     android-frameworks-native-$(LAARID_API_VERSION).pc
 # ---------------------
@@ -77,8 +80,14 @@ include $(srcdir)/libs/ui/Android.mk
 include $(srcdir)/services/batteryservice/Android.mk
 include $(srcdir)/services/powermanager/Android.mk
 # ---------------------
-include $(srcdir)/libs/gui/Android.mk
 include $(srcdir)/services/inputflinger/Android.mk
+else
+if WITH_STAGE_2
+include $(srcdir)/opengl/libs/Android.mk
+# ---------------------
+include $(srcdir)/libs/gui/Android.mk
+endif
+endif
 
 # PKG-CONFIG data files
 # ---------------------
