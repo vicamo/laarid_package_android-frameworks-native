@@ -26,7 +26,6 @@
 #include <hardware/sensors.h>
 #include <hardware_legacy/power.h>
 
-#include <openssl/digest.h>
 #include <openssl/hmac.h>
 #include <openssl/rand.h>
 
@@ -52,6 +51,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 namespace android {
 // ---------------------------------------------------------------------------
@@ -450,7 +450,7 @@ status_t SensorService::dump(int fd, const Vector<String16>& args) {
             } while(startIndex != currentIndex);
         }
     }
-    write(fd, result.string(), result.size());
+    TEMP_FAILURE_RETRY(write(fd, result.string(), result.size()));
     return NO_ERROR;
 }
 

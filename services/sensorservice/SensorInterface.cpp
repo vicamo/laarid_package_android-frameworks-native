@@ -26,7 +26,23 @@ namespace android {
 
 namespace {
 const sensor_t DUMMY_SENSOR = {
-        .name = "", .vendor = "", .stringType = "", .requiredPermission = ""};
+        .name = "",
+        .vendor = "",
+        .version = 0,
+        .handle = 0,
+        .type = SENSOR_TYPE_META_DATA,
+        .maxRange = 0.0,
+        .resolution = 0.0,
+        .power = 0.0,
+        .minDelay = 0,
+        .fifoReservedEventCount = 0,
+        .fifoMaxEventCount = 0,
+        .stringType = "",
+        .requiredPermission = "",
+        .maxDelay = 0,
+        .flags = 0,
+        .reserved = { NULL }
+};
 } //unnamed namespace
 
 BaseSensor::BaseSensor(const sensor_t& sensor) :

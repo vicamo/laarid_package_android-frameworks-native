@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+#include <signal.h>
+
 #include <binder/BinderService.h>
 #include "SensorService.h"
 
