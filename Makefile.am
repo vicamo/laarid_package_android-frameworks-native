@@ -90,6 +90,8 @@ if WITH_STAGE_2
 include $(srcdir)/opengl/libs/Android.mk
 # ---------------------
 include $(srcdir)/libs/gui/Android.mk
+# ---------------------
+include $(srcdir)/services/sensorservice/Android.mk
 endif
 endif
 

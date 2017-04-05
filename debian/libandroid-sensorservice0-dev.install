@@ -1,0 +1,4 @@
+usr/include/android/frameworks-native-*/sensorservice/*
+usr/lib/*/libandroid-sensorservice.a
+usr/lib/*/libandroid-sensorservice.so
+usr/lib/*/pkgconfig/android-sensorservice-0.0.pc

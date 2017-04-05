@@ -13,7 +13,7 @@ Build-Depends:
  libandroid-bionic0-dev (>= 0.1.4),
  libandroid-cutils0-dev (>= 0.0.19),
  libandroid-hardware0-dev (>= 0.0.1+b1),
- libandroid-hardware-legacy0-dev (>= 0.0.2) <!pkg.android-frameworks-native.stage2>,
+ libandroid-hardware-legacy0-dev (>= 0.0.2),
  libandroid-log0-dev (>= 0.0.19),
  libandroid-nativehelper0-dev (>= 0.0.4),
  libandroid-sync0-dev (>= 0.0.19),
@@ -25,7 +25,7 @@ Build-Depends:
  libgles2-mesa-dev <pkg.android-frameworks-native.stage2>,
  libgtest-dev,
  libselinux1-dev <!pkg.android-frameworks-native.stage2>,
- libssl-dev <!pkg.android-frameworks-native.stage2>,
+ libssl-dev,
  zlib1g-dev <!pkg.android-frameworks-native.stage2>,
 Standards-Version: 3.9.5
 Section: libs
@@ -59,6 +59,19 @@ Depends:
 Description: Android native framework headers
  This package contains headers from Android platform/frameworks/native that are
  not belong to any local module.
+
+Package: android-sensorservice
+Build-Profiles: <pkg.android-frameworks-native.stage2>
+Priority: extra
+Section: misc
+Architecture: any
+Multi-Arch: no
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Android native frameworks - sensorservice
+ This package contains sensorservice built from Android
+ platform/frameworks/native.
 
 Package: android-servicemanager
 Build-Profiles: <!pkg.android-frameworks-native.stage2>
@@ -405,6 +418,36 @@ Depends:
  ${misc:Depends},
 Description: Android libpowermanager
  This package contains libpowermanager built from Android
+ platform/frameworks/native.
+
+Package: libandroid-sensorservice0-dev
+Build-Profiles: <pkg.android-frameworks-native.stage2>
+Priority: extra
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libandroid-sensorservice0 (= ${binary:Version}),
+ libandroid-binder0-dev (= ${binary:Version}),
+ ${misc:Depends},
+Description: Android libsensorservice - development
+ This package contains libsensorservice built from Android
+ platform/frameworks/native.
+ .
+ This package contains the development files.
+
+Package: libandroid-sensorservice0
+Build-Profiles: <pkg.android-frameworks-native.stage2>
+Priority: extra
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Description: Android libsensorservice
+ This package contains libsensorservice built from Android
  platform/frameworks/native.
 
 Package: libandroid-ui0-dev

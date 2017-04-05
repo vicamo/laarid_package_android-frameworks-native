@@ -3,10 +3,9 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: android-batteryservice-@LAARID_API_VERSION@
-Description: Android batteryservice library
+Name: android-sensorservice-@LAARID_API_VERSION@
+Description: Android sensorservice library
 Version: @VERSION@
 Requires.private: android-utils-@SYSTEMCORE_API_VERSION@ >= @SYSTEMCORE_REQUIRED_VERSION@, android-binder-@LAARID_API_VERSION@
-Libs: -L${libdir} -landroid-batteryservice
+Libs: -L${libdir} -landroid-sensorservice
 Cflags: -I${includedir}/android/frameworks-native-@LAARID_API_VERSION@
-
