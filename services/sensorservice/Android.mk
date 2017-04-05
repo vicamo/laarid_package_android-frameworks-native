@@ -53,6 +53,7 @@ lib_LTLIBRARIES += \
     $(UTILS_CFLAGS) \
     $(BINDER_CFLAGS) \
     $(UI_CFLAGS) \
+    -I$(srcdir)/services \
     -DLOG_TAG=\"SensorService\"
 
 %canon_reldir%_libandroid_sensorservice_la_CXXFLAGS = \
@@ -91,7 +92,8 @@ bin_PROGRAMS += \
     $(AM_CPPFLAGS) \
     $(UTILS_CFLAGS) \
     $(BINDER_CFLAGS) \
-    $(UI_CFLAGS)
+    $(UI_CFLAGS) \
+    -I$(srcdir)/services
 
 %canon_reldir%_sensorservice_SOURCES = \
     %reldir%/main_sensorservice.cpp

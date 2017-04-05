@@ -17,8 +17,8 @@
 #ifndef ANDROID_SENSOR_SERVICE_H
 #define ANDROID_SENSOR_SERVICE_H
 
-#include "SensorList.h"
-#include "RecentEventLogger.h"
+#include <sensorservice/SensorList.h>
+#include <sensorservice/RecentEventLogger.h>
 
 #include <binder/BinderService.h>
 #include <cutils/compiler.h>
