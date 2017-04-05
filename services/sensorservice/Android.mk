@@ -102,3 +102,5 @@ bin_PROGRAMS += \
     $(BINDER_LIBS) \
     $(UTILS_LIBS) \
     %reldir%/libandroid-sensorservice.la
+
+include $(srcdir)/%reldir%/tests/Android.mk

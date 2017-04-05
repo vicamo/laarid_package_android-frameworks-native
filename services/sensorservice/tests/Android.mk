@@ -1,14 +1,17 @@
-LOCAL_PATH:= $(call my-dir)
-include $(CLEAR_VARS)
+bin_PROGRAMS += \
+	%reldir%/test-sensorservice
 
-LOCAL_SRC_FILES:= \
-	sensorservicetest.cpp
+%canon_reldir%_test_sensorservice_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(HARDWARE_CFLAGS) \
+	$(NATIVEHELPER_CFLAGS) \
+	$(UTILS_CFLAGS)
 
-LOCAL_SHARED_LIBRARIES := \
-	libcutils libutils libui libgui
+%canon_reldir%_test_sensorservice_SOURCES = \
+	%reldir%/sensorservicetest.cpp
 
-LOCAL_MODULE:= test-sensorservice
-
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_EXECUTABLE)
+%canon_reldir%_test_sensorservice_LDADD = \
+	$(CUTILS_LIBS) \
+	$(UTILS_LIBS) \
+	$(UI_LIBS) \
+	libs/gui/libandroid-gui.la

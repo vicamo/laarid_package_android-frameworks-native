@@ -21,6 +21,10 @@
 #include <gui/SensorEventQueue.h>
 #include <utils/Looper.h>
 
+#ifndef __unused
+#define __unused __attribute__((__unused__))
+#endif
+
 using namespace android;
 
 static nsecs_t sStartTime = 0;
