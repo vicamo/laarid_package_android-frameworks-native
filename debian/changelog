@@ -1,3 +1,13 @@
+android-frameworks-native (0.0.5) testing; urgency=low
+
+  * fix a-f-n-h transive dependency issue
+  * support build without libandroid-backtrace
+  * libbinder: fix undefined gettid
+  * autoconf: fix 64-bit systems detection
+  * ci: we should have build success on s390x now
+
+ -- You-Sheng Yang <vicamo@gmail.com>  Wed, 5 Apr 2017 13:35:14 +0800
+
 android-frameworks-native (0.0.4) testing; urgency=low
 
   * install un-owned headers as android-frameworks-native-headers
