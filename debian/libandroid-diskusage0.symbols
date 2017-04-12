@@ -1,0 +1,3 @@
+libandroid-diskusage.so.0 libandroid-diskusage0 #MINVER#
+ calculate_dir_size@Base 0.0.5
+ stat_size@Base 0.0.5

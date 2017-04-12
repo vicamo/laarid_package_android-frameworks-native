@@ -1,0 +1,2 @@
+libandroid-GLESv2.so.0 libandroid-glesv2-0 #MINVER#
+ glEGLImageTargetTexture2DOES@Base 0.0.5

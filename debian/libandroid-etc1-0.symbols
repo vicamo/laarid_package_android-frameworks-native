@@ -1,0 +1,10 @@
+libandroid-ETC1.so.0 libandroid-etc1-0 #MINVER#
+ etc1_decode_block@Base 0.0.5
+ etc1_decode_image@Base 0.0.5
+ etc1_encode_block@Base 0.0.5
+ etc1_encode_image@Base 0.0.5
+ etc1_get_encoded_data_size@Base 0.0.5
+ etc1_pkm_format_header@Base 0.0.5
+ etc1_pkm_get_height@Base 0.0.5
+ etc1_pkm_get_width@Base 0.0.5
+ etc1_pkm_is_valid@Base 0.0.5

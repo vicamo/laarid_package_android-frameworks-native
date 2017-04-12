@@ -1,0 +1,8 @@
+libandroid-EGL.so.0 libandroid-egl0 #MINVER#
+ eglClientWaitSyncKHR@Base 0.0.5
+ eglCreateImageKHR@Base 0.0.5
+ eglCreateSyncKHR@Base 0.0.5
+ eglDestroyImageKHR@Base 0.0.5
+ eglDestroySyncKHR@Base 0.0.5
+ eglDupNativeFenceFDANDROID@Base 0.0.5
+ eglWaitSyncKHR@Base 0.0.5
